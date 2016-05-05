@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Web Login In Page</title>
+
+        <!-- CSS 
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+        -->
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+        <!--
+        <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/form-elements.css">
+        <link rel="stylesheet" href="assets/css/style.css">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <!-- Favicon and touch icons 
+        <link rel="shortcut icon" href="assets/ico/favicon.png">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+-->
+    </head>
+    <body>
+        &nbsp;
+        <div style="border-radius:20px;background-color: #ffffff;width:900px;padding:10px">
+            
+            <table class="table" >
+                <tbody>
+                    <tr align="left" bgcolor="#D4D4D4">
+                        <td colspan="2" style="background-color:#0000" ><font size="4" >基本信息</font></td>
+                    </tr>
+                    <tr align="left" style="padding-top:10px">
+                        <td>用&nbsp;&nbsp;户&nbsp;&nbsp;名：zzz</td>
+                        <td>真实姓名：朱梦鑫</td>
+                    </tr>
+                    <tr align="left">
+                        <td>手机号码：
+                            <input id="phone"type="text" value="18868101234" readonly="readonly" style="border:none">
+                            &nbsp;&nbsp;&nbsp;
+                            <a id="changephonebutton" onclick="change(this.innerHTML,'changephonebutton','phone')">修改</a>
+                        </td>
+                        <td>邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：
+                            <input id="mail"type="text" value="zmx@zju.edu.cn" readonly="readonly" style="border:none"> 
+                            &nbsp;&nbsp;&nbsp;
+                            <a id="changemailbutton" onclick="change(this.innerHTML,'changemailbutton','mail')">修改</a>
+                        </td>
+                    </tr>
+                    <tr align="left"> 
+                        <td>注册时间：2015.3.14</td>
+                        <td></td>
+                    </tr>
+
+                    <tr align="left" bgcolor="#D4D4D4">
+                        <td colspan="2"><font size="4">安全设置</font></td>
+                    </tr>
+                    <tr align="left">
+                        <td>登陆密码：
+                            <input id="loginpasswd"type="password" value="18868101234" readonly="readonly" style="border:none">
+                            &nbsp;&nbsp;&nbsp;
+                            <a id="changeloginpasswdbutton" onclick="change(this.innerHTML,'changeloginpasswdbutton','loginpasswd')">修改</a>
+                        </td>
+                        <td>支付密码：
+                            <input id="paypasswd"type="password" value="18868101234" readonly="readonly" style="border:none">
+                            &nbsp;&nbsp;&nbsp;
+                            <a id="changepaypasswdbutton" onclick="change(this.innerHTML,'changepaypasswdbutton','paypasswd')">修改</a>
+                        </td>
+                    </tr align="left">
+                    
+                    <tr align="left" bgcolor="#D4D4D4">
+                        <td colspan="2"><font size="4">账户余额</font></td>
+                    </tr>
+                    <tr align="left">
+                        <td>
+                            111.00
+                            &nbsp;元&nbsp;&nbsp;
+                            <a id="recharge" onclick="recharge()">充值</a>
+
+                            &nbsp;&nbsp;
+                            <a id="transfer" onclick="transfer()">转账</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+
+    </body>
+
+
+    <script type="text/javascript">
+        function change(button,buttonid,textid){
+            var text=document.getElementById(textid);
+            //var button=document.getElementById("changephonebutton").value;
+            //alert(button);
+            if(button=="修改"){
+                text.removeAttribute("readOnly");
+                document.getElementById(textid).style.border="1px solid gray";
+                document.getElementById(buttonid).innerHTML="完成";
+
+            }
+            else if(button=="完成"){
+                text.setAttribute("readOnly",'true');
+                document.getElementById(textid).style.border="none";
+                document.getElementById(buttonid).innerHTML="修改";
+            }
+           // alert("hello");
+        }
+        function recharge(){
+            alert("to be continued!");
+        }
+        function transfer(){
+            alert("to be continued!");
+        }
+
+
+    </script>
+</html>
