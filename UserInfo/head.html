@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>title</title>
+<link rel="stylesheet" type="text/css" href="css/drop_menu.css" />
+<link rel="stylesheet" type="text/css" href="css/left_menu.css" />
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+</head>
+   
+   
+   
+<body style="background-color: #ffd4a5">
+     <!--                 悬浮窗                    -->
+<nav class="navbar navbar-fixed-top" role="navigation" style="background-color:#fd7b35;">
+  <div class="container-fluid">
+    
+    <div class="navbar-header">
+      <a class="navbar-brand" style=" color: white; font-size: 40px;" href="#">PayKitty</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav" style="float: right;">
+        <div class="dropdown">
+          <button class="dropbtn">用户  zyy</button>
+          <div class="dropdown-content">
+            <a href="#">我的订单</a>
+            <a href="#">账号管理</a>
+            <a href="#">退出登录</a>
+          </div>
+        </div>
+      </ul>
+    </div>
+  </div><!-- /.container-fluid -->	
+</nav>
+<div style="height:55px">
+</div>
+<div>
+  <div>
+  	<nav class="cbp-spmenu">
+			<a href="#">在线预订</a>
+			<a href="#">订单管理</a>
+			<a style="border-left: 6px solid #fd7b35;" href="#">我的账户</a>
+	</nav>
+  </div> 	
+  <div style="left:240px; position: fixed;width:100%"> 
+    <div style="background:#FFF;width:100%">
+        <ul id="myTab" class="nav nav-tabs tab-menu">         <!--bootstrap's js to jump to different content-->
+	    	<li class="active" style="border:1px solid #c5c5c5">					     
+            	<a href="#ZHJL" data-toggle="tab" style="border-top:6px solid #fd7b35; margin:0;">                 	账户记录
+                </a>
+            </li>
+        	<li style="border:1px solid #c5c5c5;">
+            	<a href="#JYXX" data-toggle="tab" style="border-top:6px solid #FFFFFF; margin:0;">
+                	交易信息
+                </a>
+            </li>
+        </ul>
+	</div>
+
+
+
+
+
+
+	<div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade in active" id="ZHJL" style="margin:10%">
+			     <div class="panel panel-default" style="border-radius:20px;background-color: #ffffff;width:900px;padding:10px">
+            
+            <table class="table ">
+                <tbody>
+                    <tr align="left" bgcolor="#D4D4D4">
+                        <td colspan="2" style="background-color:#0000" ><font size="4" >基本信息</font></td>
+                    </tr>
+                    <tr align="left" style="padding-top:10px">
+                        <td>用&nbsp;&nbsp;户&nbsp;&nbsp;名：zzz</td>
+                        <td>真实姓名：朱梦鑫</td>
+                    </tr>
+                    <tr align="left">
+                        <td>手机号码：
+                            <input id="phone"type="text" value="18868101234" readonly="readonly" style="border:none">
+                            &nbsp;&nbsp;&nbsp;
+                            <a id="changephonebutton" onclick="change(this.innerHTML,'changephonebutton','phone')">修改</a>
+                        </td>
+                        <td>邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：
+                            <input id="mail"type="text" value="zmx@zju.edu.cn" readonly="readonly" style="border:none"> 
+                            &nbsp;&nbsp;&nbsp;
+                            <a id="changemailbutton" onclick="change(this.innerHTML,'changemailbutton','mail')">修改</a>
+                        </td>
+                    </tr>
+                    <tr align="left"> 
+                        <td>注册时间：2015.3.14</td>
+                        <td></td>
+                    </tr>
+
+                    <tr align="left" bgcolor="#D4D4D4">
+                        <td colspan="2"><font size="4">安全设置</font></td>
+                    </tr>
+                    <tr align="left">
+                        <td>登陆密码：
+                            <input id="loginpasswd"type="password" value="18868101234" readonly="readonly" style="border:none">
+                            &nbsp;&nbsp;&nbsp;
+                            <a id="changeloginpasswdbutton" onclick="change(this.innerHTML,'changeloginpasswdbutton','loginpasswd')">修改</a>
+                        </td>
+                        <td>支付密码：
+                            <input id="paypasswd"type="password" value="18868101234" readonly="readonly" style="border:none">
+                            &nbsp;&nbsp;&nbsp;
+                            <a id="changepaypasswdbutton" onclick="change(this.innerHTML,'changepaypasswdbutton','paypasswd')">修改</a>
+                        </td>
+                    </tr align="left">
+                    
+                    <tr align="left" bgcolor="#D4D4D4">
+                        <td colspan="2"><font size="4">账户余额</font></td>
+                    </tr>
+                    <tr align="left">
+                        <td>
+                            111.00
+                            &nbsp;元&nbsp;&nbsp;
+                            <a id="recharge" onclick="recharge()">充值</a>
+
+                            &nbsp;&nbsp;
+                            <a id="transfer" onclick="transfer()">转账</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        </div>
+
+
+
+        <div class="tab-pane fade" id="JYXX">
+           	bbb
+        </div>
+	</div>	
+  </div>
+</div>    
+</body>
+
+<script type="text/javascript">
+        function change(button,buttonid,textid){
+            var text=document.getElementById(textid);
+            //var button=document.getElementById("changephonebutton").value;
+            //alert(button);
+            if(button=="修改"){
+                text.removeAttribute("readOnly");
+                document.getElementById(textid).style.border="1px solid gray";
+                document.getElementById(buttonid).innerHTML="完成";
+
+            }
+            else if(button=="完成"){
+                text.setAttribute("readOnly",'true');
+                document.getElementById(textid).style.border="none";
+                document.getElementById(buttonid).innerHTML="修改";
+            }
+           // alert("hello");
+        }
+        function recharge(){
+            alert("to be continued!");
+        }
+        function transfer(){
+            alert("to be continued!");
+        }
+
+
+    </script>
+</html>
