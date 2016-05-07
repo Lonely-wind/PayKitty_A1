@@ -8,8 +8,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Web Login In Page</title>
 
-        <!-- CSS -->
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+        <!-- CSS 
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500"> 
+        -->
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
 		<link rel="stylesheet" href="assets/css/form-elements.css">
@@ -63,8 +64,8 @@
                             </div>
                             <div class="form-bottom">
 			                    <form role="form" action="" method="post" class="login-form">
-                                    <input type="radio" id=c name=corsRadio/>&nbsp Customer &nbsp&nbsp&nbsp&nbsp
-                                    <input type="radio" id=s name=corsRadio/>&nbsp Seller
+                                    <input type="radio" id=c name=corsRadio/>&nbsp <font color="#FFFFFF"> Customer </font> &nbsp&nbsp&nbsp&nbsp
+                                    <input type="radio" id=s name=corsRadio/>&nbsp <font color="#FFFFFF">Seller</font>
 
 			                    	<div class="form-group">
 			                    		<label class="sr-only" for="form-username">Username</label>
@@ -74,7 +75,7 @@
 			                        	<label class="sr-only" for="form-password">Password</label>
 			                        	<input type="password" name="form-password" placeholder="Password..." class="form-password form-control" id="form-password">
 			                        </div>
-			                        <button type="submit" class="btn" onclick="javascript:alert('Login Succeeded')">Sign in!</button>
+			                        <button type="submit" class="btn" onclick="javascript:alert('Login Succeeded');javascript:location.href='../UserInfo/account_management.html'" >Sign in!</button>
                                     <p>
                                     </p>
                                     <button type="button" class="btn" onclick="javascript:window.open('register.html')">Register!</button>
