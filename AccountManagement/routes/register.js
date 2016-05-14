@@ -19,7 +19,7 @@ router.route('/')
         return res.redirect('register');
     }
 
-    var result;
+    /*var result;
     result =  function  save(callback) {
         var sql = "select * from UserAccount where AccountName = '" + req.body.Reguser + "';";
         mysql.query(sql,function(err,results,fields){
@@ -33,7 +33,7 @@ router.route('/')
         }
         })
     };
-
+    console.log(result);
     if (result != undefined) {
         return res.redirect('register');
     }
@@ -51,7 +51,7 @@ router.route('/')
         }
         })
     };
-
+    console.log(result);
     if (result != undefined) {
         return res.redirect('register');
     }
@@ -69,10 +69,11 @@ router.route('/')
         }
         })
     };
-
+    console.log(result);
     if (result != undefined) {
         return res.redirect('register');
     }    
+    */
 
 /*  if (req.body.RegId.length != 18) {
         //输出身份证错误信息
