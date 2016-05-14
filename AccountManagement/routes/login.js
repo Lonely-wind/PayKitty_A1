@@ -3,7 +3,7 @@ var router = express.Router();
 var  client = require('../database');
 
 var mysql = client.getDbCon();
-
+var success = 'false';
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.render('login',{title : 'Express'});
@@ -25,15 +25,24 @@ router.route('/')
             throw err;
         } else {
             //返回用户id
-            return callback(err, fields);
+            console.log(results[0]);
+            console.log(req.body);
+            if (results[0] === undefined) {
+            	//req.flash('error', ' 用户不存在'); 
+            	res.redirect('login');
+            } else {
+            	if (req.body.Loginpass === results[0].Password) {
+            		console.log(req.body.Loginpass);
+            		req.session.user=req.body.Loginuser;
+            		res.redirect('/');
+            	} else {
+            		//req.flash('error', ' 密码'); 
+            		res.redirect('login');
+            	}
+            }
         }
     });
-    consolt.log(results);
-    if(req.body.Loginuser === user.username && req.body.Loginpass === user.password){
-    	req.session.user=req.body.Loginuser;
-        res.redirect('/');
-    }
-    res.redirect('login');
+  
 });
 
 module.exports = router;
