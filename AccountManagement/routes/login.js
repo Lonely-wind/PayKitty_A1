@@ -3,7 +3,7 @@ var router = express.Router();
 var  client = require('../database');
 
 var mysql = client.getDbCon();
-var success = 'false';
+
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.render('login',{title : 'Express'});

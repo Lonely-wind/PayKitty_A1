@@ -18,8 +18,8 @@ router.route('/')
     if(req.body['Regrepass']!=req.body['Regpass']){
         return res.redirect('register');
     }
-    var sql ="insert into UserAccount (AccountID,AccountName,Password,Phone,Email,State,IdNo) values(?,?,?,?,?,?,?)";
-    if (req.body.Buy) {
+    var sql ="insert into UserAccount (AccountID,AccountName,Password,Phone,Email,Type,IdNo) values(?,?,?,?,?,?,?)";
+    if (req.body.Buy === 'on') {
         state = 0;
     } else {
         state = 1;
