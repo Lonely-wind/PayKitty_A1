@@ -18,7 +18,73 @@ router.route('/')
     if(req.body['Regrepass']!=req.body['Regpass']){
         return res.redirect('register');
     }
-    var sql ="insert into UserAccount (AccountID,AccountName,Password,Phone,Email,Type,IdNo) values(?,?,?,?,?,?,?)";
+
+    var result;
+    result =  function  save(callback) {
+        var sql = "select * from UserAccount where AccountName = '" + req.body.Reguser + "';";
+        mysql.query(sql,function(err,results,fields){
+        if (err) {
+            throw err;
+        } else {
+            if (results[0] != undefined) {
+                //req.flash('error', ' 用户不存在'); 
+                callback(err,results[0],fields);
+            }
+        }
+        })
+    };
+
+    if (result != undefined) {
+        return res.redirect('register');
+    }
+
+    result =  function  save(callback) {
+        var sql = "select * from UserAccount where Email = '" + req.body.Regemail + "';";
+        mysql.query(sql,function(err,results,fields){
+        if (err) {
+            throw err;
+        } else {
+            if (results[0] != undefined) {
+                //req.flash('error', ' 用户不存在'); 
+                callback(err,results[0],fields);
+            }
+        }
+        })
+    };
+
+    if (result != undefined) {
+        return res.redirect('register');
+    }
+
+    result =  function  save(callback) {
+        var sql = "select * from UserAccount where Phone = '" + req.body.Regmobi + "';";
+        mysql.query(sql,function(err,results,fields){
+        if (err) {
+            throw err;
+        } else {
+            if (results[0] != undefined) {
+                //req.flash('error', ' 用户不存在'); 
+                callback(err,results[0],fields);
+            }
+        }
+        })
+    };
+
+    if (result != undefined) {
+        return res.redirect('register');
+    }    
+
+/*  if (req.body.RegId.length != 18) {
+        //输出身份证错误信息
+        return res.redirect('register');
+    }
+    if (req.body.RegPhone.length != 11) {
+        //输出电话错误信息
+        return res.redirect('register');
+    }*/
+
+    sql ="insert into UserAccount (AccountID,AccountName,Password,Phone,Email,Type,IdNo) values(?,?,?,?,?,?,?)";
+
     if (req.body.Buy === 'on') {
         state = 0;
     } else {
@@ -28,11 +94,10 @@ router.route('/')
         if (err) {
             throw err;
         } else {
-            //返回用户id
-            //return callback(err, uuid, fields);
+            req.session.user=req.body.Reguser;
+            res.redirect('/');
         }
     });
-    res.redirect('login');
 });
 
 module.exports = router;
