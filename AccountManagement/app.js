@@ -30,8 +30,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret: 'paykitty',
   name: 'cookiespace',
-  coolie: {maxAge: 80000},
-  resave: false,
+  coolie: {maxAge: 600000},
+  resave: true,
   saveUnitialized: true
 }));
 
