@@ -3,6 +3,13 @@ var router = express.Router();
 
 var User = require('../models/user');
 
+var trade_data = [
+  {num: 1, date: '2016.3.27', seller: '厦门航空', money: -729, state: '交易成功'},
+  {num: 2, date: '2016.3.26', seller: '饿了么', money: -66, state: '交易成功'},
+  {num: 3, date: '2016.3.21', seller: 'YunlianHotel', money: -594, state: '已付款'},
+];
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	var nowID = '123';
@@ -15,7 +22,7 @@ router.get('/', function(req, res, next) {
 		} 
 		//console.log('****************');
 		//console.log(user.AccountID);
-		res.render('account_management', user);
+		res.render('account_management', {title: 'account_management', user: user, trade_data: trade_data });
 	});
 
   	//res.render('account_management', { realname: '朱高工' });
