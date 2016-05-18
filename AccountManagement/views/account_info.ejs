@@ -22,7 +22,20 @@
 
     <!-- Custom Theme Style -->
     <link href="http://121.42.175.1/static/css/custom.css" rel="stylesheet">
-    <script src="/javascripts/jquery.hDialog.js"></script>
+    <script src="/javascripts/jquery.min.js"></script>
+   <!-- Bootstrap -->
+    <script src="http://121.42.175.1/static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="http://121.42.175.1/static/vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="http://121.42.175.1/static/vendors/nprogress/nprogress.js"></script>
+    <!-- jQuery custom content scroller -->
+    <script src="http://121.42.175.1/static/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="http://121.42.175.1/static/js/custom.js"></script>
+    
+<script src="/javascripts/jquery.hDialog.js"></script>
 <script src="/javascripts/jquery.hDialog.min.js"></script>
   </head>
 
@@ -361,7 +374,7 @@
 
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <button type="button" class="btn btn-primary">充值</button>
+                          <button type="button" class="btn btn-primary" href="javascript:;" id="recharge">充值</button>
                           <button type="button" class="btn btn-success" href="javascript:;"  id="transfer">转账</button>
                         </div>
                       </div>
@@ -414,19 +427,7 @@
       </div>
     </div>
 
-    <!-- jQuery -->
-    <script src="http://121.42.175.1/static/vendors/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="http://121.42.175.1/static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- FastClick -->
-    <script src="http://121.42.175.1/static/vendors/fastclick/lib/fastclick.js"></script>
-    <!-- NProgress -->
-    <script src="http://121.42.175.1/static/vendors/nprogress/nprogress.js"></script>
-    <!-- jQuery custom content scroller -->
-    <script src="http://121.42.175.1/static/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
-
-    <!-- Custom Theme Scripts -->
-    <script src="http://121.42.175.1/static/js/custom.js"></script>
+ 
 
     <div id="HBox" class="animated" style="display:none" title="账户充值">
             <form action="" method="post" id="recharge_form">
@@ -434,23 +435,23 @@
                     <li>
                         <div class="input-group input-group-sm">
                             <span class="input-group-addon">银行卡号</span>
-                            <input type="text" class="form-control" name="username" id="username" placeholder="Username" autocomplete="off" />
+                            <input type="text" class="form-control" name="bankaccount"  placeholder="银行卡号" autocomplete="off" />
                         </div>
                     </li>
                     <li>
                         <div class="input-group input-group-sm">
                             <span class="input-group-addon">银行密码</span>
-                            <input type="text" class="form-control" name="username" id="username" placeholder="Username" autocomplete="off" />
+                            <input type="text" class="form-control" name="bankpasswd"  placeholder="银行密码" autocomplete="off" />
                         </div>
                     </li>
                     <li>
                         <div class="input-group input-group-sm">
                             <span class="input-group-addon">充值金额</span>
-                            <input type="text" class="form-control" name="username" id="username" placeholder="Username" autocomplete="off" />
+                            <input type="text" class="form-control" name="amount" id="username" placeholder="充值金额" autocomplete="off" />
                         </div>
                     </li>
                     <li>
-                        <button type="submit" value="确认提交" class="submitBtn" style="background: #fd7b35"/></button>
+                        <button type="submit" value="recharge"  name="submit" class="btn btn-info" align="center"/>确认提交</button>
                     </li>
                 </ul>
             </form>
@@ -459,19 +460,25 @@
             <form action="" method="post" id="transfer_form">
                 <ul class="list">
                     <li>
-                        <strong>银行账号  <font color="#ff0000">*</font></strong>
-                        <div class="fl"><input type="text" name="nickname" value="" class="ipt nickname" /></div>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-addon">银行卡号</span>
+                            <input type="text" class="form-control" name="bankaccount" id="" placeholder="银行卡号" autocomplete="off" />
+                        </div>
                     </li>
                     <li>
-                        <strong>转账金额 <font color="#ff0000">*</font></strong>
-                        <div class="fl"><input type="text" name="email" value="" class="ipt email" /></div>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-addon">转账金额</span>
+                            <input type="text" class="form-control" name="amount" id="" placeholder="转账金额" autocomplete="off" />
+                        </div>
                     </li>
                     <li>
-                        <strong> 支付密码 <font color="#ff0000">*</font></strong>
-                        <div class="fl"><input type="password" name="phone" value="" class="ipt phone" /></div>
+                          <div class="input-group input-group-sm">
+                            <span class="input-group-addon">支付密码</span>
+                            <input type="text" class="form-control" name="paypasswd" id="" placeholder="支付密码" autocomplete="off" />
+                        </div>
                     </li>
                     
-                    <li><input type="submit" value="确认提交" id="sub" class="submitBtn" style="background: #fd7b35"/></li>
+                    <li><input type="submit" name="submit" value="transfer" id="sub" class="btn btn-info" align="center" />确认提交</li>
                 </ul>
             </form>
         </div>
@@ -545,13 +552,13 @@
 $(function(){
     var $el = $('.dialog');
     $el.hDialog();
-    $('#recharge').hDialog({closeHide: false});
+    $('#recharge').hDialog();
     $('.submitBtn').click(function() {
                 //$el.hDialog('close',{box:'#HBox'},'http://smwell.sinaapp.com/');  //也可以加跳转链接哦~
                 alert("充值成功");
                 $el.hDialog('close',{box:'#HBox'}); 
     });
-    $('#transfer').hDialog({closeHide: false,'box':'#ZBox'});
+    $('#transfer').hDialog({'box':'#ZBox'});
     $('#sub').click(function() {
                 //$el.hDialog('close',{box:'#HBox'},'http://smwell.sinaapp.com/');  //也可以加跳转链接哦~
                 alert("充值成功");
