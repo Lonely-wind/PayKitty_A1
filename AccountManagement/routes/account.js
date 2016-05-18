@@ -11,7 +11,37 @@ var trade_data = [
 
 
 /* GET home page. */
+
 router.get('/', function(req, res, next) {
+	var nowID = '123';
+	User.getInfo(nowID, function (err, user) { 
+		if (!user) 
+		  err = 'No such an account.'; 
+		if (err) { 
+		  req.flash('error', err); 
+		  return res.redirect('/reg'); 
+		} 
+		res.render('account_management', {'user':user, 'trade_data':trade_data});
+	});
+});
+
+router.get('/info', function(req, res, next) {
+	var nowID = '123';
+	User.getInfo(nowID, function (err, user) { 
+		if (!user) 
+		  err = 'No such an account.'; 
+		if (err) { 
+		  req.flash('error', err); 
+		  return res.redirect('/reg'); 
+		} 
+		console.log("---------------account_info---------------");
+		console.log(user);
+		res.render('account_info', user);
+	});
+});
+
+
+router.get('/transaction', function(req, res, next) {
 	var nowID = '123';
 	User.getInfo(nowID, function (err, user) { 
 		if (!user) 
@@ -22,17 +52,26 @@ router.get('/', function(req, res, next) {
 		} 
 		//console.log('****************');
 		//console.log(user.AccountID);
-		res.render('account_management', {title: 'account_management', user: user, trade_data: trade_data });
+		res.render('account_transaction', trade_data );
 	});
+
+});
+
+router.post('/', function(req, res, next) {
+	console.log("----------get user info change ------------");
+	console.log(req.body);
 
   	//res.render('account_management', { realname: '朱高工' });
 });
 
 
+
+
 router.post('/userInfoAPI', function(req, res, next) {
 	
-	//console.log("here");
+	console.log("here");
 	console.log(req.body.accountID);
+	console.log(req.body);
 	var nowID = req.body.accountID;
 	User.getInfo(nowID, function (err, user) { 
 		if (!user) 
