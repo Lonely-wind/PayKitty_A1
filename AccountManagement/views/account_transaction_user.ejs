@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title><%= title %></title>
+    <link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.11/css/dataTables.bootstrap.min.css" />
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen" href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="assets/css/background.css" />
+
+    <!-- Font Awesome -->
+    <link href="http://121.42.175.1/static/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- jQuery custom content scroller -->
+    <link href="http://121.42.175.1/static/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+
+    <!-- Custom Theme Style -->
+    <link href="http://121.42.175.1/static/css/custom.css" rel="stylesheet">
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col menu_fixed">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>PayKitty</span></a>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <!-- menu profile quick info -->
+            <div class="profile">
+              <div class="profile_pic">
+                <img src="http://121.42.175.1/static/images/img.jpg" alt="..." class="img-circle profile_img">
+              </div>
+              <div class="profile_info">
+                <span>您好！</span>
+                <h2><%= AccountName %></h2>
+              </div>
+            </div>
+            <!-- /menu profile quick info -->
+
+            <br />
+
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section">
+                <h3>&nbsp</h3>
+                <ul class="nav side-menu">
+                  <li>
+                    <a><i class="fa fa-home"></i> 我的账户 <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li>
+                        <a href="info">账户记录</a>
+                      </li>
+                      <!-- <li>账户记录</li> -->
+                      <li>
+                        <a href="">交易信息</a>
+                      </li>
+                      <!-- <li><a href="index3.html">Dashboard3</a>
+                      </li> -->
+                    </ul>
+                  </li>
+                  <li><a>
+                    <i class="fa fa-edit"></i> 订单管理 <span class="fa fa-chevron-down"></span></a>
+                  </li>
+                  <li><a>
+                    <i class="fa fa-desktop"></i> 在线预订 <span class="fa fa-chevron-down"></span></a>
+                  </li>
+                </ul>
+              </div>              
+            </div>
+          </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+
+          <div class="nav_menu">
+            <nav class="" role="navigation">
+              <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
+
+              <ul class="nav navbar-nav navbar-right">
+                <li class="">
+                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <img src="http://121.42.175.1/static/images/img.jpg" alt=""><%= AccountName %>
+                    <span class=" fa fa-angle-down"></span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+                    <li><a href="javascript:;">  我的订单</a>
+                    </li>
+                    <li>
+                      <a href="javascript:;">账单管理</a>
+                    </li>
+                    <li><a href="exit"><i class="fa fa-sign-out pull-right"></i> 退出登录</a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li role="presentation" class="dropdown">
+                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-envelope-o"></i>
+                    <span class="badge bg-green"><%= message.length %></span>
+                  </a>
+                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                    <% for (var i in message) { %>
+                      <li>
+                        <a href="<%= message[i].href %>">
+                          <span class="image">
+                            <img src="http://121.42.175.1/static/images/img.jpg" alt="Profile Image" />
+                          </span>
+                          <span>
+                            <span><%= AccountName %></span>
+                          <span class="time"><%= message[i].time %></span>
+                          </span>
+                          <span class="message">
+                            <%= message[i].message %>
+                          </span>
+                        </a>
+                      </li>                      
+                    <% } %>
+                    <li>
+                      <div class="text-center">
+                        <a>
+                          <strong>查看所有通知</strong>
+                          <i class="fa fa-angle-right"></i>
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+          <div class="" id='JYXX'>
+            <div class="container body">
+              <div class="main_container">
+
+                <div class="right_col" role="main">
+                  <div class="">
+
+                    <!-- title -->
+                    <div class="page-title">
+                      <div class="title_left">
+                        <h3>
+                          交易记录
+                        </h3>
+                      </div>
+                      <div class="title_right">
+                        <h1>&nbsp;</h1>
+                      </div>
+                    </div>
+                    <!-- title -->
+
+                    <div class="row">
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                          <div class="x_title">
+                            <h2>2016-05-13</h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                              </li>
+                              <li><a class="close-link"><i class="fa fa-close"></i></a>
+                              </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                          </div>
+
+                          <form class="form-inline" action="/account/transaction" method="POST">               
+                          <div class="form-group">日期：&nbsp;</div>
+                          <div id="datetimepicker1" class="input-append date form-group" >
+                              <input type="text" name = "start_time" placeholder="选择开始日期" value = "<%= search.start_time.toLocaleDateString() ||''%>"></input>
+                              <span class="add-on">
+                                <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                              </span>
+                          </div>
+
+                          <div class="form-group" >&nbsp;&nbsp;-&nbsp;&nbsp; </div>
+                          <div id="datetimepicker2"  class="input-append date form-group">
+                              <input type="text" name = "end_time" placeholder="选择结束日期" value = "<%= search.end_time.toLocaleDateString() ||''%>"></input>
+                              <span class="add-on">
+                                <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                              </span>
+                          </div>
+                          <div style = "margin-top: 20px">
+                            金额：&nbsp;
+                            <input type="text" name = "low_money" placeholder="请填入金额下限" value = "<%= search.low_money ||''%>"></input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;
+                            <input type="text" name = "upper_money" placeholder="请填入金额上限" value = "<%= search.upper_money ||''%>"></input>
+                          </div>
+                          <div style = "margin-top: 20px; margin-bottom: 20px">
+                            卖家：&nbsp;&nbsp;<input type="text" name = "seller" placeholder="请填入卖家名" value = "<%= search.seller ||''%>"></input>
+                          </div>
+
+                          <div class="form-group">信息：&nbsp;</div>
+                            <div class="form-group">
+                              <select class="selectpicker show-tick" id="myselector" data-size="3" name = "state" value = "2">
+                                <option text = "全部状态<">全部状态</option>
+                                <option text = "交易成功">交易成功</option> 
+                                <option text = "已付款">已付款</option>
+                                <option text = "未付款">未付款</option>                        
+                              </select>
+                            </div>
+                            <input class='btn' href='javascript:;' type="submit" value="高级搜索" style = "margin-left : 300px">
+                          </form>
+
+                          <div class="x_content">
+                            <table id="datatable" class="table table-striped table-bordered">
+                              <thead>
+                              <tr align="left" style="padding-top:10px">
+                                <th>编号</th>
+                                <th>下单时间</th>
+                                <th>卖家</th>
+                                <th>付款金额</th>
+                                <th>订单状态</th>
+                                <th>卖家电话</th>
+                              </tr>
+                              </thead>
+         
+                            </tbody>
+                              <tbody>
+                              <% for (var i in trade_data) { %>
+                              <tr>
+                                <td><%= trade_data[i].num %></td>
+                                <td><%= trade_data[i].date%></td>
+                                <td><%= trade_data[i].seller %></td>
+                                <td><%= trade_data[i].money %></td>
+                                <td><%= trade_data[i].state %></td>
+                                <td><%= trade_data[i].SellerPhone %></td>
+                              </tr>
+                              <% } %>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+
+    <!-- FastClick -->
+    <script src="http://121.42.175.1/static/vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="http://121.42.175.1/static/vendors/nprogress/nprogress.js"></script>
+    <!-- jQuery custom content scroller -->
+    <script src="http://121.42.175.1/static/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+    <!-- jQuery -->
+    <script src="http://121.42.175.1/static/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="http://121.42.175.1/static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="http://121.42.175.1/static/js/custom.js"></script>
+    <script src="assets/js/custom.js"></script>
+    <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.11/js/dataTables.bootstrap.min.js"></script>
+    <script src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js"></script>
+        <script>
+              $('#datetimepicker1').datetimepicker({
+                format: 'yyyy/MM/dd',
+                language: 'en',
+                pickDate: true,
+                pickTime: true,
+                hourStep: 1,
+                minuteStep: 15,
+                secondStep: 30,
+                inputMask: true
+              });
+        </script>
+        <script>
+              $('#datetimepicker2').datetimepicker({
+                format: 'yyyy/MM/dd',
+                language: 'en',
+                pickDate: true,
+                pickTime: true,
+                hourStep: 1,
+                minuteStep: 15,
+                secondStep: 30,
+                inputMask: true
+              });
+               $("#myselector").find("option[text='<%= search.state %>']").attr("selected",true);
+        </script>
+
+        <script>
+              $('#datatable').dataTable({
+                "searching":false,
+                language: {
+                  url: '//cdn.datatables.net/plug-ins/1.10.11/i18n/Chinese.json'
+                }
+              });
+        </script>
+  </body>
+</html>
