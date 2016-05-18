@@ -45,6 +45,8 @@ router.route('/')
         state = 1;
     }
 
+
+
     var  newUser =  new  User({ 
         name: req.body.Reguser, 
         password: req.body.Regpass,
@@ -54,15 +56,33 @@ router.route('/')
         IdNo: req.body.Regid
     }); 
 
-    newUser.save(function (err) { 
+    User.getUserByName(newUser.name, function (err, user) { 
+        if (user) 
+          err = 'Username already exists.'; 
         if (err) { 
-             return  res.redirect('register'); 
-         } 
-         newUser.password = 'NotTellingYou!';
-        req.session.user = newUser; 
-        res.redirect('account'); 
-    });
+          req.flash('error', err); 
+          return res.redirect('register'); 
+        } 
 
+        User.getUserByEmail(newUser.email, function (err, user) { 
+            if (user) 
+              err = 'Email already exists.'; 
+            if (err) { 
+              req.flash('error', err); 
+              return res.redirect('register'); 
+            } 
+
+            newUser.save(function (err) { 
+                if (err) { 
+                     return  res.redirect('register'); 
+                 } 
+                User.getUserByName(newUser.name, function (err, user) {
+                    req.session.user = user.AccountID.toString();
+                    res.redirect('account');
+                }); 
+            });
+        });
+    });
 });
 
 module.exports = router;

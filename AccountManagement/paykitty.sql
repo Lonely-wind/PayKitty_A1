@@ -75,7 +75,7 @@ DROP TABLE IF EXISTS `UserAccount`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `UserAccount` (
-  `AccountID` int(11) NOT NULL,
+  `AccountID` int(11) NOT NULL AUTO_INCREMENT,
   `AccountName` char(20) DEFAULT NULL,
   `Password` char(50) DEFAULT NULL,
   `Salt` char(50) DEFAULT NULL,
@@ -107,7 +107,7 @@ CREATE TABLE `UserAccount` (
   CONSTRAINT `useraccount_ibfk_3` FOREIGN KEY (`Payment2`) REFERENCES `PaymentAccount` (`PaymentNo`),
   CONSTRAINT `useraccount_ibfk_4` FOREIGN KEY (`Payment3`) REFERENCES `PaymentAccount` (`PaymentNo`),
   CONSTRAINT `useraccount_ibfk_5` FOREIGN KEY (`Payment4`) REFERENCES `PaymentAccount` (`PaymentNo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=226 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -116,7 +116,7 @@ CREATE TABLE `UserAccount` (
 
 LOCK TABLES `UserAccount` WRITE;
 /*!40000 ALTER TABLE `UserAccount` DISABLE KEYS */;
-INSERT INTO `UserAccount` VALUES (123,'A1','123','$salt','2016-05-13 12:56:38','张三','M','332222199901010101','浙大路38号','13800138000','abc@zju.edu.cn',0,0,NULL,'P1000001','P1000008',NULL,NULL,1234.50),(124,'A2','123','$salt','2016-05-13 12:56:38','李四','F','332222199901010102','浙大路39号','13800138000','abd@zju.edu.cn',1,0,NULL,'P1000002','P1000007',NULL,NULL,1234.50),(223,'B1','123','$salt','2016-05-13 12:56:38','王五','M','432222199901010101','浙大路48号','13800138000','bbc@zju.edu.cn',1,0,'D001','P1000003','P1000006',NULL,NULL,1234.50),(224,'B2','123','$salt','2016-05-13 12:56:38','赵六','F','432222199901010102','浙大路49号','13800138000','bbd@zju.edu.cn',1,1,'D001','P1000004','P1000005',NULL,NULL,1234.50);
+INSERT INTO `UserAccount` VALUES (123,'A1','123','$salt','2016-05-13 12:56:38','张三','M','332222199901010101','浙大路38号','13800138000','abc@zju.edu.cn',0,0,NULL,'P1000001','P1000008',NULL,NULL,1234.50),(124,'A2','123','$salt','2016-05-13 12:56:38','李四','F','332222199901010102','浙大路39号','13800138000','abd@zju.edu.cn',1,0,NULL,'P1000002','P1000007',NULL,NULL,1234.50),(223,'B1','123','$salt','2016-05-13 12:56:38','王五','M','432222199901010101','浙大路48号','13800138000','bbc@zju.edu.cn',1,0,'D001','P1000003','P1000006',NULL,NULL,1234.50),(224,'B2','123','$salt','2016-05-13 12:56:38','赵六','F','432222199901010102','浙大路49号','13800138000','bbd@zju.edu.cn',1,1,'D001','P1000004','P1000005',NULL,NULL,1234.50),(225,'123','123',NULL,'2016-05-17 16:15:19',NULL,NULL,'330182222222222222',NULL,'13812341234','123@123.com',NULL,0,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `UserAccount` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -129,4 +129,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-13 20:59:22
+-- Dump completed on 2016-05-18  0:17:35

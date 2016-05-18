@@ -3,6 +3,7 @@ var router = express.Router();
 var  client = require('../database');
 
 var mysql = client.getDbCon();
+var User = require('../models/user');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -14,34 +15,62 @@ router.route('/')
     res.render('login', { title: '用户登录' });
 })
 .post(function(req, res) {
-    var user={
-        username: 'admin',
-        password: '123456'
+
+    var state;
+    if (req.body.Buy === 'on') {
+        state = 0;
+    } else {
+        state = 1;
     }
-    var sql = "select * from UserAccount where AccountName = '" + req.body.Loginuser + "';";
-    console.log(sql);
-    mysql.query(sql,function(err,results,fields){
+    User.getUserByName(req.body.Loginuser, function (err, user) { 
         if (err) {
             throw err;
         } else {
-            //返回用户id
-            console.log(results[0]);
-            console.log(req.body);
-            if (results[0] === undefined) {
-            	//req.flash('error', ' 用户不存在'); 
-            	res.redirect('login');
+            if (user) {
+               if (req.body.Loginpass === user.Password) {
+                    console.log('Login Success!');
+                    if (user.Type != state) {
+                        console.log('Wrong State!');
+                        res.redirect('login');    
+                    } else {
+                        req.session.user = user.AccountID.toString();
+                        console.log(user.AccountID);
+                        res.redirect('account');
+                    }
+                } else {
+                    console.log('Wrong Password!');
+                    res.redirect('login');
+                }
             } else {
-            	if (req.body.Loginpass === results[0].Password) {
-            		console.log(req.body.Loginpass);
-            		req.session.user=req.body.Loginuser;
-            		res.redirect('/');
-            	} else {
-            		//req.flash('error', ' 密码'); 
-            		res.redirect('login');
-            	}
+                User.getUserByEmail(req.body.Loginuser, function(err, user) {
+                    if (err) {
+                        throw err;
+                    } else {
+                        if (user) {
+                            if (req.body.Loginpass === user.Password) {
+                                console.log('Login Success!');
+                                if (user.Type != state) {
+                                    console.log('Wrong State!');
+                                    res.redirect('login');    
+                                } else {
+                                    req.session.user = user.AccountID.toString();
+                                    console.log(user.AccountID);
+                                    res.redirect('account');
+                                }
+                            } else {
+                                console.log('Wrong Password!');
+                                res.redirect('login');
+                            }
+                        } else {
+                            console.log('No Such User!');
+                            res.redirect('login');
+                        }
+                    }
+                });
             }
         }
     });
+
   
 });
 

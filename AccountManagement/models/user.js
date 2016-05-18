@@ -57,6 +57,38 @@ User.get =  function  get(username, callback) {
 };
 */
 
+User.getUserByName = function getUserByName(AccountName, callback) {
+
+    // 读取 users 集合
+    var sql = "select * from UserAccount where AccountName='"+AccountName+"'";
+    console.log(sql);
+    mysql.query(sql,function(err,results,fields){
+        if(err){
+            throw err;
+        }else{
+            //console.log(results[0]);
+            callback(err,results[0],fields);
+        }
+    })
+
+};
+
+User.getUserByEmail = function getUserByEmail(Email, callback) {
+
+    // 读取 users 集合
+    var sql = "select * from UserAccount where Email='"+Email+"'";
+    console.log(sql);
+    mysql.query(sql,function(err,results,fields){
+        if(err){
+            throw err;
+        }else{
+            //console.log(results[0]);
+            callback(err,results[0],fields);
+        }
+    })
+
+};
+
 User.getInfo = function getInfo(accountID, callback) {
 
     // 读取 users 集合
