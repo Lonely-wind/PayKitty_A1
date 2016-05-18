@@ -14,6 +14,8 @@ var trade_data = [
 
 router.get('/', function(req, res, next) {
 	var nowID = '123';
+	console.log("-----------------test---------------");
+	console.log(req.session.user);
 	User.getInfo(nowID, function (err, user) { 
 		if (!user) 
 		  err = 'No such an account.'; 
@@ -21,12 +23,12 @@ router.get('/', function(req, res, next) {
 		  req.flash('error', err); 
 		  return res.redirect('/reg'); 
 		} 
-		res.render('account_management', {'user':user, 'trade_data':trade_data});
+		res.render('account_management', {user:user, trade_data:trade_data});
 	});
 });
 
 router.get('/info', function(req, res, next) {
-	var nowID = '123';
+	var nowID = req.session.user;
 	User.getInfo(nowID, function (err, user) { 
 		if (!user) 
 		  err = 'No such an account.'; 
@@ -34,15 +36,33 @@ router.get('/info', function(req, res, next) {
 		  req.flash('error', err); 
 		  return res.redirect('/reg'); 
 		} 
-		console.log("---------------account_info---------------");
-		console.log(user);
+		//console.log("---------------account_info---------------");
+		//console.log(user);
 		res.render('account_info', user);
 	});
 });
 
+router.post('/info', function(req, res, next) {
+	var nowID = req.session.user;
+	console.log("----------get user info change------------");
+	console.log(req.body);
+	User.setInfo(nowID,req.body, function (err,result){
+		/*
+		console.log("---------err--------------");
+		console.log(err);
+		console.log("---------result--------------");
+		console.log(result);
+		*/
+		if (err) {
+			console.log(err);
+		}
+	});
+	res.redirect('info');
+});
+
 
 router.get('/transaction', function(req, res, next) {
-	var nowID = '123';
+	var nowID = req.session.user;
 	User.getInfo(nowID, function (err, user) { 
 		if (!user) 
 		  err = 'No such an account.'; 
@@ -57,12 +77,12 @@ router.get('/transaction', function(req, res, next) {
 
 });
 
-router.post('/', function(req, res, next) {
-	console.log("----------get user info change ------------");
-	console.log(req.body);
-
-  	//res.render('account_management', { realname: '朱高工' });
+router.get('/delete', function(req, res, next) {
+	var nowID = req.session.user;
+	User.delAccount(nowID);
+	res.redirect('/login');
 });
+
 
 
 

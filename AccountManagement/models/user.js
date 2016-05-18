@@ -93,14 +93,39 @@ User.getInfo = function getInfo(accountID, callback) {
 
     // 读取 users 集合
     var sql = "select * from UserAccount where AccountID='"+accountID+"'";
-    console.log(sql);
+    //console.log(sql);
     mysql.query(sql,function(err,results,fields){
         if(err){
             throw err;
         }else{
-            console.log(results[0]);
+            //console.log(results[0]);
             callback(err,results[0],fields);
         }
     })
 
 };
+
+User.setInfo = function setInfo(accountID, user, callback) {
+    var sql = "update UserAccount set Phone="+user.phone+" where AccountID='"+accountID+"'";
+    //console.log(sql);
+    mysql.query(sql,function(err,results,fields){
+        callback(err,results);
+    })
+
+};
+
+User.delAccount = function delAccount(accountID) {
+
+    var sql = "delete from UserAccount where AccountID='"+accountID+"'";
+
+    mysql.query(sql,function(err,results,fields){
+        if(err){
+            throw err;
+        }else{
+            console.log(results);
+            //callback(err,results[0],fields);
+        }
+    })
+
+};
+
