@@ -164,7 +164,7 @@
                       <a href="/account/transaction"><i class="fa fa-sign-out pull-right"></i> 我的订单</a>
                     </li>
                     <li>
-                      <a href="/login"><i class="fa fa-sign-out pull-right"></i> 退出登录</a>
+                      <a href="/logout"><i class="fa fa-sign-out pull-right"></i> 退出登录</a>
                     </li>
                   </ul>
                 </li>
@@ -297,11 +297,12 @@
                             <td><%= AccountName %></td>
                             <td><%= Name %></td>
                             <td>
-                              <input name="phone" id="phone" type="text" value=<%= Phone %> readonly="readonly" style="border:none">
-                              &nbsp;&nbsp;&nbsp;
+                              <input name="phone" id="phone" type="text" value=<%= Phone %> readonly="readonly" style="border:none;width:90px;background-color:transparent" >
                               <a id="changephonebutton" onclick="change(this.innerHTML,'changephonebutton','phone')">修改</a>
                             </td>
-                            <td><%= Email %></td>
+                            <td><input name="mail" id="mail"type="text" value=<%= Email %> readonly="readonly" style="border:none;;background-color:transparent"> 
+                            
+                            </td>
                             <td><%= RegisterDate %></td>
                           </tr>
                           </tbody>
@@ -334,8 +335,12 @@
 
                           <tbody>
                           <tr>
-                            <td><%= Password %></td>
-                            <td><%= PayPassword %></td>
+                            <td><input id="loginpasswd"type="password" value=<%= Password %> readonly="readonly" style="border:none;width:100px;background-color:transparent">
+                            &nbsp;&nbsp;
+                            <a id="changeloginpasswdbutton" onclick="change(this.innerHTML,'changeloginpasswdbutton','loginpasswd')">修改</a></td>
+                            <td> <input id="paypasswd"type="password" value=<%= PayPassword %> readonly="readonly" style="border:none;width:100px;background-color:transparent">
+                            &nbsp;&nbsp;&nbsp;
+                            <a id="changepaypasswdbutton" onclick="change(this.innerHTML,'changepaypasswdbutton','paypasswd')">修改</a></td>
                           </tr>
                           </tbody>
                         </table>
@@ -365,7 +370,7 @@
 
                           <tbody>
                           <tr>
-                            <td><%= Balance %></td>
+                            <td id="balance"><%= Balance %></td>
                           </tr>
                           </tbody>
                         </table>
@@ -451,13 +456,13 @@
                         </div>
                     </li>
                     <li>
-                        <button type="submit" value="recharge"  name="submit" class="btn btn-info" align="center"/>确认提交</button>
+                        <button type="submit" value="recharge"  name="submitBtn" id="submitBtn" class="btn btn-info" align="center"/>确认提交</button>
                     </li>
                 </ul>
             </form>
         </div>
         <div id="ZBox" class="animated" style="display:none" title="账户转账">
-            <form action="" method="post" id="transfer_form">
+            <form action="" method="post" id="transfer_form" onsubmit="return false;">
                 <ul class="list">
                     <li>
                         <div class="input-group input-group-sm">
@@ -466,19 +471,20 @@
                         </div>
                     </li>
                     <li>
-                        <div class="input-group input-group-sm">
-                            <span class="input-group-addon">转账金额</span>
-                            <input type="text" class="form-control" name="amount" id="" placeholder="转账金额" autocomplete="off" />
-                        </div>
-                    </li>
-                    <li>
-                          <div class="input-group input-group-sm">
+                      <div class="input-group input-group-sm">
                             <span class="input-group-addon">支付密码</span>
                             <input type="text" class="form-control" name="paypasswd" id="" placeholder="支付密码" autocomplete="off" />
                         </div>
+                        
+                    </li>
+                    <li>
+                         <div class="input-group input-group-sm">
+                            <span class="input-group-addon">转账金额</span>
+                            <input type="text" class="form-control" name="amount" id="transamount" placeholder="转账金额" autocomplete="off" />
+                        </div> 
                     </li>
                     
-                    <li><input type="submit" name="submit" value="transfer" id="sub" class="btn btn-info" align="center" />确认提交</li>
+                    <li><input type="submit" name="submitBtn" value="transfer" id="sub" class="btn btn-info" align="center" onclick="checkamount()"/>确认提交</li>
                 </ul>
             </form>
         </div>
@@ -504,12 +510,22 @@
             }
            // alert("hello");
         }
-        function recharge(){
-            //alert("to be continued!");
-            window.open("./charge.html")
-        }
-        function transfer(){
-            alert("to be continued!");
+        function checkamount(){
+            var remain = <%= Balance %>;
+            var trans = document.getElementById('transamount').value;
+            var remain_float = parseFloat(remain);
+            var trans_float = parseFloat(trans);
+            var form = document.getElementById("transfer_form");
+            
+            console.log(trans);
+            console.log(remain);console.log(trans_float);
+            console.log(remain_float);
+            if(trans_float > remain_float){
+              alert("金额不足");
+            }
+            else{
+              form.submit();
+            }
         }
         function onSearch(obj,obj1,obj2,obj3){
             var storeId = document.getElementById('store');  
@@ -555,13 +571,13 @@ $(function(){
     $('#recharge').hDialog();
     $('.submitBtn').click(function() {
                 //$el.hDialog('close',{box:'#HBox'},'http://smwell.sinaapp.com/');  //也可以加跳转链接哦~
-                alert("充值成功");
+                
                 $el.hDialog('close',{box:'#HBox'}); 
     });
     $('#transfer').hDialog({'box':'#ZBox'});
     $('#sub').click(function() {
                 //$el.hDialog('close',{box:'#HBox'},'http://smwell.sinaapp.com/');  //也可以加跳转链接哦~
-                alert("充值成功");
+                
                 $el.hDialog('close',{box:'#ZBox'}); 
     });
 
