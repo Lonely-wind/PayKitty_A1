@@ -25,9 +25,9 @@ User.prototype.save = function  save(callback) {
     };
     //uuid = uid.v4();
     //插入数据库
-    var sql ="insert into UserAccount (AccountName,Password,Phone,Email,Type,IdNo) values(?,?,?,?,?,?)";
+    var sql ="insert into UserAccount (AccountName,Password,Phone,Email,Type,IdNo,Balance) values(?,?,?,?,?,?,?)";
 
-    mysql.query(sql,[user.name,user.password,user.phone,user.email,user.Type,user.IdNo],function(err,results,fields){
+    mysql.query(sql,[user.name,user.password,user.phone,user.email,user.Type,user.IdNo,0],function(err,results,fields){
         if (err) {
             throw err;
         } else {

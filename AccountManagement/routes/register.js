@@ -8,35 +8,39 @@ var User = require('../models/user');
 var uuid = uid.v4();
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.render('register',{title : 'Express'});
+  res.render('register',{title : 'Express' ,
+                        error: ''
+                        });
 });
 
 router.route('/')
-.get(function(req, res) {
-    res.render('register', { title: '用户注册' });
-})
+/*.get(function(req, res) {
+    res.render('register', { title: '用户注册' ,
+                             error: 'abc'
+                            });
+})*/
 .post(function(req, res) {
     if(req.body['Regrepass']!=req.body['Regpass']){
-        console.log("Different Password!");
-        return res.redirect('register');
+        var err = "两次密码不相同！";
+        res.render('register', { error : err});
     }
 
     var emailtest = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     if (!emailtest.test(req.body.Regemail)) {
-        console.log('Wrong Email!');
-        return res.redirect('register');
+        var err = '错误的邮箱格式！';
+        res.render('register', { error : err});
     }
 
     var phonetest = /^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/;
     if (!phonetest.test(req.body.Regmobi)) {
-        console.log('Wrong Mobile Phone Number!');
-        return res.redirect('register');
+        var err = '错误的手机号！';
+        res.render('register', { error : err});
     }
 
     var idtest = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
     if (!idtest.test(req.body.Regid)) {
-        console.log('Wrong Id Number!');
-        return res.redirect('register');
+        var err = '错误的身份证号！';
+        res.render('register', { error : err});
     }
 
     if (req.body.Buy === 'on') {
@@ -58,18 +62,16 @@ router.route('/')
 
     User.getUserByName(newUser.name, function (err, user) { 
         if (user) 
-          err = 'Username already exists.'; 
+          err = '用户名已经存在！'; 
         if (err) { 
-          req.flash('error', err); 
-          return res.redirect('register'); 
+            res.render('register', { error : err});
         } 
 
         User.getUserByEmail(newUser.email, function (err, user) { 
             if (user) 
-              err = 'Email already exists.'; 
+              err = '邮箱已经存在！'; 
             if (err) { 
-              req.flash('error', err); 
-              return res.redirect('register'); 
+                res.render('register', { error : err}); 
             } 
 
             newUser.save(function (err) { 

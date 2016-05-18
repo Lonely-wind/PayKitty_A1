@@ -7,13 +7,13 @@ var User = require('../models/user');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.render('login',{title : 'Express'});
+  res.render('login',{title : 'Express', 
+                      error : ''  
+                        });
 });
 
 router.route('/')
-.get(function(req, res) {
-    res.render('login', { title: '用户登录' });
-})
+
 .post(function(req, res) {
 
     var state;
@@ -30,16 +30,16 @@ router.route('/')
                if (req.body.Loginpass === user.Password) {
                     console.log('Login Success!');
                     if (user.Type != state) {
-                        console.log('Wrong State!');
-                        res.redirect('login');    
+                        var err = "用户类别错误！";
+                        res.render('login', { error : err}); 
                     } else {
                         req.session.user = user.AccountID.toString();
                         console.log(user.AccountID);
                         res.redirect('account');
                     }
                 } else {
-                    console.log('Wrong Password!');
-                    res.redirect('login');
+                    var err = "用户密码错误！";
+                    res.render('login', { error : err}); 
                 }
             } else {
                 User.getUserByEmail(req.body.Loginuser, function(err, user) {
@@ -50,20 +50,20 @@ router.route('/')
                             if (req.body.Loginpass === user.Password) {
                                 console.log('Login Success!');
                                 if (user.Type != state) {
-                                    console.log('Wrong State!');
-                                    res.redirect('login');    
+                                    var err = "用户类别错误！";
+                                    res.render('login', { error : err});   
                                 } else {
                                     req.session.user = user.AccountID.toString();
                                     console.log(user.AccountID);
                                     res.redirect('account');
                                 }
                             } else {
-                                console.log('Wrong Password!');
-                                res.redirect('login');
+                                var err = "用户密码错误！";
+                                res.render('login', { error : err}); 
                             }
                         } else {
-                            console.log('No Such User!');
-                            res.redirect('login');
+                            var err = "用户不存在！";
+                            res.render('login', { error : err}); 
                         }
                     }
                 });
