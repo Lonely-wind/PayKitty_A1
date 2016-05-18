@@ -129,3 +129,24 @@ User.delAccount = function delAccount(accountID) {
 
 };
 
+User.addMoney = function addMoney(accountID, amount) {
+    var sql = "update UserAccount set Balance=Balance+"+amount+" where AccountID='"+accountID+"'";
+    //console.log(sql);
+    mysql.query(sql,function(err,results,fields){
+        console.log(results);
+        //callback(err,results);
+    })
+
+};
+
+User.subMoney = function subMoney(accountID, amount) {
+    var sql = "update UserAccount set Balance=Balance-"+amount+" where AccountID='"+accountID+"'";
+    //console.log(sql);
+    mysql.query(sql,function(err,results,fields){
+        console.log(results);
+        //callback(err,results);
+    })
+
+};
+
+

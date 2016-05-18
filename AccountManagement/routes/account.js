@@ -46,17 +46,25 @@ router.post('/info', function(req, res, next) {
 	var nowID = req.session.user;
 	console.log("----------get user info change------------");
 	console.log(req.body);
-	User.setInfo(nowID,req.body, function (err,result){
-		/*
-		console.log("---------err--------------");
-		console.log(err);
-		console.log("---------result--------------");
-		console.log(result);
-		*/
-		if (err) {
+	if (req.body.submit == 'recharge'){
+		User.addMoney(nowID,req.body.amount);
+	}
+	else if (req.body.submit == 'transfer') {
+		User.subMoney(nowID,req.body.amount);
+	}
+	else{
+		User.setInfo(nowID,req.body, function (err,result){
+			/*
+			console.log("---------err--------------");
 			console.log(err);
-		}
-	});
+			console.log("---------result--------------");
+			console.log(result);
+			*/
+			if (err) {
+				console.log(err);
+			}
+		});
+	}
 	res.redirect('info');
 });
 
