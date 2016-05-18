@@ -31,15 +31,17 @@ router.route('/')
                     console.log('Login Success!');
                     if (user.Type != state) {
                         var err = "用户类别错误！";
-                        res.render('login', { error : err}); 
+                        res.render('login', { error : err});
+                        return; 
                     } else {
                         req.session.user = user.AccountID.toString();
                         console.log(user.AccountID);
-                        res.redirect('account');
+                        res.redirect('account/info');
                     }
                 } else {
                     var err = "用户密码错误！";
                     res.render('login', { error : err}); 
+                    return;
                 }
             } else {
                 User.getUserByEmail(req.body.Loginuser, function(err, user) {
@@ -52,6 +54,7 @@ router.route('/')
                                 if (user.Type != state) {
                                     var err = "用户类别错误！";
                                     res.render('login', { error : err});   
+                                    return;
                                 } else {
                                     req.session.user = user.AccountID.toString();
                                     console.log(user.AccountID);
@@ -59,11 +62,13 @@ router.route('/')
                                 }
                             } else {
                                 var err = "用户密码错误！";
-                                res.render('login', { error : err}); 
+                                res.render('login', { error : err});
+                                return; 
                             }
                         } else {
                             var err = "用户不存在！";
-                            res.render('login', { error : err}); 
+                            res.render('login', { error : err});
+                            return; 
                         }
                     }
                 });
