@@ -17,10 +17,10 @@ router.route('/')
 .post(function(req, res) {
 
     var state;
-    if (req.body.Buy === 'on') {
+    if (req.body.user_type === "0") {
         state = 0;
     } else {
-        state = 1;
+        state = 1;  
     }
     User.getUserByName(req.body.Loginuser, function (err, user) { 
         if (err) {
