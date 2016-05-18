@@ -46,10 +46,10 @@ router.post('/info', function(req, res, next) {
 	var nowID = req.session.user;
 	console.log("----------get user info change------------");
 	console.log(req.body);
-	if (req.body.submit == 'recharge'){
+	if (req.body.submitBtn == 'recharge'){
 		User.addMoney(nowID,req.body.amount);
 	}
-	else if (req.body.submit == 'transfer') {
+	else if (req.body.submitBtn == 'transfer') {
 		User.subMoney(nowID,req.body.amount);
 	}
 	else{
