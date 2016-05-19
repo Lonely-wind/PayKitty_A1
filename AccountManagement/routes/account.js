@@ -79,21 +79,6 @@ router.post('/info', function(req, res, next) {
 	res.redirect('info');
 });
 
-router.get('/transaction', function(req, res, next) {
-	var nowID = req.session.user;
-	User.getInfo(nowID, function (err, user) { 
-		if (!user) 
-		  err = 'No such an account.'; 
-		if (err) { 
-		  req.flash('error', err); 
-		  return res.redirect('/reg'); 
-		} 
-		//console.log('****************');
-		//console.log(user.AccountID);
-		res.render('account_transaction', trade_data );
-	});
-
-});
 
 router.route('/transaction')
 .post(function(req, res, next){

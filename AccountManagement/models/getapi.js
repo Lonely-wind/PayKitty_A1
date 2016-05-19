@@ -4,7 +4,7 @@ var http = require('http');
 var GetApi = function GetApi(regUrl, postData,  callback){
     var post_option = url.parse(regUrl);
     post_option.method = 'POST';
-    post_option.port = 3000;
+    post_option.port = 5001;
     var post_data = querystring.stringify(postData);
     post_option.headers = {
         'Content-Type' : 'application/x-www-form-urlencoded',
