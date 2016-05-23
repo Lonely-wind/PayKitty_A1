@@ -29,10 +29,6 @@ router.get('/', function(req, res, next) {
 
 router.get('/info', function(req, res, next) {
 	var nowID = req.session.user;
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
 	User.getInfo(nowID, function (err, user) { 
 		if (!user) 
 		  err = 'No such an account.'; 
