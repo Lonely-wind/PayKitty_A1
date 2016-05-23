@@ -141,7 +141,7 @@ User.addMoney = function addMoney(accountID, amount) {
 
 User.subMoney = function subMoney(accountID, amount) {
     var sql = "update UserAccount set Balance=Balance-"+amount+" where AccountID='"+accountID+"'";
-    //console.log(sql);
+    console.log('----------subMoney-----------------');
     mysql.query(sql,function(err,results,fields){
         console.log(results);
         //callback(err,results);

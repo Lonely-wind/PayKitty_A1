@@ -86,7 +86,7 @@ router.route('/')
                  } 
                 User.getUserByName(newUser.name, function (err, user) {
                     req.session.user = user.AccountID.toString();
-                    res.redirect('account');
+                    res.redirect('account/info');
                 }); 
             });
         });

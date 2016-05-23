@@ -38,7 +38,7 @@ router.post('/', function(req, res, next) {
 });
 
 router.get('/info', function(req, res, next) {
-	var nowID = '123';
+	var nowID = req.session.user;
 
 	User.getInfo(nowID, function (err, user) { 
 		if (!user) 
@@ -60,7 +60,7 @@ router.post('/info', function(req, res, next) {
 	if (req.body.submitBtn == 'recharge'){
 		User.addMoney(nowID,req.body.amount);
 	}
-	else if (req.body.submitBtn == 'transfer') {
+	else if (req.body.bankaccount) {
 		User.subMoney(nowID,req.body.amount);
 	}
 	else{

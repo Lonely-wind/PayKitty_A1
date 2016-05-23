@@ -9,7 +9,7 @@
 
     <title>PayKitty-Account</title>
 
-<link rel="stylesheet" href="A1/stylesheets/common.css"/><!-- 基本样式 -->
+<link rel="stylesheet" href="/stylesheets/common.css"/><!-- 基本样式 -->
 <link rel="stylesheet" href="/stylesheets/animate.min.css"/> <!-- 动画效果 -->
 <link rel="stylesheet" type="text/css" href="/stylesheets/drop_menu.css" />
 <link rel="stylesheet" type="text/css" href="/stylesheets/left_menu.css" />
@@ -22,21 +22,7 @@
 
     <!-- Custom Theme Style -->
     <link href="http://121.42.175.1/static/css/custom.css" rel="stylesheet">
-    <script src="/javascripts/jquery.min.js"></script>
-   <!-- Bootstrap -->
-    <script src="http://121.42.175.1/static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- FastClick -->
-    <script src="http://121.42.175.1/static/vendors/fastclick/lib/fastclick.js"></script>
-    <!-- NProgress -->
-    <script src="http://121.42.175.1/static/vendors/nprogress/nprogress.js"></script>
-    <!-- jQuery custom content scroller -->
-    <script src="http://121.42.175.1/static/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 
-    <!-- Custom Theme Scripts -->
-    <script src="http://121.42.175.1/static/js/custom.js"></script>
-    
-<script src="/javascripts/jquery.hDialog.js"></script>
-<script src="/javascripts/jquery.hDialog.min.js"></script>
   </head>
 
   <body class="nav-md">
@@ -99,7 +85,7 @@
                 <ul class="nav side-menu">
                   <li>
                     <a><i class="fa fa-home"></i> 我的账户 <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
+                    <ul class="nav child_menu" style="display: none;">
                       <li>
                         <a href="">账户记录</a>
                       </li>
@@ -161,10 +147,10 @@
                       <a href="/account/info"><i class="fa fa-sign-out pull-right"></i> 账户管理</a>
                     </li>
                     <li>
-                      <a href="/account/transaction"><i class="fa fa-sign-out pull-right"></i> 我的订单</a>
+                      <a href="/account/transaction"><i class="fa fa-sign-out pull-right"></i> 交易信息</a>
                     </li>
                     <li>
-                      <a href="/login"><i class="fa fa-sign-out pull-right"></i> 退出登录</a>
+                      <a href="/logout"><i class="fa fa-sign-out pull-right"></i> 退出登录</a>
                     </li>
                   </ul>
                 </li>
@@ -257,7 +243,7 @@
             <!-- <div class="tab-plane fade in active" id='ZHZL'> -->
               <div class="page-title">
                 <div class="title_left">
-                  <h3>账户记录</h3>
+                  <h3>账户管理</h3>
                 </div>
                 <div class="title_right">
                   <h1>&nbsp;</h1>
@@ -297,11 +283,12 @@
                             <td><%= AccountName %></td>
                             <td><%= Name %></td>
                             <td>
-                              <input name="phone" id="phone" type="text" value=<%= Phone %> readonly="readonly" style="border:none">
-                              &nbsp;&nbsp;&nbsp;
+                              <input name="phone" id="phone" type="text" value=<%= Phone %> readonly="readonly" style="border:none;width:90px;background-color:transparent" >
                               <a id="changephonebutton" onclick="change(this.innerHTML,'changephonebutton','phone')">修改</a>
                             </td>
-                            <td><%= Email %></td>
+                            <td><input name="mail" id="mail"type="text" value=<%= Email %> readonly="readonly" style="border:none;;background-color:transparent"> 
+                            
+                            </td>
                             <td><%= RegisterDate %></td>
                           </tr>
                           </tbody>
@@ -334,8 +321,12 @@
 
                           <tbody>
                           <tr>
-                            <td><%= Password %></td>
-                            <td><%= PayPassword %></td>
+                            <td><input id="loginpasswd"type="password" value=<%= Password %> readonly="readonly" style="border:none;width:100px;background-color:transparent">
+                            &nbsp;&nbsp;
+                            <a id="changeloginpasswdbutton" onclick="change(this.innerHTML,'changeloginpasswdbutton','loginpasswd')">修改</a></td>
+                            <td> <input id="paypasswd"type="password" value=<%= PayPassword %> readonly="readonly" style="border:none;width:100px;background-color:transparent">
+                            &nbsp;&nbsp;&nbsp;
+                            <a id="changepaypasswdbutton" onclick="change(this.innerHTML,'changepaypasswdbutton','paypasswd')">修改</a></td>
                           </tr>
                           </tbody>
                         </table>
@@ -365,7 +356,7 @@
 
                           <tbody>
                           <tr>
-                            <td><%= Balance %></td>
+                            <td id="balance"><%= Balance %></td>
                           </tr>
                           </tbody>
                         </table>
@@ -441,7 +432,7 @@
                     <li>
                         <div class="input-group input-group-sm">
                             <span class="input-group-addon">银行密码</span>
-                            <input type="text" class="form-control" name="bankpasswd"  placeholder="银行密码" autocomplete="off" />
+                            <input type="password" class="form-control" name="bankpasswd"  placeholder="银行密码" autocomplete="off" />
                         </div>
                     </li>
                     <li>
@@ -451,13 +442,13 @@
                         </div>
                     </li>
                     <li>
-                        <button type="submit" value="recharge"  name="submit" class="btn btn-info" align="center"/>确认提交</button>
+                        <button type="submit" value="recharge"  name="submitBtn" id="submitBtn" class="btn btn-info" align="center"/>确认提交</button>
                     </li>
                 </ul>
             </form>
         </div>
         <div id="ZBox" class="animated" style="display:none" title="账户转账">
-            <form action="" method="post" id="transfer_form">
+            <form action="" method="post" id="transfer_form" onsubmit="return false;">
                 <ul class="list">
                     <li>
                         <div class="input-group input-group-sm">
@@ -466,23 +457,42 @@
                         </div>
                     </li>
                     <li>
-                        <div class="input-group input-group-sm">
-                            <span class="input-group-addon">转账金额</span>
-                            <input type="text" class="form-control" name="amount" id="" placeholder="转账金额" autocomplete="off" />
+                      <div class="input-group input-group-sm">
+                            <span class="input-group-addon">支付密码</span>
+                            <input type="password" class="form-control" name="paypasswd" id="" placeholder="支付密码" autocomplete="off" />
                         </div>
+                        
                     </li>
                     <li>
-                          <div class="input-group input-group-sm">
-                            <span class="input-group-addon">支付密码</span>
-                            <input type="text" class="form-control" name="paypasswd" id="" placeholder="支付密码" autocomplete="off" />
-                        </div>
+                         <div class="input-group input-group-sm">
+                            <span class="input-group-addon">转账金额</span>
+                            <input type="text" class="form-control" name="amount" id="transamount" placeholder="转账金额" autocomplete="off" />
+                        </div> 
                     </li>
                     
-                    <li><input type="submit" name="submit" value="transfer" id="sub" class="btn btn-info" align="center" />确认提交</li>
+                    <li>
+                    <input type="submit" name="submitBtn" value="确认提交" id="sub" class="btn btn-info" align="center" onclick="checkamount()"/>
+                    </li>
                 </ul>
             </form>
         </div>
   </body>
+
+    <script src="/javascripts/jquery.min.js"></script>
+   <!-- Bootstrap -->
+    <script src="http://121.42.175.1/static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="http://121.42.175.1/static/vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="http://121.42.175.1/static/vendors/nprogress/nprogress.js"></script>
+    <!-- jQuery custom content scroller -->
+    <script src="http://121.42.175.1/static/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="http://121.42.175.1/static/js/custom.js"></script>
+    
+<script src="/javascripts/jquery.hDialog.js"></script>
+<script src="/javascripts/jquery.hDialog.min.js"></script>
 
 
 <script type="text/javascript">
@@ -504,12 +514,22 @@
             }
            // alert("hello");
         }
-        function recharge(){
-            //alert("to be continued!");
-            window.open("./charge.html")
-        }
-        function transfer(){
-            alert("to be continued!");
+        function checkamount(){
+            var remain = <%= Balance %>;
+            var trans = document.getElementById('transamount').value;
+            var remain_float = parseFloat(remain);
+            var trans_float = parseFloat(trans);
+            var form = document.getElementById("transfer_form");
+            
+            console.log(trans);
+            console.log(remain);console.log(trans_float);
+            console.log(remain_float);
+            if(trans_float > remain_float){
+              alert("金额不足");
+            }
+            else{
+              form.submit();
+            }
         }
         function onSearch(obj,obj1,obj2,obj3){
             var storeId = document.getElementById('store');  
@@ -518,7 +538,6 @@
             var key1 = obj1.value;
             var times = 0;
             var sum = 0;
-
             var searchCol = 0;
             var searchCol1 = 3;
             var searchCol2 = 2; 
@@ -539,14 +558,12 @@
             obj2.value = sum;
             obj3.value = times;  
         }
-
         function firm() {
           console.log("firm()");
           if(confirm("确认注销账户？")){
               location.href="delete";
           }
         }
-
 </script>
 <script type="text/javascript">
 $(function(){
@@ -555,17 +572,18 @@ $(function(){
     $('#recharge').hDialog();
     $('.submitBtn').click(function() {
                 //$el.hDialog('close',{box:'#HBox'},'http://smwell.sinaapp.com/');  //也可以加跳转链接哦~
-                alert("充值成功");
+                
                 $el.hDialog('close',{box:'#HBox'}); 
     });
     $('#transfer').hDialog({'box':'#ZBox'});
     $('#sub').click(function() {
                 //$el.hDialog('close',{box:'#HBox'},'http://smwell.sinaapp.com/');  //也可以加跳转链接哦~
-                alert("充值成功");
+                
                 $el.hDialog('close',{box:'#ZBox'}); 
     });
-
 });
 </script>
 
 </html>
+Status API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Contact Help
