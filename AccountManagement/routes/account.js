@@ -49,7 +49,7 @@ router.get('/info', function(req, res, next) {
 		} 
 		//console.log("---------------account_info---------------");
 		//console.log(user);
-		User.getClickedMessage(req.session.user, "/transaction", function (err, messages) {
+		User.getClickedMessage(req.session.user, "/info", function (err, messages) {
 			//console.log(JSON.stringify(user));
 			//console.log(JSON.stringify(user).replace(/\}\s*$/g,""));
 			//先把jason转化为字符串，然后去除}，合并json数据
