@@ -233,10 +233,10 @@ router.get('/message', function(req, res, next){
 				if (!user) 
 			  	err = 'No such an account.'; 
 				if (err) {
-			  	req.flash('error', err); 
-			  	return res.redirect('/reg'); 
+				  	req.flash('error', err); 
+				  	return res.redirect('/reg'); 
 				}
-			res.render('account_message', {title: '消息记录', message_data: messageTotal, AccountName: user.AccountName, message: messages });
+				res.render('account_message', {title: '消息记录', message_data: messageTotal, AccountName: user.AccountName, message: messages });
 			});
 		});
 	});
@@ -275,11 +275,11 @@ router.post('/myTest', function(req, res, next) {
 });
 
 router.post('/userMessageAPI', function(req, res, next) {
-	var result, message, sender, accountID;
+	var result, message, orderID, sender, accountID;
 	if(!("accountID" in req.body) || req.body.accountID == ""){
 		result = {
 			result : 0,
-			resultMessage : "You must have a accountID!"
+			resultMessage : "You must have an accountID!"
 		}
 		return res.send(JSON.stringify(result));
 	}
@@ -292,15 +292,29 @@ router.post('/userMessageAPI', function(req, res, next) {
 	else{
 		sender = req.body.sender;
 	}
-	if(!("message" in req.body) || req.body.message == ""){
-		message = "由于未知原因，消息没有接受到";
+	if(!("orderID" in req.body) || req.body.orderID == ""){
+		result = {
+			result : 0,
+			resultMessage : "You must have an orderID!"
+		}
+		return res.send(JSON.stringify(result));		
 	}
 	else{
-		message = req.body.message;
+		orderID = req.body.orderID;
+	}
+	if(!("newState" in req.body) || req.body.newState == ""){
+		result = {
+			result : 0,
+			resultMessage : "You must have a newState!"
+		}
+		return res.send(JSON.stringify(result));	
+	}
+	else{
+		newState = req.body.newState;
 	}
 	
 	var data = {
-		message : message,
+		message : "您的订单（" + orderID + "）" + newState,
 		sender : sender,
 		accountID : accountID,
 	}
