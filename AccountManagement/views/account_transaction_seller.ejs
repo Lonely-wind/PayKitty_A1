@@ -125,7 +125,7 @@
                             <%= message[i].message %>
                           </span>
                         </a>
-                      </li>
+                      </li>                      
                     <% } %>
                     <li>
                       <div class="text-center">
@@ -209,7 +209,7 @@
                             <input type="text" name = "upper_money" placeholder="请填入金额上限" value = "<%= search.upper_money ||''%>"></input>
                           </div>
                           <div style = "margin-top: 20px; margin-bottom: 20px">
-                            卖家：&nbsp;&nbsp;<input type="text" name = "seller" placeholder="请填入卖家名" value = "<%= search.seller ||''%>"></input>
+                            商品：&nbsp;&nbsp;<input type="text" name = "goods" placeholder="请填入商品名" value = "<%= search.goods ||''%>"></input>
                           </div>
 
                           <div class="form-group">信息：&nbsp;</div>
@@ -230,10 +230,10 @@
                               <tr align="left" style="padding-top:10px">
                                 <th>编号</th>
                                 <th>下单时间</th>
-                                <th>卖家</th>
-                                <th>付款金额</th>
+                                <th>商品</th>
+                                <th>商品数量</th>
+                                <th>收款金额</th>
                                 <th>订单状态</th>
-                                <th>卖家电话</th>
                               </tr>
                               </thead>
          
@@ -243,10 +243,10 @@
                               <tr>
                                 <td><%= trade_data[i].num %></td>
                                 <td><%= trade_data[i].date%></td>
-                                <td><%= trade_data[i].seller %></td>
+                                <td><%= trade_data[i].goods %></td>
+                                <td><%= trade_data[i].number %></td>
                                 <td><%= trade_data[i].money %></td>
                                 <td><%= trade_data[i].state %></td>
-                                <td><%= trade_data[i].SellerPhone %></td>
                               </tr>
                               <% } %>
                               </tbody>

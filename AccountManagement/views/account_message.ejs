@@ -125,11 +125,11 @@
                             <%= message[i].message %>
                           </span>
                         </a>
-                      </li>
+                      </li>                      
                     <% } %>
                     <li>
                       <div class="text-center">
-                        <a href="/account/transaction/message/clear">
+                        <a href="/account/message/message/clear">
                           <strong>确认看过了所有新消息</strong>
                           <i class="fa fa-angle-right"></i>
                         </a>
@@ -164,7 +164,7 @@
                     <div class="page-title">
                       <div class="title_left">
                         <h3>
-                          交易记录
+                          我的消息
                         </h3>
                       </div>
                       <div class="title_right">
@@ -177,7 +177,7 @@
                       <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                           <div class="x_title">
-                            <h2>高级搜索</h2>
+                            <h2>历史消息</h2>
                             <ul class="nav navbar-right panel_toolbox">
                               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                               </li>
@@ -187,66 +187,25 @@
                             <div class="clearfix"></div>
                           </div>
 
-                          <form class="form-inline" action="/account/transaction" method="POST">               
-                          <div class="form-group">日期：&nbsp;</div>
-                          <div id="datetimepicker1" class="input-append date form-group" >
-                              <input type="text" name = "start_time" placeholder="选择开始日期" value = "<%= search.start_time.toLocaleDateString() ||''%>"></input>
-                              <span class="add-on">
-                                <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
-                              </span>
-                          </div>
-
-                          <div class="form-group" >&nbsp;&nbsp;-&nbsp;&nbsp; </div>
-                          <div id="datetimepicker2"  class="input-append date form-group">
-                              <input type="text" name = "end_time" placeholder="选择结束日期" value = "<%= search.end_time.toLocaleDateString() ||''%>"></input>
-                              <span class="add-on">
-                                <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
-                              </span>
-                          </div>
-                          <div style = "margin-top: 20px">
-                            金额：&nbsp;
-                            <input type="text" name = "low_money" placeholder="请填入金额下限" value = "<%= search.low_money ||''%>"></input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;
-                            <input type="text" name = "upper_money" placeholder="请填入金额上限" value = "<%= search.upper_money ||''%>"></input>
-                          </div>
-                          <div style = "margin-top: 20px; margin-bottom: 20px">
-                            卖家：&nbsp;&nbsp;<input type="text" name = "seller" placeholder="请填入卖家名" value = "<%= search.seller ||''%>"></input>
-                          </div>
-
-                          <div class="form-group">信息：&nbsp;</div>
-                            <div class="form-group">
-                              <select class="selectpicker show-tick" id="myselector" data-size="3" name = "state" value = "2">
-                                <option text = "全部状态<">全部状态</option>
-                                <option text = "交易成功">交易成功</option> 
-                                <option text = "已付款">已付款</option>
-                                <option text = "未付款">未付款</option>                        
-                              </select>
-                            </div>
-                            <input class='btn' href='javascript:;' type="submit" value="查询" style = "margin-left : 300px">
-                          </form>
 
                           <div class="x_content">
                             <table id="datatable" class="table table-striped table-bordered">
                               <thead>
                               <tr align="left" style="padding-top:10px">
                                 <th>编号</th>
-                                <th>下单时间</th>
-                                <th>卖家</th>
-                                <th>付款金额</th>
-                                <th>订单状态</th>
-                                <th>卖家电话</th>
+                                <th>发送者</th>
+                                <th>消息内容</th>
+                                <th>详细时间</th>
                               </tr>
-                              </thead>
-         
+                              </thead>         
                             </tbody>
                               <tbody>
-                              <% for (var i in trade_data) { %>
+                              <% for (var i in message_data) { %>
                               <tr>
-                                <td><%= trade_data[i].num %></td>
-                                <td><%= trade_data[i].date%></td>
-                                <td><%= trade_data[i].seller %></td>
-                                <td><%= trade_data[i].money %></td>
-                                <td><%= trade_data[i].state %></td>
-                                <td><%= trade_data[i].SellerPhone %></td>
+                                <td><%= (parseInt(i) + 1) %></td>
+                                <td><%= message_data[i].MessageSender %></td>
+                                <td><%= message_data[i].MessageContent %></td>
+                                <td><%= message_data[i].MessageTime %></td>
                               </tr>
                               <% } %>
                               </tbody>
@@ -289,36 +248,9 @@
     <script src="http://121.42.175.1/static/js/custom.js"></script>
     <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.11/js/dataTables.bootstrap.min.js"></script>
-    <script src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js"></script>
-        <script>
-              $('#datetimepicker1').datetimepicker({
-                format: 'yyyy/MM/dd',
-                language: 'en',
-                pickDate: true,
-                pickTime: true,
-                hourStep: 1,
-                minuteStep: 15,
-                secondStep: 30,
-                inputMask: true
-              });
-        </script>
-        <script>
-              $('#datetimepicker2').datetimepicker({
-                format: 'yyyy/MM/dd',
-                language: 'en',
-                pickDate: true,
-                pickTime: true,
-                hourStep: 1,
-                minuteStep: 15,
-                secondStep: 30,
-                inputMask: true
-              });
-               $("#myselector").find("option[text='<%= search.state %>']").attr("selected",true);
-        </script>
 
         <script>
               $('#datatable').dataTable({
-                "searching":false,
                 language: {
                   url: '//cdn.datatables.net/plug-ins/1.10.11/i18n/Chinese.json'
                 }

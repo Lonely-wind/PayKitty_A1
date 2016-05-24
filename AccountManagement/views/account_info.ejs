@@ -50,34 +50,6 @@
 
             <br />
 
-            <!-- sidebar menu -->
-            <!-- <div id="sidebar-menu" class="main_menu_side hidden-print main_menu"> -->
-              <!-- <div class="menu_section container"> -->
-                <!-- <h3>&nbsp</h3> -->
-                <!-- <ul class="nav side-menu"> -->
-                  <!-- <li> -->
-                    <!-- <a><i class="fa fa-home"></i> 我的账户 <span class="fa fa-chevron-down"></span></a> -->
-                    <!-- <ul class="nav child_menu nav-pills nav-stacked"> -->
-                      <!-- <li class="active"> -->
-                        <!-- <a data-toggle="pill" href="#ZHJL">账户记录</a> -->
-                      <!-- </li> -->
-                      <!-- <li>账户记录</li> -->
-                      <!-- <li> -->
-                        <!-- <a data-toggle="pill" href="#JYXX">交易信息</a> -->
-                      <!-- </li> -->
-                      <!-- <li><a href="index3.html">Dashboard3</a>
-                      </li> -->
-                    <!-- </ul> -->
-                  <!-- </li> -->
-                  <!-- <li><a> -->
-                    <!-- <i class="fa fa-edit"></i> 订单管理 <span class="fa fa-chevron-down"></span></a> -->
-                  <!-- </li> -->
-                  <!-- <li><a> -->
-                    <!-- <i class="fa fa-desktop"></i> 在线预订 <span class="fa fa-chevron-down"></span></a> -->
-                  <!-- </li> -->
-                <!-- </ul> -->
-              <!-- </div>               -->
-            <!-- </div> -->
 
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section container">
@@ -87,11 +59,11 @@
                     <a><i class="fa fa-home"></i> 我的账户 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu" style="display: none;">
                       <li>
-                        <a href="">账户记录</a>
+                        <a href="/account/info">账户记录</a>
                       </li>
                       <!-- <li>账户记录</li> -->
                       <li>
-                        <a href="transaction">交易信息</a>
+                        <a href="/account/transaction">交易信息</a>
                       </li>
                       <!-- <li><a href="index3.html">Dashboard3</a>
                       </li> -->
@@ -106,24 +78,6 @@
                 </ul>
               </div>              
             </div>
-            <!-- /sidebar menu -->
-
-            <!-- /menu footer buttons -->
-            <!-- <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-            </div> -->
-            <!-- /menu footer buttons -->
           </div>
         </div>
 
@@ -158,68 +112,36 @@
                 <li role="presentation" class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">6</span>
+                    <span class="badge bg-green"><%= message.length %></span>
                   </a>
                   <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                    <% for (var i in message) { %>
+                      <li>
+                        <a href="<%= message[i].href %>">
+                          <span class="image">
+                            <img src="http://121.42.175.1/static/images/img.jpg" alt="Profile Image" />
+                          </span>
+                          <span>
+                            <span>来自<%= message[i].sender %>的消息</span>
+                          <span class="time"><%= message[i].time %></span>
+                          </span>
+                          <span class="message">
+                            <%= message[i].message %>
+                          </span>
+                        </a>
+                      </li>                      
+                    <% } %>
                     <li>
-                      <a>
-                        <span class="image">
-                                          <img src="http://121.42.175.1/static/images/img.jpg" alt="Profile Image" />
-                                      </span>
-                        <span>
-                                          <span>张三</span>
-                        <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                                          您购买的物品已发货
-                                      </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image">
-                                          <img src="http://121.42.175.1/static/images/img.jpg" alt="Profile Image" />
-                                      </span>
-                        <span>
-                                          <span>张三</span>
-                        <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                                          您购买的物品已发货
-                                      </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image">
-                                          <img src="http://121.42.175.1/static/images/img.jpg" alt="Profile Image" />
-                                      </span>
-                        <span>
-                                          <span>张三</span>
-                        <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                                          您购买的物品已发货
-                                      </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image">
-                                          <img src="http://121.42.175.1/static/images/img.jpg" alt="Profile Image" />
-                                      </span>
-                        <span>
-                                          <span>张三</span>
-                        <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                                          您购买的物品已发货
-                                      </span>
-                      </a>
+                      <div class="text-center">
+                        <a href="/account/info/message/clear">
+                          <strong>确认看过了所有新消息</strong>
+                          <i class="fa fa-angle-right"></i>
+                        </a>
+                      </div>
                     </li>
                     <li>
                       <div class="text-center">
-                        <a>
+                        <a href="/account/message">
                           <strong>查看所有通知</strong>
                           <i class="fa fa-angle-right"></i>
                         </a>
