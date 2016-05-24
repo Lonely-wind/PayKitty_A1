@@ -8,11 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title><%= title %></title>
-    <link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css" />
+ 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.11/css/dataTables.bootstrap.min.css" />
     <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen" href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
 
+    <!-- Bootstrap -->
+    <link href="http://121.42.175.1/static/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="http://121.42.175.1/static/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- jQuery custom content scroller -->
@@ -20,7 +22,7 @@
 
     <!-- Custom Theme Style -->
     <link href="http://121.42.175.1/static/css/custom.css" rel="stylesheet">
-  </head>
+ </head>
 
   <body class="nav-md">
     <div class="container body">
@@ -221,7 +223,7 @@
                                 <option text = "未付款">未付款</option>                        
                               </select>
                             </div>
-                            <input class='btn' href='javascript:;' type="submit" value="查询" style = "margin-left : 300px">
+                            <input class='btn btn-info btn-large' href='javascript:;' type="submit" value="查询" style = "margin-left : 300px">
                           </form>
 
                           <div class="x_content">
@@ -237,7 +239,6 @@
                               </tr>
                               </thead>
          
-                            </tbody>
                               <tbody>
                               <% for (var i in trade_data) { %>
                               <tr>

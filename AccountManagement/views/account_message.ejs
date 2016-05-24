@@ -8,11 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title><%= title %></title>
-    <link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css" />
+
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.11/css/dataTables.bootstrap.min.css" />
     <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen" href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
 
+    <!-- Bootstrap -->
+    <link href="http://121.42.175.1/static/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="http://121.42.175.1/static/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- jQuery custom content scroller -->
@@ -198,7 +200,6 @@
                                 <th>详细时间</th>
                               </tr>
                               </thead>         
-                            </tbody>
                               <tbody>
                               <% for (var i in message_data) { %>
                               <tr>
@@ -232,7 +233,6 @@
         <!-- /footer content -->
       </div>
     </div>
-
     <!-- FastClick -->
     <script src="http://121.42.175.1/static/vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
@@ -249,12 +249,12 @@
     <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.11/js/dataTables.bootstrap.min.js"></script>
 
-        <script>
-              $('#datatable').dataTable({
-                language: {
-                  url: '//cdn.datatables.net/plug-ins/1.10.11/i18n/Chinese.json'
-                }
-              });
-        </script>
+    <script>
+          $('#datatable').dataTable({
+            language: {
+              url: '//cdn.datatables.net/plug-ins/1.10.11/i18n/Chinese.json'
+            }
+          });
+    </script>
   </body>
 </html>
