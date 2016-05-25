@@ -23,7 +23,7 @@ router.route('/')
 .post(function(req, res) {
     if (req.body['Reguser'] == '' || req.body['Regpass'] == '') {
         var err = "用户名或密码不能为空！";
-        res.render('register_sales', {error : err});
+        res.render('register', {error : err});
         return;
     }
 
