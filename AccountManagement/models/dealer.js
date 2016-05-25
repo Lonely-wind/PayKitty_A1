@@ -54,7 +54,7 @@ Dealer.getInfo = function getInfo(accountID, callback) {
 
 Dealer.delAccount = function delAccount(accountID) {
 
-    var sql = "delete from DealerAccount where DealerID='"+accountID+"'";
+    var sql = "delete from DealerAccount where DealerNo='"+accountID+"'";
 
     mysql.query(sql,function(err,results,fields){
         if(err){

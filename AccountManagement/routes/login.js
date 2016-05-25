@@ -35,6 +35,7 @@ router.route('/')
                         return; 
                     } else {
                         req.session.user = user.AccountID.toString();
+                        req.cookie.kitty = user.AccountID.toString();
                         console.log(user.AccountID);
                         res.redirect('account/info');
                     }

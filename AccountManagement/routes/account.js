@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var User = require('../models/user');
+var Dealer = require('../models/dealer');
 var Transaction = require('../models/transaction');
 
 
@@ -383,8 +384,14 @@ router.get('/test/userMessageAPI', function(req, res, next) {
 
 router.get('/delete', function(req, res, next) {
 	var nowID = req.session.user;
-	User.delAccount(nowID);
-	res.redirect('/login');
+	User.getInfo(nowID,function(err,result,fileds){
+		if(result["Type"]==1){
+			Dealer.delAccount(result["DealerNo"]);
+		}
+		else;
+		User.delAccount(nowID);
+		res.redirect('/login');
+	});
 });
 
 
