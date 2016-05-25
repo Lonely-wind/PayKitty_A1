@@ -110,8 +110,8 @@ User.getInfo = function getInfo(accountID, callback) {
 };
 
 User.setInfo = function setInfo(accountID, user, callback) {
-    var sql = "update UserAccount set Phone="+user.phone+",Password="+user.loginpasswd+",PayPassword="+user.paypasswd+" where AccountID='"+accountID+"'";
-    //console.log(sql);
+    var sql = "update UserAccount set Phone="+user.phone+",Password='"+user.loginpasswd+"',PayPassword='"+user.paypasswd+"' where AccountID='"+accountID+"'";
+    console.log(sql);
     mysql.query(sql,function(err,results,fields){
         callback(err,results);
     })
