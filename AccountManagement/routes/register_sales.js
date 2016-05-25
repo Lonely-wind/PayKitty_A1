@@ -116,10 +116,10 @@ router.route('/')
                             return res.redirect('register_sales');
                         }
                         var post_data = { realName: newUser.realname, idNumber: newUser.IdNo};
-                        Transaction.GetApi('A5/API/authentication', post_data, 5001, function (data) {
+                        Transaction.GetApi('/A5/API/authentication', post_data, 5001, function (data) {
                             console.log("-------------Test GET API-----------");
                             console.log(data);
-                            if (data.result == 'Accept') {
+                            if (data.result == '0') {
                                 return res.redirect('account/info');
                             } else {
                                 err = '实名认证失败！';

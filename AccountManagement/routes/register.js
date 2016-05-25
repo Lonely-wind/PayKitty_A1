@@ -81,11 +81,18 @@ router.route('/')
                  } 
                 User.getUserByName(newUser.name, function (err, user) {
                     req.session.user = user.AccountID.toString();
-                    var post_data = { accountID : '123'};
-                    Transaction.GetApi('/register_sales/getDealerInfo', post_data, 5001, function (data) {
+                    var post_data = { realName: newUser.realname, idNumber: newUser.IdNo};
+                    Transaction.GetApi('/A5/API/authentication', post_data, 5001, function (data) {
                         console.log("-------------Test GET API-----------");
                         console.log(data);
-                    });
+                        if (data.result == '0') {
+                            return res.redirect('account/info');
+                        } else {
+                            err = '实名认证失败！';
+                            res.render('register_sales', { error : err}); 
+                            return;
+                        }
+                    };
                     res.redirect('account/info');
                 }); 
             });
