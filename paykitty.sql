@@ -37,7 +37,7 @@ CREATE TABLE `dealeraccount` (
 
 LOCK TABLES `dealeraccount` WRITE;
 /*!40000 ALTER TABLE `dealeraccount` DISABLE KEYS */;
-INSERT INTO `dealeraccount` VALUES ('D001','AAAA','Yuhangtang Road#866','Normal'),('D002','BBBB','余杭塘路866号','Lock');
+INSERT INTO `dealeraccount` VALUES ('224','AAAA','Yuhangtang Road#866','Normal');
 /*!40000 ALTER TABLE `dealeraccount` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -99,12 +99,10 @@ CREATE TABLE `useraccount` (
   UNIQUE KEY `AccountName` (`AccountName`),
   UNIQUE KEY `IdNo` (`IdNo`),
   UNIQUE KEY `Phone` (`Phone`),
-  KEY `DealerNo` (`DealerNo`),
   KEY `Payment1` (`Payment1`),
   KEY `Payment2` (`Payment2`),
   KEY `Payment3` (`Payment3`),
   KEY `Payment4` (`Payment4`),
-  CONSTRAINT `useraccount_ibfk_1` FOREIGN KEY (`DealerNo`) REFERENCES `dealeraccount` (`DealerNo`),
   CONSTRAINT `useraccount_ibfk_2` FOREIGN KEY (`Payment1`) REFERENCES `paymentaccount` (`PaymentNo`),
   CONSTRAINT `useraccount_ibfk_3` FOREIGN KEY (`Payment2`) REFERENCES `paymentaccount` (`PaymentNo`),
   CONSTRAINT `useraccount_ibfk_4` FOREIGN KEY (`Payment3`) REFERENCES `paymentaccount` (`PaymentNo`),
@@ -118,7 +116,7 @@ CREATE TABLE `useraccount` (
 
 LOCK TABLES `useraccount` WRITE;
 /*!40000 ALTER TABLE `useraccount` DISABLE KEYS */;
-INSERT INTO `useraccount` VALUES (123,'A1','123','$salt','2016-05-18 12:49:27','张三','M','332222199901010101','浙大路38号','13800138004','abc@zju.edu.cn',0,0,NULL,'P1000001','P1000008',NULL,NULL,1234.50,'123'),(124,'A2','123','$salt','2016-05-18 17:27:28','李四','F','332222199901010102','浙大路39号','13777776657','abd@zju.edu.cn',1,0,NULL,'P1000002','P1000007',NULL,NULL,1234.50,'123'),(224,'B2','123','$salt','2016-05-17 18:17:33','赵六','F','432222199901010102','浙大路49号','13800138000','bbd@zju.edu.cn',1,1,'D001','P1000004','P1000005',NULL,NULL,1234.50,'123'),(225,'123','123',NULL,'2016-05-17 18:17:33',NULL,NULL,'330182222222222222',NULL,'13812341234','123@123.com',NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,'123'),(226,'mtz','mtz',NULL,'2016-05-18 17:20:34',NULL,NULL,'330302199504082019',NULL,'15606888158','11@163.com',NULL,0,NULL,NULL,NULL,NULL,NULL,0.00,'123');
+INSERT INTO `useraccount` VALUES (123,'A1','123','$salt','2016-05-18 12:49:27','张三','M','332222199901010101','浙大路38号','13800138004','abc@zju.edu.cn',0,0,NULL,'P1000001','P1000008',NULL,NULL,1234.50,'123'),(124,'A2','123','$salt','2016-05-18 17:27:28','李四','F','332222199901010102','浙大路39号','13777776657','abd@zju.edu.cn',1,0,NULL,'P1000002','P1000007',NULL,NULL,1234.50,'123'),(224,'B2','123','$salt','2016-05-17 18:17:33','赵六','F','432222199901010102','浙大路49号','13800138000','bbd@zju.edu.cn',1,1,NULL,'P1000004','P1000005',NULL,NULL,1234.50,'123');
 /*!40000 ALTER TABLE `useraccount` ENABLE KEYS */;
 UNLOCK TABLES;
 
