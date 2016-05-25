@@ -9,7 +9,7 @@ var Transaction = require('../models/transaction');
 
 router.get('/', function(req, res, next) {
 	var post_data = { accountID : '123'};
-	Transaction.GetApi('/account/userInfoAPI', post_data, 5001, function (data) {
+	Transaction.GetApi('/A1/API/userInfoAPI', post_data, 5001, function (data) {
 		console.log("-------------Test GET API-----------");
 		console.log(data);
 	});

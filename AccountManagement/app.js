@@ -16,6 +16,7 @@ var register = require('./routes/register');
 var register_sales = require('./routes/register_sales')
 var account = require('./routes/account');
 var logout = require('./routes/logout');
+var api = require('./routes/api');
 
 
 
@@ -50,6 +51,7 @@ app.use('/register',register);
 app.use('/register_sales',register_sales);
 app.use('/account',account);
 app.use('/logout',logout);
+app.use('/A1/API',api);
 
 
 // catch 404 and forward to error handler
