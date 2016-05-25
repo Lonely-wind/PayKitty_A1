@@ -103,36 +103,43 @@ router.route('/')
                 return;
             } 
 
-            newUser.save(function (err) { 
-                if (err) { 
-                     return  res.redirect('register_sales'); 
-                 } 
-                User.getUserByName(newUser.name, function (err, user) {
-                    req.session.user = user.AccountID.toString();
-                    newDealer.DealerNo = req.session.user;
-                    console.log(newDealer);
-                     newDealer.save(function (err) {
-                        if(err) {
-                            return res.redirect('register_sales');
-                        }
-                        var post_data = { realName: newUser.realname, idNumber: newUser.IdNo};
-                        Transaction.GetApi('/A5/API/authentication', post_data, 5001, function (data) {
-                            console.log("-------------Test GET API-----------");
-                            console.log(data);
-                            if (data.result == '0') {
-                                return res.redirect('account/info');
-                            } else {
-                                err = '实名认证失败！';
-                                res.render('register_sales', { error : err}); 
-                                return;
-                            }
+
+            User.getUserByID(newUser.IdNo,function (err,user) {
+                if (user)
+                    err = '身份证号已存在！';
+                if (err) {
+                    res.render('register_sales',{error : err});
+                    return;
+                }
+
+                var post_data = { realName: newUser.realname, idNumber: newUser.IdNo};
+                Transaction.GetApi('/A5/API/authentication', post_data, 5001, function (data) {
+                    console.log("-------------Test GET API-----------");
+                    console.log(data);
+                    if (data.result == '0') {
+                        newUser.save(function (err) { 
+                            if (err) { 
+                                 return  res.redirect('register_sales'); 
+                             } 
+                            User.getUserByName(newUser.name, function (err, user) {
+                                req.session.user = user.AccountID.toString();
+                                newDealer.DealerNo = req.session.user;
+                                console.log(newDealer);
+                                newDealer.save(function (err) {
+                                    if(err) {
+                                        return res.redirect('register_sales');
+                                    }
+                                    
+                                    return  res.redirect('account/info');                         
+                                 });  
+                            }); 
                         });
-                        return  res.redirect('register_sales');                         
-                     });  
-                }); 
-
-
-
+                    } else {
+                        err = '实名认证失败！';
+                        res.render('register_sales', { error : err}); 
+                        return;
+                    }
+                });
             });
         });
     });

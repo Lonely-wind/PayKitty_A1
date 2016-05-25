@@ -93,6 +93,22 @@ User.getUserByEmail = function getUserByEmail(Email, callback) {
 
 };
 
+User.getUserByID = function getUserByID(ID, callback) {
+
+    // 读取 users 集合
+    var sql = "select * from UserAccount where IdNo='"+ID+"'";
+    console.log(sql);
+    mysql.query(sql,function(err,results,fields){
+        if(err){
+            throw err;
+        }else{
+            //console.log(results[0]);
+            callback(err,results[0],fields);
+        }
+    })
+
+};
+
 User.getInfo = function getInfo(accountID, callback) {
 
     // 读取 users 集合
