@@ -258,7 +258,7 @@
                                 <td><%= trade_data[i].seller %></td>
                                 <td><%= trade_data[i].orderAmount %></td>
                                 <td><%= trade_data[i].orderStatus %></td>
-                                <td><a href='orderdetails?userID=<%= UserID %>&orderID=<%= trade_data[i].orderID %> '><input class='btn btn-info btn-small' type="submit" value="详细信息"/></a></td>
+                                <td><a href='/orderdetails?userID=<%= UserID %>&orderID=<%= trade_data[i].orderID %> '><input class='btn btn-info btn-small' type="submit" value="详细信息"/></a></td>
                               </tr>
                               <% } %>
                               </tbody>
