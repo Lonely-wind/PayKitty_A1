@@ -145,12 +145,42 @@ router.route('/transaction')
 		User.getInfo(req.session.user, function (err, user) { 
 			if (!user) 
 			  err = 'No such an account.'; 
-			if (err) { 
+			if (err) {
 			  req.flash('error', err); 
-			  return res.redirect('/reg'); 
+			  return res.redirect('/reg');
 			}
 
-			Transaction.GetApi('/account/myTest', post_data, 5001, function (data) {
+			Transaction.RealGetApi('http://121.42.175.1/a2/api/getallorder?userID=1', 80, function (data) {
+				data = data.orderDetailList;
+				var total_account = 0;
+				for(var i in data){
+					total_account += parseFloat(data[i].orderAmount);
+					data[i].orderTime = new Date(data[i].orderTime).toLocaleDateString();
+					if(data[i].orderStatus == "0"){
+						data[i].orderStatus = "待付款"
+					}
+					else if(data[i].orderStatus == "1"){
+						data[i].orderStatus = "待商家确认"		
+					}
+					else if(data[i].orderStatus == "2"){
+						data[i].orderStatus = "已确认"
+					}
+					else if(data[i].orderStatus == "3"){
+						data[i].orderStatus = "交易成功"
+					}
+					else if(data[i].orderStatus == "4"){
+						data[i].orderStatus = "交易关闭"
+					}
+					else if(data[i].orderStatus == "5"){
+						data[i].orderStatus = "待退款"		
+					}
+					else if(data[i].orderStatus == "6"){
+						data[i].orderStatus = "已退款"		
+					}
+					else if(data[i].orderStatus == "7"){
+						data[i].orderStatus = "退款失败"		
+					}
+				}
 				if(user.Type == "0"){
 					var trade_data = '';
 					var order_constraints= {
@@ -159,7 +189,7 @@ router.route('/transaction')
 						low_money:	req.body.low_money,
 						upper_money:req.body.upper_money,
 						state:		req.body.state,
-						seller:		req.body.seller,           
+						seller:		req.body.seller,
 					}
 					if(req.body.start_time == ""){
 						order_constraints.start_time = new Date("1970/1/1");
@@ -168,7 +198,8 @@ router.route('/transaction')
 						order_constraints.end_time = new Date();
 					}
 					Transaction.Search(data, order_constraints, function(trade_data){
-						res.render('account_transaction_user', {title: '交易记录', trade_data: trade_data, search: order_constraints, AccountName: user.AccountName, message: messages });
+						console.log({title: '交易记录', trade_data: trade_data, UserID: user.AccountID, search: order_constraints, AccountName: user.AccountName, message: messages });
+						res.render('account_transaction_user', {title: '交易记录', total_account: total_account.toFixed(2), trade_data: trade_data, UserID: user.AccountID, search: order_constraints, AccountName: user.AccountName, message: messages });
 					});
 				}
 				else{
@@ -179,7 +210,7 @@ router.route('/transaction')
 						low_money:	req.body.low_money,
 						upper_money:req.body.upper_money,
 						state:		req.body.state,
-						goods:		req.body.goods,           
+						seller:		"",           
 					}
 					if(req.body.start_time == ""){
 						order_constraints.start_time = new Date("1970/1/1");
@@ -188,7 +219,7 @@ router.route('/transaction')
 						order_constraints.end_time = new Date();
 					}
 					Transaction.Search(data, order_constraints, function(trade_data){
-						res.render('account_transaction_seller', {title: '交易记录', trade_data: trade_data, search: order_constraints, AccountName: user.AccountName, message: messages });
+						res.render('account_transaction_user', {title: '交易记录', total_account: total_account.toFixed(2), trade_data: trade_data, UserID: user.AccountID, search: order_constraints, AccountName: user.AccountName, message: messages });
 					});
 				}
 			});
@@ -207,14 +238,44 @@ router.route('/transaction')
 	
 	User.getClickedMessage(req.session.user, "/transaction", function (err, messages) {
 		User.getInfo(req.session.user, function (err, user) { 
-			if (!user) 
+			if (!user)
 			  err = 'No such an account.'; 
 			if (err) {
-			  req.flash('error', err); 
+			  req.flash('error', err);
 			  return res.redirect('/reg'); 
 			}
 
-			Transaction.GetApi('/account/myTest', post_data, 5001, function (data) {
+			Transaction.RealGetApi('http://121.42.175.1/a2/api/getallorder?userID=1', 80, function (data) {
+				data = data.orderDetailList;
+				var total_account = 0;
+				for(var i in data){
+					total_account += parseFloat(data[i].orderAmount);
+					data[i].orderTime = new Date(data[i].orderTime).toLocaleDateString();
+					if(data[i].orderStatus == "0"){
+						data[i].orderStatus = "待付款"
+					}
+					else if(data[i].orderStatus == "1"){
+						data[i].orderStatus = "待商家确认"		
+					}
+					else if(data[i].orderStatus == "2"){
+						data[i].orderStatus = "已确认"
+					}
+					else if(data[i].orderStatus == "3"){
+						data[i].orderStatus = "交易成功"
+					}
+					else if(data[i].orderStatus == "4"){
+						data[i].orderStatus = "交易关闭"
+					}
+					else if(data[i].orderStatus == "5"){
+						data[i].orderStatus = "待退款"		
+					}
+					else if(data[i].orderStatus == "6"){
+						data[i].orderStatus = "已退款"		
+					}
+					else if(data[i].orderStatus == "7"){
+						data[i].orderStatus = "退款失败"		
+					}
+				}
 				if(user.Type == "0"){
 					var order_constraints= {
 						start_time:	new  Date("1970/1/1"),
@@ -222,9 +283,10 @@ router.route('/transaction')
 						low_money:	req.body.low_money,
 						upper_money:req.body.upper_money,
 						state:		req.body.state,
-						seller:		req.body.seller,           
+						seller:		req.body.seller,
 					}
-					res.render('account_transaction_user', {title: '交易记录', trade_data: data, search: order_constraints, AccountName: user.AccountName, message: messages });
+					console.log(data);
+					res.render('account_transaction_user', {title: '交易记录', total_account: total_account.toFixed(2), trade_data: data, UserID: user.AccountID, search: order_constraints, AccountName: user.AccountName, message: messages });
 				}
 				else{
 					var order_constraints= {
@@ -235,7 +297,7 @@ router.route('/transaction')
 						state:		req.body.state,
 						goods:		req.body.goods,           
 					}
-					res.render('account_transaction_seller', {title: '交易记录', trade_data: data, search: order_constraints, AccountName: user.AccountName, message: messages });
+					res.render('account_transaction_user', {title: '交易记录', total_account: total_account.toFixed(2), trade_data: data, UserID: user.AccountID, search: order_constraints, AccountName: user.AccountName, message: messages });
 				}
 			});
 		});
