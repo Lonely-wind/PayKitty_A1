@@ -54,8 +54,8 @@ router.get('/info', function(req, res, next) {
 			//console.log(JSON.stringify(user).replace(/\}\s*$/g,""));
 			//先把jason转化为字符串，然后去除}，合并json数据
 			console.log(messages);
-			user = JSON.parse(JSON.stringify(user).replace(/\}\s*$/g,"") + "," + JSON.stringify({message : messages}).replace(/^\s*\{/g,""));
-			res.render('account_info', user);		
+			render_data = JSON.parse(JSON.stringify(user).replace(/\}\s*$/g,"") + "," + JSON.stringify({message : messages, user_pid : '', win_message: '', user_balance: ''}).replace(/^\s*\{/g,""));
+			res.render('account_info', render_data);		
 		});		
 	});
 });
@@ -70,9 +70,36 @@ router.post('/info', function(req, res, next) {
 	console.log(req.body);
 	if (req.body.submitBtn == 'recharge'){
 		User.addMoney(nowID,req.body.amount);
+		res.redirect('info');
 	}
 	else if (req.body.bankaccount) {
-		User.subMoney(nowID,req.body.amount);
+		
+		User.getUserByPID(req.body.bankaccount, function(err, username){
+			if (err) {
+				console.log(err);
+			}
+			User.getInfo(nowID, function (err, user) { 
+				if (!user) 
+				  err = 'No such an account.'; 
+				if (err) { 
+				  req.flash('error', err); 
+				  return res.redirect('/reg'); 
+				} 
+				console.log("---------------account_info---------------");
+				//console.log(user);
+				User.getClickedMessage(req.session.user, "/info", function (err, messages) {
+						if(!username){
+							username = "";
+						}
+						var win_message = ".click()";
+						var render_data = JSON.parse(JSON.stringify(user).replace(/\}\s*$/g,"") + "," + JSON.stringify({message : messages, user_pid : username, win_message: win_message, user_balance: req.body.amount}).replace(/^\s*\{/g,""));
+						//console.log(JSON.stringify({win_message:win_message}));
+						//render_data.message = win_message;
+						res.render('account_info', render_data);	
+				});		
+			});
+
+		});
 	}
 	else{
 		User.setInfo(nowID,req.body, function (err,result){
@@ -86,9 +113,10 @@ router.post('/info', function(req, res, next) {
 				console.log(err);
 			}
 		});
+		res.redirect('info');
 	}
-	res.redirect('info');
 });
+
 
 
 router.route('/transaction')
@@ -368,6 +396,64 @@ router.post('/userInfoAPI', function(req, res, next) {
 
 		res.render('userInfoAPI', {data: JSON.stringify(user)});
 	});
+
+
+});
+
+
+router.post("/addmoney",function(req,res,next) {
+	//console.log(req.body);
+	var nowID = req.body.accountID;
+	var amount = req.body.amount;
+	var error;
+	User.addMoney(nowID,amount,function(err,result){
+		
+		if(result)
+			error="OK";
+		else
+			error="NO";
+		console.log(error);
+		result={result:error};
+	res.render('userInfoAPI',{data:JSON.stringify(result)});
+
+	});
+	//console.log(error);
+	
+
+
+});
+router.post("/submoney",function(req,res,next) {
+	//console.log(req.body);
+	var nowID = req.body.accountID;
+	var amount = req.body.amount;
+	var error;
+	User.getInfo(nowID,function(error,result,field){
+		console.log(result["Balance"]);
+		var balance=result["Balance"];
+
+		if(amount<balance){
+			User.subMoney(nowID,amount,function(err,result){
+		
+			if(err)
+				error="NO";
+			else
+				error="OK";
+			console.log(error);
+			show_data={result:error};
+			res.render('userInfoAPI',{data:JSON.stringify(show_data)});
+
+	});
+
+		}
+		else{
+			show_data={result:"NoEnoughMoney"};
+			res.render('userInfoAPI',{data:JSON.stringify(show_data)});
+		}
+
+	});
+	
+	//console.log(error);
+	
 
 
 });
