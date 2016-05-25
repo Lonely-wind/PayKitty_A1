@@ -153,7 +153,7 @@ router.route('/transaction')
 			  return res.redirect('/reg');
 			}
 
-			Transaction.RealGetApi('http://121.42.175.1/a2/api/getallorder?userID=1', 80, function (data) {
+			Transaction.RealGetApi('http://121.42.175.1/a2/api/getallorder?userID=' + req.session.user, 80, function (data) {
 				data = data.orderDetailList;
 				var total_account = 0;
 				for(var i in data){
@@ -248,7 +248,7 @@ router.route('/transaction')
 			  return res.redirect('/reg'); 
 			}
 
-			Transaction.RealGetApi('http://121.42.175.1/a2/api/getallorder?userID=1', 80, function (data) {
+			Transaction.RealGetApi('http://121.42.175.1/a2/api/getallorder?userID=' + req.session.user, 80, function (data) {
 				data = data.orderDetailList;
 				var total_account = 0;
 				for(var i in data){
