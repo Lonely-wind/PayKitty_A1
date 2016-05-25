@@ -50,3 +50,19 @@ Dealer.getInfo = function getInfo(accountID, callback) {
     })
 
 };
+
+
+Dealer.delAccount = function delAccount(accountID) {
+
+    var sql = "delete from DealerAccount where DealerID='"+accountID+"'";
+
+    mysql.query(sql,function(err,results,fields){
+        if(err){
+            throw err;
+        }else{
+            console.log(results);
+            //callback(err,results[0],fields);
+        }
+    })
+
+};

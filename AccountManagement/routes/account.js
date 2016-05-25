@@ -444,7 +444,7 @@ router.post("/submoney",function(req,res,next) {
 
 		if(amount<balance){
 			User.subMoney(nowID,amount,function(err,result){
-		
+			console.log(err);
 			if(err)
 				error="NO";
 			else
