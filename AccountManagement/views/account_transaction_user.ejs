@@ -50,12 +50,12 @@
             <br />
 
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section">
+              <div class="menu_section container">
                 <h3>&nbsp</h3>
                 <ul class="nav side-menu">
                   <li>
                     <a><i class="fa fa-home"></i> 我的账户 <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
+                    <ul class="nav child_menu" style="display: none;">
                       <li>
                         <a href="/account/info">账户记录</a>
                       </li>
@@ -67,11 +67,24 @@
                       </li> -->
                     </ul>
                   </li>
-                  <li><a>
+                  <li><a >
                     <i class="fa fa-edit"></i> 订单管理 <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                          <li>
+                              <a href="http://121.42.175.1/orderlist">所有订单</a>
+                          </li>
+                    </ul>
                   </li>
-                  <li><a>
-                    <i class="fa fa-desktop"></i> 在线预订 <span class="fa fa-chevron-down"></span></a>
+                  <li><a >
+                    <i class="fa fa-beer"></i> 出去走走 <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li>
+                        <a href="/a3/">旅店与飞行器预定</a>
+                      </li>
+                      <li>
+                        <a href="/a3/admin/">管理员</a>
+                      </li>
+                     </ul>
                   </li>
                 </ul>
               </div>              
@@ -95,12 +108,6 @@
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li>
-                      <a href="/account/info"><i class="fa fa-sign-out pull-right"></i> 账户管理</a>
-                    </li>
-                    <li>
-                      <a href="/account/transaction"><i class="fa fa-sign-out pull-right"></i> 交易信息</a>
-                    </li>
                     <li>
                       <a href="/logout"><i class="fa fa-sign-out pull-right"></i> 退出登录</a>
                     </li>
@@ -251,7 +258,7 @@
                                 <td><%= trade_data[i].seller %></td>
                                 <td><%= trade_data[i].orderAmount %></td>
                                 <td><%= trade_data[i].orderStatus %></td>
-                                <td><a href='orderdetails?userID=<%= UserID %>&orderID=<%= trade_data[i].num %> '><input class='btn btn-info btn-small' type="submit" value="详细信息"/></a></td>
+                                <td><a href='orderdetails?userID=<%= UserID %>&orderID=<%= trade_data[i].orderID %> '><input class='btn btn-info btn-small' type="submit" value="详细信息"/></a></td>
                               </tr>
                               <% } %>
                               </tbody>
