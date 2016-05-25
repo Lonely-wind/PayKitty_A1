@@ -19,7 +19,7 @@ var account = require('./routes/account');
 var logout = require('./routes/logout');
 var api = require('./routes/api');
 
-
+var a3 = require('./bookingkitti-develop/app');
 
 
 
@@ -67,6 +67,9 @@ app.use('/register_sales',register_sales);
 app.use('/account',account);
 app.use('/logout',logout);
 app.use('/A1/API',api);
+app.use('/a3',a3);
+
+
 
 
 // catch 404 and forward to error handler
