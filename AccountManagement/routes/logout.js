@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
 	*/
 
 	req.session.user=null;
-	req.cookie.kitty=null;
+	req.cookies.kitty=null;
 
     res.redirect('/login');
 });
