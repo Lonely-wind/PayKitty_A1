@@ -92,7 +92,7 @@ router.route('/')
                             res.render('register_sales', { error : err}); 
                             return;
                         }
-                    };
+                    });
                     res.redirect('account/info');
                 }); 
             });
