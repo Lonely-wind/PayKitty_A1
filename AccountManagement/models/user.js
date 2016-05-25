@@ -133,39 +133,96 @@ User.delAccount = function delAccount(accountID) {
 
 };
 
-User.addMoney = function addMoney(accountID, amount) {
+User.addMoney = function addMoney(accountID, amount,callback) {
     var sql = "update UserAccount set Balance=Balance+"+amount+" where AccountID='"+accountID+"'";
     //console.log(sql);
     mysql.query(sql,function(err,results,fields){
-        console.log(results);
-        //callback(err,results);
+        //console.log("hahahahhaa");
+        //console.log(results);
+        callback(err,results);
     })
 
 };
 
-User.subMoney = function subMoney(accountID, amount) {
+User.subMoney = function subMoney(accountID, amount,callback) {
     var sql = "update UserAccount set Balance=Balance-"+amount+" where AccountID='"+accountID+"'";
     console.log('----------subMoney-----------------');
     mysql.query(sql,function(err,results,fields){
-        console.log(results);
-        //callback(err,results);
+        //console.log(results);
+        callback(err,results);
     })
 
 };
 
 
-User.writeDealer = function  writeDealer(DealerNo,name,address,state,callback) {
-    // 用户对象
-    //uuid = uid.v4();
-    //插入数据库
-    var sql ="insert into DealerAccount (DealerNo,Name,Address,State) values(?,?,?,?)";
+User.getTotalMessage = function getTotalMessage(accountID, callback) {
+    var sql = "select * from UserMessage where accountID='"+accountID+"'";
+    console.log(sql);
+    mysql.query(sql,function(err,results,fields){
+        console.log(results);
+        callback(err,results);
+    })
+};
 
-    mysql.query(sql,[DealerNo,name,address,state],function(err,results,fields){
-        if (err) {
-            throw err;
-        } else {
-            //返回用户id
-            return callback(err, DealerNo, fields);
+User.getClickedMessage = function getClickedMessage(accountID, backUrl, callback) {
+    var sql = "select * from UserMessage where accountID='" + accountID + "'" + " and isClick = false";
+    console.log(sql);
+    mysql.query(sql,function(err, results, fields){
+        var messages = new Array();
+        for(var i in results){
+            var date = new Date();
+            var date1 = new Date(results[i].MessageTime);
+            var time = "";
+            var time_diff = 0;
+            if(time_diff = (parseInt(date.getFullYear())- parseInt(date1.getFullYear()))){
+                time = time_diff + "年之前"
+            }
+            else if(time_diff = (parseInt(date.getMonth())- parseInt(date1.getMonth()))){
+                time = time_diff + "月之前"
+            }
+            else if(time_diff = (parseInt(date.getDate())- parseInt(date1.getDate()))){
+                time = time_diff + "天之前"
+            }
+            else if(time_diff = (parseInt(date.getHours())- parseInt(date1.getHours()))){
+                time = time_diff + "小时之前"
+            }
+            else if(time_diff = (parseInt(date.getMinutes())- parseInt(date1.getMinutes()))){
+                time = time_diff + "分钟之前"
+            }
+            else if(time_diff = (parseInt(date.getSeconds())- parseInt(date1.getSeconds()))){
+                time = time_diff + "秒之前"
+            }
+            var message = {
+                message : results[i].MessageContent,
+                time : time,
+                href : "/account"+ backUrl +"/message/" + results[i].MessageID + "/click",
+                sender : results[i].MessageSender
+            }
+            messages.push(message);
         }
+        callback(err, messages);
     });
+};
+
+User.clickMessage = function clickMessage(accountID, messageID) {
+    var sql = "update UserMessage set isClick = true where accountID='"+accountID+"' and messageID='"+messageID+"'";
+    mysql.query(sql,function(err,results,fields){
+        console.log(err);
+    });
+};
+
+User.clickAllMessage = function clickAllMessage(accountID) {
+    var sql = "update UserMessage set isClick = true where accountID='"+accountID+"'";
+    mysql.query(sql,function(err,results,fields){
+        console.log(err);
+    });
+};
+
+User.insertMessage = function insertMessage(data, callback) {
+    var sql = "Insert into UserMessage values(NULL, " + data.accountID + ", "+ data.sender + ", '" + data.message + "', NULL, default)";
+    console.log(sql);
+    mysql.query(sql,function(err,results,fields){
+        console.log(results);
+        callback(err);
+    })
 };
