@@ -166,7 +166,7 @@
                     <div class="page-title">
                       <div class="title_left">
                         <h3>
-                          交易记录
+                          商家记录
                         </h3>
                       </div>
                       <div class="title_right">
@@ -179,7 +179,7 @@
                       <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                           <div class="x_title">
-                            <h2>高级搜索</h2>
+                            <h2>交易总额：<%= total_account %>元</h2>
                             <ul class="nav navbar-right panel_toolbox">
                               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                               </li>
@@ -205,22 +205,24 @@
                                 <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
                               </span>
                           </div>
-                          <div style = "margin-top: 20px">
+                          <div style = "margin-top: 20px; margin-bottom: 20px" >
                             金额：&nbsp;
                             <input type="text" name = "low_money" placeholder="请填入金额下限" value = "<%= search.low_money ||''%>"></input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;
                             <input type="text" name = "upper_money" placeholder="请填入金额上限" value = "<%= search.upper_money ||''%>"></input>
-                          </div>
-                          <div style = "margin-top: 20px; margin-bottom: 20px">
-                            商品：&nbsp;&nbsp;<input type="text" name = "goods" placeholder="请填入商品名" value = "<%= search.goods ||''%>"></input>
                           </div>
 
                           <div class="form-group">信息：&nbsp;</div>
                             <div class="form-group">
                               <select class="selectpicker show-tick" id="myselector" data-size="3" name = "state" value = "2">
                                 <option text = "全部状态<">全部状态</option>
-                                <option text = "交易成功">交易成功</option> 
-                                <option text = "已付款">已付款</option>
-                                <option text = "未付款">未付款</option>                        
+                                <option text = "待付款">待付款</option> 
+                                <option text = "待商家确认">待商家确认</option>
+                                <option text = "已确认">已确认</option>                        
+                                <option text = "交易成功">交易成功</option>
+                                <option text = "交易关闭">交易关闭</option> 
+                                <option text = "待退款">待退款</option>
+                                <option text = "已退款">已退款</option>                        
+                                <option text = "退款失败">退款失败</option>
                               </select>
                             </div>
                             <input class='btn btn-info btn-large' href='javascript:;' type="submit" value="查询" style = "margin-left : 300px">
@@ -230,24 +232,22 @@
                             <table id="datatable" class="table table-striped table-bordered">
                               <thead>
                               <tr align="left" style="padding-top:10px">
-                                <th>编号</th>
+                                <th>订单编号</th>
                                 <th>下单时间</th>
-                                <th>商品</th>
-                                <th>商品数量</th>
-                                <th>收款金额</th>
+                                <th>收款金额(元)</th>
                                 <th>订单状态</th>
+                                <th>详细信息</th>
                               </tr>
                               </thead>
-         
+
                               <tbody>
                               <% for (var i in trade_data) { %>
                               <tr>
-                                <td><%= trade_data[i].num %></td>
-                                <td><%= trade_data[i].date%></td>
-                                <td><%= trade_data[i].goods %></td>
-                                <td><%= trade_data[i].number %></td>
-                                <td><%= trade_data[i].money %></td>
-                                <td><%= trade_data[i].state %></td>
+                                <td><%= trade_data[i].orderID %></td>
+                                <td><%= trade_data[i].orderTime %></td>
+                                <td><%= trade_data[i].orderAmount %></td>
+                                <td><%= trade_data[i].orderStatus %></td>
+                                <td><a href='orderdetails?userID=<%= UserID %>&orderID=<%= trade_data[i].orderID %> '><input class='btn btn-info btn-small' type="submit" value="详细信息"/></a></td>
                               </tr>
                               <% } %>
                               </tbody>
