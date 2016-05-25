@@ -172,7 +172,7 @@ User.subMoney = function subMoney(accountID, amount,callback) {
 
 
 User.getTotalMessage = function getTotalMessage(accountID, callback) {
-    var sql = "select * from UserMessage where accountID='"+accountID+"'";
+    var sql = "select * from usermessage where accountID='"+accountID+"'";
     console.log(sql);
     mysql.query(sql,function(err,results,fields){
         console.log(results);
@@ -181,7 +181,7 @@ User.getTotalMessage = function getTotalMessage(accountID, callback) {
 };
 
 User.getClickedMessage = function getClickedMessage(accountID, backUrl, callback) {
-    var sql = "select * from UserMessage where accountID='" + accountID + "'" + " and isClick = false";
+    var sql = "select * from usermessage where accountID='" + accountID + "'" + " and isClick = false";
     console.log(sql);
     mysql.query(sql,function(err, results, fields){
         var messages = new Array();
@@ -221,21 +221,21 @@ User.getClickedMessage = function getClickedMessage(accountID, backUrl, callback
 };
 
 User.clickMessage = function clickMessage(accountID, messageID) {
-    var sql = "update UserMessage set isClick = true where accountID='"+accountID+"' and messageID='"+messageID+"'";
+    var sql = "update usermessage set isClick = true where accountID='"+accountID+"' and messageID='"+messageID+"'";
     mysql.query(sql,function(err,results,fields){
         console.log(err);
     });
 };
 
 User.clickAllMessage = function clickAllMessage(accountID) {
-    var sql = "update UserMessage set isClick = true where accountID='"+accountID+"'";
+    var sql = "update usermessage set isClick = true where accountID='"+accountID+"'";
     mysql.query(sql,function(err,results,fields){
         console.log(err);
     });
 };
 
 User.insertMessage = function insertMessage(data, callback) {
-    var sql = "Insert into UserMessage values(NULL, " + data.accountID + ", "+ data.sender + ", '" + data.message + "', NULL, default)";
+    var sql = "Insert into usermessage values(NULL, " + data.accountID + ", "+ data.sender + ", '" + data.message + "', NULL, default)";
     console.log(sql);
     mysql.query(sql,function(err,results,fields){
         console.log(results);
