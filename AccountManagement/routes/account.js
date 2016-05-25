@@ -51,6 +51,9 @@ router.get('/info', function(req, res, next) {
 		console.log(data);
 	});
 	*/
+	console.log('===================================');
+	console.log(req.session);
+	console.log('===================================');
 	var nowID = req.session.user;
 	User.getInfo(nowID, function (err, user) { 
 		if (!user) 
