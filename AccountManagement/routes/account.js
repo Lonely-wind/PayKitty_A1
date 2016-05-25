@@ -8,6 +8,11 @@ var Transaction = require('../models/transaction');
 /* GET home page. */
 
 router.get('/', function(req, res, next) {
+	var post_data = { accountID : '123'};
+	Transaction.GetApi('/account/userInfoAPI', post_data, 5001, function (data) {
+		console.log("-------------Test GET API-----------");
+		console.log(data);
+	});
 	var nowID = '123';
 	var trade_data = [
 		{num: 1, date: '2016-3-27', seller: '厦门航空', money: -729, state: '交易成功'},
@@ -39,6 +44,12 @@ router.get('/info', function(req, res, next) {
 		console.log('No logining!');
 		return res.redirect('/login'); 
 	}
+	/*
+	Transaction.GetApi('/newlogin', req, 5002, function (data) {
+		console.log("-------------send a session-----------");
+		console.log(data);
+	});
+	*/
 	var nowID = req.session.user;
 	User.getInfo(nowID, function (err, user) { 
 		if (!user) 
@@ -394,7 +405,7 @@ router.post('/userInfoAPI', function(req, res, next) {
 		  return res.redirect('/reg'); 
 		} 
 
-		res.render('userInfoAPI', {data: JSON.stringify(user)});
+		res.send({data: JSON.stringify(user)});
 	});
 
 
@@ -414,7 +425,7 @@ router.post("/addmoney",function(req,res,next) {
 			error="NO";
 		console.log(error);
 		result={result:error};
-	res.render('userInfoAPI',{data:JSON.stringify(result)});
+	res.send({data:JSON.stringify(result)});
 
 	});
 	//console.log(error);
@@ -440,14 +451,14 @@ router.post("/submoney",function(req,res,next) {
 				error="OK";
 			console.log(error);
 			show_data={result:error};
-			res.render('userInfoAPI',{data:JSON.stringify(show_data)});
+			res.send({data:JSON.stringify(show_data)});
 
 	});
 
 		}
 		else{
 			show_data={result:"NoEnoughMoney"};
-			res.render('userInfoAPI',{data:JSON.stringify(show_data)});
+			res.send({data:JSON.stringify(show_data)});
 		}
 
 	});
