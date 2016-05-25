@@ -33,3 +33,19 @@ Dealer.prototype.save = function  save(callback) {
         }
     });
 };
+
+Dealer.getInfo = function getInfo(accountID, callback) {
+
+    // 读取 users 集合
+    var sql = "select * from DealerAccount where DealerNo='"+accountID+"'";
+    //console.log(sql);
+    mysql.query(sql,function(err,results,fields){
+        if(err){
+            throw err;
+        }else{
+            //console.log(results[0]);
+            callback(err,results[0],fields);
+        }
+    })
+
+};

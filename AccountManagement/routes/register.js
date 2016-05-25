@@ -4,6 +4,7 @@ var  client = require('../database');
 var mysql = client.getDbCon();
 var  uid = require('../utils/uuid');//用于生成id
 var User = require('../models/user');
+var Transaction = require('../models/transaction');
 
 var uuid = uid.v4();
 /* GET users listing. */
@@ -80,6 +81,11 @@ router.route('/')
                  } 
                 User.getUserByName(newUser.name, function (err, user) {
                     req.session.user = user.AccountID.toString();
+                    var post_data = { accountID : '123'};
+                    Transaction.GetApi('/register_sales/getDealerInfo', post_data, 5001, function (data) {
+                        console.log("-------------Test GET API-----------");
+                        console.log(data);
+                    });
                     res.redirect('account/info');
                 }); 
             });

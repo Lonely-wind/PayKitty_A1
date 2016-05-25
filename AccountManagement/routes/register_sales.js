@@ -5,6 +5,7 @@ var mysql = client.getDbCon();
 var  uid = require('../utils/uuid');//用于生成id
 var User = require('../models/user');
 var Dealer = require('../models/dealer');
+var Transaction = require('../models/transaction');
 
 var uuid = uid.v4();
 /* GET users listing. */
@@ -12,6 +13,26 @@ router.get('/', function(req, res, next) {
   res.render('register_sales',{title : 'Express' ,
                         error: ''
                         });
+});
+
+router.post('/getDealerInfo', function(req, res, next) {
+    
+    console.log("here");
+    console.log(req.body.accountID);
+    console.log(req.body);
+    var nowID = req.body.accountID;
+    Dealer.getInfo(nowID, function (err, user) { 
+        if (!user) 
+          err = 'No such an account.'; 
+        if (err) { 
+          req.flash('error', err); 
+          return res.redirect('/reg'); 
+        } 
+
+        res.send({data: JSON.stringify(user)});
+    });
+
+
 });
 
 router.route('/')
@@ -94,7 +115,19 @@ router.route('/')
                         if(err) {
                             return res.redirect('register_sales');
                         }
-                        return res.redirect('account/info');
+                        var post_data = { realName: newUser.realname, idNumber: newUser.IdNo};
+                        Transaction.GetApi('A5/API/authentication', post_data, 5001, function (data) {
+                            console.log("-------------Test GET API-----------");
+                            console.log(data);
+                            if (data.result == 'Accept') {
+                                return res.redirect('account/info');
+                            } else {
+                                err = '实名认证失败！';
+                                res.render('register_sales', { error : err}); 
+                                return;
+                            }
+                        });
+                        return  res.redirect('register_sales');                         
                      });  
                 }); 
 
