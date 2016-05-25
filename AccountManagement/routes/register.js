@@ -89,7 +89,7 @@ router.route('/')
                     return;
                 }
                 var post_data = { realName: newUser.realname, idNumber: newUser.IdNo};
-                Transaction.GetApi('/A5/API/authentication', post_data, 5001, function (data) {
+                Transaction.GetApi('http://121.42.175.1/A5/API/authentication', post_data, 5005, function (data) {
                     console.log("-------------Test GET API-----------");
                     console.log(data);
                     if (data.result == '0') {
