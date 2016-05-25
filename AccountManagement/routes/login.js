@@ -16,6 +16,12 @@ router.route('/')
 
 .post(function(req, res) {
 
+    if (req.body['Loginuser'] == '' || req.body['Loginpass'] == '') {
+        var err = "用户名或密码不能为空！";
+        res.render('register_sales', {error : err});
+        return;
+    }
+
     var state;
     if (req.body.user_type === "0") {
         state = 0;

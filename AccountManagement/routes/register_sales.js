@@ -42,6 +42,12 @@ router.route('/')
                             });
 })*/
 .post(function(req, res) {
+    if (req.body['Reguser'] == '' || req.body['Regpass'] == '') {
+        var err = "用户名或密码不能为空！";
+        res.render('register_sales', {error : err});
+        return;
+    }
+
     if(req.body['Regrepass']!=req.body['Regpass']){
         var err = "两次密码不相同！";
         res.render('register_sales', { error : err});
