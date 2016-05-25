@@ -8,8 +8,8 @@ var Transaction = require('../models/transaction');
 /* GET home page. */
 
 router.get('/', function(req, res, next) {
-	var post_data = { accountID : '123'};
-	Transaction.GetApi('/A1/API/userInfoAPI', post_data, 5001, function (data) {
+	var post_data = { accountID : '224'};
+	Transaction.GetApi('/A1/API/getDealerInfo', post_data, 5001, function (data) {
 		console.log("-------------Test GET API-----------");
 		console.log(data);
 	});

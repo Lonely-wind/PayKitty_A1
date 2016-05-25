@@ -43,7 +43,8 @@ Dealer.getInfo = function getInfo(accountID, callback) {
         if(err){
             throw err;
         }else{
-            //console.log(results[0]);
+            console.log(results[0]);
+            console.log('**************************************');
             callback(err,results[0],fields);
         }
     })

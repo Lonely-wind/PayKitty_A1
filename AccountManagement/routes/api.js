@@ -3,6 +3,7 @@ var router = express.Router();
 
 var User = require('../models/user');
 var Transaction = require('../models/transaction');
+var Dealer = require('../models/dealer');
 
 router.post('/userMessageAPI', function(req, res, next) {
 	var result, message, orderID, sender, accountID;
@@ -92,6 +93,26 @@ router.post('/userInfoAPI', function(req, res, next) {
 
 });
 
+
+router.post('/getDealerInfo', function(req, res, next) {
+    
+    console.log("here");
+    console.log(req.body.accountID);
+    console.log(req.body);
+    var nowID = req.body.accountID;
+    Dealer.getInfo(nowID, function (err, user) { 
+        if (!user) 
+          err = 'No such an account.'; 
+        if (err) { 
+          req.flash('error', err); 
+          return res.redirect('/reg'); 
+        } 
+
+        res.send({data: JSON.stringify(user)});
+    });
+
+
+});
 
 router.post("/addmoney",function(req,res,next) {
 	//console.log(req.body);
