@@ -4,11 +4,12 @@ var  client = require('../database');
 var mysql = client.getDbCon();
 var  uid = require('../utils/uuid');//用于生成id
 var User = require('../models/user');
+var Dealer = require('../models/dealer');
 
 var uuid = uid.v4();
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.render('register',{title : 'Express' ,
+  res.render('register_sales',{title : 'Express' ,
                         error: ''
                         });
 });
@@ -22,30 +23,31 @@ router.route('/')
 .post(function(req, res) {
     if(req.body['Regrepass']!=req.body['Regpass']){
         var err = "两次密码不相同！";
-        res.render('register', { error : err});
+        res.render('register_sales', { error : err});
         return;
     }
 
     var emailtest = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     if (!emailtest.test(req.body.Regemail)) {
         var err = '错误的邮箱格式！';
-        res.render('register', { error : err});
+        res.render('register_sales', { error : err});
         return;
     }
 
     var phonetest = /^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/;
     if (!phonetest.test(req.body.Regmobi)) {
         var err = '错误的手机号！';
-        res.render('register', { error : err});
+        res.render('register_sales', { error : err});
         return;
     }
 
     var idtest = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
     if (!idtest.test(req.body.Regid)) {
         var err = '错误的身份证号！';
-        res.render('register', { error : err});
+        res.render('register_sales', { error : err});
         return;
     }
+
 
 
     var  newUser =  new  User({ 
@@ -54,15 +56,21 @@ router.route('/')
         realname: req.body.Regname,
         phone: req.body.Regmobi,
         email: req.body.Regemail,
-        Type: 0,
+        Type: 1,
         IdNo: req.body.Regid
     }); 
-
+    console.log(newUser);
+    var newDealer = new Dealer({
+        DealerNo : 0,
+        name: req.body.SalesName,
+        address: req.body.SalesAddress,
+        state: 'Normal'
+    })
     User.getUserByName(newUser.name, function (err, user) { 
         if (user) 
           err = '用户名已经存在！'; 
         if (err) { 
-            res.render('register', { error : err});
+            res.render('register_sales', { error : err});
             return;
         } 
 
@@ -70,18 +78,28 @@ router.route('/')
             if (user) 
               err = '邮箱已经存在！'; 
             if (err) { 
-                res.render('register', { error : err}); 
+                res.render('register_sales', { error : err}); 
                 return;
             } 
 
             newUser.save(function (err) { 
                 if (err) { 
-                     return  res.redirect('register'); 
+                     return  res.redirect('register_sales'); 
                  } 
                 User.getUserByName(newUser.name, function (err, user) {
                     req.session.user = user.AccountID.toString();
-                    res.redirect('account/info');
+                    newDealer.DealerNo = req.session.user;
+                    console.log(newDealer);
+                     newDealer.save(function (err) {
+                        if(err) {
+                            return res.redirect('register_sales');
+                        }
+                        return res.redirect('account/info');
+                     });  
                 }); 
+
+
+
             });
         });
     });

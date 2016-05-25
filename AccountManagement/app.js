@@ -14,6 +14,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var login = require('./routes/login');
 var register = require('./routes/register');
+var register_sales = require('./routes/register_sales')
 var account = require('./routes/account');
 var logout = require('./routes/logout');
 
@@ -47,6 +48,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/login',login);
 app.use('/register',register);
+app.use('/register_sales',register_sales);
 app.use('/account',account);
 app.use('/logout',logout);
 
