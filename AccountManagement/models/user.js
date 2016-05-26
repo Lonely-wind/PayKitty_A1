@@ -149,13 +149,13 @@ User.delAccount = function delAccount(accountID) {
 
 };
 
-User.addMoney = function addMoney(accountID, amount,callback) {
+User.addMoney = function addMoney(accountID, amount) {
     var sql = "update UserAccount set Balance=Balance+"+amount+" where AccountID='"+accountID+"'";
     //console.log(sql);
     mysql.query(sql,function(err,results,fields){
         //console.log("hahahahhaa");
         //console.log(results);
-        callback(err,results);
+        ////callback(err,results);
     })
 
 };
@@ -240,5 +240,87 @@ User.insertMessage = function insertMessage(data, callback) {
     mysql.query(sql,function(err,results,fields){
         console.log(results);
         callback(err);
+    })
+};
+
+
+
+User.getUserByPID = function getUserByPID(PID, callback) {
+
+    // 读取 users 集合
+    var sql = "select Name from UserAccount where AccountName='"+PID+"'";
+    console.log('test--------------');
+    console.log(sql);
+    mysql.query(sql,function(err,results,fields){
+        if(err){
+            throw err;
+        }else{
+            console.log(results[0].Name);
+            callback(err,results[0].Name,fields);
+        }
+    })
+};
+
+User.deletePID = function deletePID(Num, PID, Accountid ,callback) {
+
+    // 读取 users 集合
+    var sql = "update UserAccount set " + Num + "= NULL where AccountID='"+Accountid+"' and " + Num + "='" + PID + "'";
+    var sql1 = "delete from PaymentAccount where PaymentNo='"+PID+"'";
+    console.log('test--------------');
+    console.log(sql);
+    mysql.query(sql,function(err,results,fields){
+        if(err){
+            throw err;
+        }else{
+                mysql.query(sql1,function(err,results1,fields){
+                    console.log(results);
+                    callback(err);
+                })
+        }
+    })
+};
+
+User.addPID = function addPID(PID, Num, Accountid, callback) {
+
+    // 读取 users 集合
+    var sql = "Insert into paymentaccount values('" + PID + "', 'ICBC',  '6288888888888888' ,'Normal')";
+    var sql1 = "update UserAccount set" + Num + "='" + PID + "'where AccountID='"+Accountid+"'";
+    console.log('test--------------');
+    console.log(sql);
+    mysql.query(sql,function(err,results,fields){
+        if(err){
+            throw err;
+        }else{
+                mysql.query(sql1,function(err,results1,fields){
+                    console.log(results);
+                    callback(err);
+                })
+        }
+    })
+};
+
+User.tranSubmit = function tranSubmit(transfer_num, user_id, Accountid, callback) {
+
+    // 读取 users 集合
+    var sql = "select Balance from UserAccount where Accountid='" + Accountid + "'"
+    var sql2 = "update UserAccount set Balance = Balance + " + transfer_num + " where Name='"+user_id+"'";
+    console.log('test--------------');
+    console.log(sql2);
+    mysql.query(sql,function(err,results,fields){
+        if(err){
+            throw err;
+        }else{
+                var new_balance = parseFloat(results[0].Balance) - parseFloat(transfer_num);
+                var sql1 = "update UserAccount set Balance ='" + new_balance + "'where AccountID='"+Accountid+"'";
+                mysql.query(sql1,function(err,results1,fields){
+                    mysql.query(sql2,function(err,results2,fields){
+                        console.log(results2);
+                        // var trans_balance = parseFloat(results2[0].Balance) + parseFloat(transfer_num);
+                        // var sql3 = "update UserAccount set Balance ='" + trans_balance + "'where Name='"+user_id+"'";
+                        console.log(results);
+                        callback(err);
+                    })
+                })
+        }
     })
 };

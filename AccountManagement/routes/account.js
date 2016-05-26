@@ -76,19 +76,20 @@ router.get('/info', function(req, res, next) {
 });
 
 router.post('/info', function(req, res, next) {
+	console.log(req.body);
 	if(!req.session.user){
 		console.log('No logining!');
 		return res.redirect('/login'); 
 	}
 	var nowID = req.session.user;
-	console.log("----------get user info change------------");
-	console.log(req.body);
+	//console.log("----------get user info change------------");
+	//console.log(req.body);
 	if (req.body.submitBtn == 'recharge'){
 		User.addMoney(nowID,req.body.amount);
 		res.redirect('info');
 	}
 	else if (req.body.bankaccount) {
-		
+		console.log("ssss--------sssssss");
 		User.getUserByPID(req.body.bankaccount, function(err, username){
 			if (err) {
 				console.log(err);
@@ -100,30 +101,145 @@ router.post('/info', function(req, res, next) {
 				  req.flash('error', err); 
 				  return res.redirect('/reg'); 
 				} 
-				console.log("---------------account_info---------------");
+				//console.log("---------------account_info---------------");
 				//console.log(user);
 				User.getClickedMessage(req.session.user, "/info", function (err, messages) {
 						if(!username){
 							username = "";
 						}
-						var win_message = ".click()";
+						var win_message = ".click();"
 						var render_data = JSON.parse(JSON.stringify(user).replace(/\}\s*$/g,"") + "," + JSON.stringify({message : messages, user_pid : username, win_message: win_message, user_balance: req.body.amount}).replace(/^\s*\{/g,""));
 						//console.log(JSON.stringify({win_message:win_message}));
 						//render_data.message = win_message;
+						//console.log(render_data);
 						res.render('account_info', render_data);	
 				});		
 			});
 
 		});
 	}
+	else if(req.body.button_type == "10" || req.body.button_type == "20" || req.body.button_type == "30" || req.body.button_type == "40"){
+		if (req.body.button_type == "10"){
+			User.deletePID("Payment1", req.body.pid_num, req.body.account_id, function(err) {
+				User.getInfo(nowID, function (err, user) { 
+					if (!user) 
+					  err = 'No such an account.'; 
+					if (err) { 
+					  req.flash('error', err); 
+					  return res.redirect('/reg'); 
+					} 
+					console.log("---------------account_info---------------");
+					//console.log(user);
+					User.getClickedMessage(req.session.user, "/info", function (err, messages) {
+								var win_message = "";
+								var render_data = JSON.parse(JSON.stringify(user).replace(/\}\s*$/g,"") + "," + JSON.stringify({message : messages, user_pid : '', win_message: win_message, user_balance: ''}).replace(/^\s*\{/g,""));							res.render('account_info', render_data);
+								res.render('account_info', render_data);	
+					});
+				});		
+			});
+		}
+		else if(req.body.button_type == "20"){
+			User.deletePID("Payment2", req.body.pid_num, req.body.account_id, function(err) {
+				User.getInfo(nowID, function (err, user) { 
+					if (!user) 
+					  err = 'No such an account.'; 
+					if (err) { 
+					  req.flash('error', err); 
+					  return res.redirect('/reg'); 
+					} 
+					console.log("---------------account_info---------------");
+					//console.log(user);
+					User.getClickedMessage(req.session.user, "/info", function (err, messages) {
+								var win_message = "";
+								var render_data = JSON.parse(JSON.stringify(user).replace(/\}\s*$/g,"") + "," + JSON.stringify({message : messages, user_pid : '', win_message: win_message, user_balance: ''}).replace(/^\s*\{/g,""));							res.render('account_info', render_data);
+								res.render('account_info', render_data);	
+					});
+				});		
+			});
+
+		}
+		else if(req.body.button_type == "30"){
+			User.deletePID("Payment3", req.body.pid_num, req.body.account_id, function(err) {
+				User.getInfo(nowID, function (err, user) { 
+					if (!user) 
+					  err = 'No such an account.'; 
+					if (err) { 
+					  req.flash('error', err); 
+					  return res.redirect('/reg'); 
+					} 
+					console.log("---------------account_info---------------");
+					//console.log(user);
+					User.getClickedMessage(req.session.user, "/info", function (err, messages) {
+								var win_message = "";
+								var render_data = JSON.parse(JSON.stringify(user).replace(/\}\s*$/g,"") + "," + JSON.stringify({message : messages, user_pid : '', win_message: win_message, user_balance: ''}).replace(/^\s*\{/g,""));							res.render('account_info', render_data);
+								res.render('account_info', render_data);	
+					});
+				});		
+			});		
+		}
+		else{
+			User.deletePID("Payment4", req.body.pid_num, req.body.account_id, function(err) {
+				User.getInfo(nowID, function (err, user) { 
+					if (!user) 
+					  err = 'No such an account.'; 
+					if (err) { 
+					  req.flash('error', err); 
+					  return res.redirect('/reg'); 
+					} 
+					console.log("---------------account_info---------------");
+					//console.log(user);
+					User.getClickedMessage(req.session.user, "/info", function (err, messages) {
+								var win_message = "";
+								var render_data = JSON.parse(JSON.stringify(user).replace(/\}\s*$/g,"") + "," + JSON.stringify({message : messages, user_pid : '', win_message: win_message, user_balance: ''}).replace(/^\s*\{/g,""));							res.render('account_info', render_data);
+								res.render('account_info', render_data);	
+					});
+				});		
+			});
+
+		}
+	}
+	else if(req.body.pid_num111){
+			//console(" =.=" + req.body.button_type);
+			User.tranSubmit(req.body.pid_num111, req.body.button_type111, req.body.account_id111, function(err) {
+				User.getInfo(nowID, function (err, user) { 
+					if (!user) 
+					  err = 'No such an account.'; 
+					if (err) { 
+					  req.flash('error', err); 
+					  return res.redirect('/reg'); 
+					} 
+					console.log("---------------account_info---------------");
+					//console.log(user);
+					User.getClickedMessage(req.session.user, "/info", function (err, messages) {
+								var win_message = "";
+								var render_data = JSON.parse(JSON.stringify(user).replace(/\}\s*$/g,"") + "," + JSON.stringify({message : messages, user_pid : '', win_message: win_message, user_balance: ''}).replace(/^\s*\{/g,""));							res.render('account_info', render_data);
+								res.render('account_info', render_data);	
+					});
+				});		
+			});
+	}
+	else if(req.body.bank_account222){
+		//console(" =.=" + req.body.button_type);
+		User.addPID(req.body.pid_num111, req.body.button_type111, req.body.account_id111, function(err) {
+			User.getInfo(nowID, function (err, user) { 
+				if (!user) 
+				  err = 'No such an account.'; 
+				if (err) { 
+				  req.flash('error', err); 
+				  return res.redirect('/reg'); 
+				} 
+				console.log("---------------account_info---------------");
+				//console.log(user);
+				User.getClickedMessage(req.session.user, "/info", function (err, messages) {
+							var win_message = "";
+							var render_data = JSON.parse(JSON.stringify(user).replace(/\}\s*$/g,"") + "," + JSON.stringify({message : messages, user_pid : '', win_message: win_message, user_balance: ''}).replace(/^\s*\{/g,""));							res.render('account_info', render_data);
+							res.render('account_info', render_data);	
+				});
+			});		
+		});
+	}
 	else{
 		User.setInfo(nowID,req.body, function (err,result){
-			/*
-			console.log("---------err--------------");
-			console.log(err);
-			console.log("---------result--------------");
-			console.log(result);
-			*/
 			if (err) {
 				console.log(err);
 			}
@@ -131,6 +247,7 @@ router.post('/info', function(req, res, next) {
 		res.redirect('info');
 	}
 });
+
 
 
 

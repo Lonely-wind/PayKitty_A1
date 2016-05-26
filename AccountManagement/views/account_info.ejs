@@ -111,6 +111,12 @@
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
                     <li>
+                      <a href="/account/info"><i class="fa fa-sign-out pull-right"></i> 账户管理</a>
+                    </li>
+                    <li>
+                      <a href="/account/transaction"><i class="fa fa-sign-out pull-right"></i> 交易信息</a>
+                    </li>
+                    <li>
                       <a href="/logout"><i class="fa fa-sign-out pull-right"></i> 退出登录</a>
                     </li>
                   </ul>
@@ -277,7 +283,10 @@
                         <table id="datatable" class="table table-striped table-bordered">
                           <thead>
                           <tr>
-                            <th>已绑定的银行卡</th>
+                            <th>已绑定的银行卡
+                              <button type="button" class="btn btn-success" href="javascript:;"  id="addcard0">添加银行卡</button>
+                            </th>
+
                           </tr>
                           </thead>
                          </table>
@@ -344,9 +353,10 @@
 
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <button type="button" class="btn btn-primary" href="javascript:;" id="recharge">充值</button>
+                          <button type="button" class="btn btn-primary" href="javascript:;"  id="recharge">充值</button>
                           <button type="button" class="btn btn-success" href="javascript:;"  id="transfer">转账</button>
                         </div>
+
                       </div>
                     </div>
 
@@ -374,11 +384,12 @@
                         </form>
                       </div>
 
-<form action="" method="post" id="card_form">
+        <form action="" method="post" id="card_form" name="card_form">
               <input type = "text" style= "display:none" name="button_type" value = "0" id="button_type">
               <input type = "text" style= "display:none" name="pid_num" value = "" id="pid_num">
-        </form>
+              <input type = "text" style= "display:none" name="account_id" value = "" id="account_id">
 
+        </form>
 
                 </div>
               </div>
@@ -434,14 +445,14 @@
                 <ul class="list">
                     <li>
                         <div class="input-group input-group-sm">
-                            <span class="input-group-addon">银行卡号</span>
-                            <input type="text" class="form-control" name="bankaccount" id="" placeholder="银行卡号" autocomplete="off" />
+                            <span class="input-group-addon">用户账号</span>
+                            <input type="text" class="form-control" name="bankaccount" id="" placeholder="用户账号" autocomplete="off" />
                         </div>
                     </li>
                     <li>
                       <div class="input-group input-group-sm">
                             <span class="input-group-addon">支付密码</span>
-                            <input type="password" class="form-control" name="paypasswd" id="" placeholder="支付密码" autocomplete="off" />
+                            <input type="password" class="form-control" name="paypasswd1" id="paypasswd1" placeholder="支付密码" autocomplete="off" />
                         </div>
                         
                     </li>
@@ -460,25 +471,50 @@
         </div>
 
           <div id="VBox" class="animated" style="display:none" title="账户验证">
-            <form action="" method="post" id="transfer_form" onsubmit="return false;">
+            <form method="post" id="transfer_form111" name = "transfer_form111">
                 <ul class="list">
                     <li>
                         <div class="input-group input-group-sm">
-                            <span class="input-group-addon">是否向</span>
-                            <span class="input-group-addon" name = 'user_pidname' value = '<%= user_pid %>'><%= user_pid %></span>
-                            <span class="input-group-addon" name = 'user_transb' value = '<%= user_balance %>'>转账<%= user_balance %></span>
+                            <span class="input-group-addon">是否向<%= user_pid %>转账<%= user_balance %>元</span>
+              <input type = "text" style= "display:none" name="button_type111" value = "0" id="button_type111">
+              <input type = "text" style= "display:none" name="pid_num111" value = "" id="pid_num111">
+              <input type = "text" style= "display:none" name="account_id111" value = "" id="account_id111"
                         </div>
                     </li>
 
                     <li>
-                    <input type="submit" name="submitBtn3" value="确认" id="sub_admit" class="btn btn-info" align="center" onclick="admit()"/>
-                    </li>
-                    <li>
-                    <input type="submit" name="submitBtn4" value="取消" id="sub_cancel" class="btn btn-info" align="center" onclick="cancel()"/>
+                    <a  id="sub_admit111" onclick="admit()"> <input type="submit" name="submitBtn3" value="确认" id="sub_admit" class="btn btntinfo" align="center" /></a>
+                    <a><input type="submit" name="submitBtn4" value="取消" id="sub_cancel" class="btn btn-info" align="center" onclick="cancel()"/></a>
                     </li>
                 </ul>
             </form>
         </div>
+        
+        <div id="SBox" class="animated" style="display:none" title="添加银行卡">
+            <form action="" method="post" id="bank_add222" onsubmit="return false;">
+                <ul class="list">
+                    <li>
+                      <div class="input-group input-group-sm">
+                            <span class="input-group-addon">银行帐号</span>
+                            <input  type="text" class="form-control" name="bank_account222" id="back_account222" placeholder="银行帐号" autocomplete="off" />
+                        </div>
+                        
+                    </li>
+                    <li>
+                         <div class="input-group input-group-sm">
+                            <span class="input-group-addon">银行密码</span>
+                            <input type="password" class="form-control" name="bank_password222" id="bank_password222" placeholder="帐号密码" autocomplete="off" />
+                        </div> 
+                    </li>
+                    
+                    <li>
+                    <input type="submit" name="submitBtn222" value="确认提交" id="sub222" class="btn btn-info" align="center" onclick="bank_submit222()"/>
+                    </li>
+                </ul>
+            </form>
+        </div>
+
+        <button type="button" class="btn btn-success" href="javascript:;"  id="verification" style="DISPLAY:none">verygood</button>
   </body>
 
     <script src="/A1/javascripts/jquery.min.js"></script>
@@ -520,15 +556,19 @@
         function checkamount(){
             var remain = <%= Balance %>;
             var trans = document.getElementById('transamount').value;
+            var paypass = document.getElementById('paypasswd1').value;
+            var remainpass = <%= Password %>;
             var remain_float = parseFloat(remain);
             var trans_float = parseFloat(trans);
             var form = document.getElementById("transfer_form");
             
-            console.log(trans);
-            console.log(remain);console.log(trans_float);
-            console.log(remain_float);
+            console.log(paypass);
+            console.log(remainpass);
             if(trans_float > remain_float){
               alert("金额不足");
+            }
+            else if(paypass != remainpass){
+              alert("密码错误");
             }
             else{
               form.submit();
@@ -567,62 +607,45 @@
         function showcard(){
           if (!'<%= Payment1 %>'){
               var tr_id = 'pay1';
-              document.getElementById('pay11').value = '未绑定';
-              document.getElementById('addcard1').innerHTML = '添加';
+              document.getElementById('pay1').style.display = 'none';
               //document.getElementById(tr_id).value='未绑定';
           }
           if (!'<%= Payment2 %>'){
               var tr_id = 'pay2';
-              document.getElementById('pay22').value = '未绑定';
-              document.getElementById('addcard2').innerHTML = '添加';
-              //document.getElementById(tr_id).value='未绑定';
+              document.getElementById('pay2').style.display = 'none';
+               //document.getElementById(tr_id).value='未绑定';
           }
           if (!'<%= Payment3 %>'){
               var tr_id = 'pay3';
-              document.getElementById('pay33').value = '未绑定';
-              document.getElementById('addcard3').innerHTML = '添加';
+              document.getElementById('pay3').style.display = 'none';
+              //document.getElementById('addcard3').innerHTML = '添加';
               //document.getElementById(tr_id).value='未绑定';
           }
           if (!'<%= Payment4 %>'){
               var tr_id = 'pay4';
-              document.getElementById('pay44').value = '未绑定';
-              document.getElementById('addcard4').innerHTML = '添加';
+              document.getElementById('pay4').style.display = 'none';
+              //document.getElementById('addcard4').innerHTML = '添加';
               //document.getElementById(tr_id).value='未绑定';
           }
         }
 
         function change_pid(button,buttonid,textid){
+            document.getElementById("account_id").value= "<%= AccountID %>";
             if(buttonid=="addcard1" && button == "删除"){
                 document.getElementById("button_type").value="10";
-                document.getElementById("pid_num").value="";
-            }
-            else if(buttonid=="addcard1" && button == "添加"){
-                document.getElementById("button_type").value="11";
-                document.getElementById("pid_num").value=document.getElementById('pay11').value;
+                document.getElementById("pid_num").value="<%= Payment1 %>";
             }
             else if(buttonid=="addcard2" && button == "删除"){
                 document.getElementById("button_type").value="20";
-                document.getElementById("pid_num").value="";
-            }
-            else if(buttonid=="addcard2" && button == "添加"){
-                document.getElementById("button_type").value="21";
-                document.getElementById("pid_num").value=document.getElementById('pay22').value;
+                document.getElementById("pid_num").value="<%= Payment2 %>";
             }
             else if(buttonid=="addcard3" && button == "删除"){
                 document.getElementById("button_type").value="30";
-                document.getElementById("pid_num").value="";
-            }
-            else if(buttonid=="addcard3" && button == "添加"){
-                document.getElementById("button_type").value="31";
-                document.getElementById("pid_num").value=document.getElementById('pay33').value;
-            }
-            else if(buttonid=="addcard4" && button == "删除"){
-                document.getElementById("button_type").value="40";
-                document.getElementById("pid_num").value="";
+                document.getElementById("pid_num").value="<%= Payment3 %>";
             }
             else{
-                document.getElementById("button_type").value="41";
-                document.getElementById("pid_num").value=document.getElementById('pay44').value;
+                document.getElementById("button_type").value="40";
+                document.getElementById("pid_num").value="<%= Payment4 %>";
             }
             var form =  document.getElementById("card_form");
             //var temp = form.getElementById("pay11");
@@ -632,8 +655,22 @@
             //alert("hello");
         }
 
+        function cancel(){
+          window.location.href='/account/info';
+        }
 
+        function admit(){
+          document.getElementById("account_id111").value = "<%= AccountID %>";
+          document.getElementById("button_type111").value = "<%= user_pid %>";
+          document.getElementById("pid_num111").value = "<%= user_balance %>";
+          var form =  document.getElementById("transfer_form111");
+          form.submit();
+        }
 
+        function bank_submit222(){
+            var form = document.getElementById("bank_add222");
+            form.submit();
+        }
 
         function firm() {
           console.log("firm()");
@@ -665,13 +702,18 @@ $(function(){
                 
                 $el.hDialog('close',{box:'#VBox'}); 
     });
-
+    $('#addcard0').hDialog({'box':'#SBox'});
+    $('#sub222').click(function() {
+                //$el.hDialog('close',{box:'#HBox'},'http://smwell.sinaapp.com/');  //也可以加跳转链接哦~
+                
+                $el.hDialog('close',{box:'#SBox'}); 
+    });
 });
 
 window.onload=function()
 {
-  $('#verification')<%= win_message %>;
   showcard();
+  $('#verification')<%= win_message %>;
 }
 </script>
 
