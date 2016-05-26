@@ -134,6 +134,13 @@ User.setInfo = function setInfo(accountID, user, callback) {
 
 };
 
+User.delMessage = function delMessage(accountID) {
+    var sql = "delete from UserMessage where AccountID='"+accountID+"'";
+    mysql.query(sql,function(err,results,fileds){
+        
+    })
+};
+
 User.delAccount = function delAccount(accountID) {
 
     var sql = "delete from UserAccount where AccountID='"+accountID+"'";

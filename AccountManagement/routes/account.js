@@ -567,6 +567,7 @@ router.get('/test/userMessageAPI', function(req, res, next) {
 router.get('/delete', function(req, res, next) {
 	var nowID = req.session.user;
 	User.getInfo(nowID,function(err,result,fileds){
+		User.delMessage(nowID);
 		if(result["Type"]==1){
 			Dealer.delAccount(result["DealerNo"]);
 		}
