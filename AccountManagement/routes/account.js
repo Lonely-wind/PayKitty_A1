@@ -220,7 +220,7 @@ router.post('/info', function(req, res, next) {
 	}
 	else if(req.body.bank_account222){
 		//console(" =.=" + req.body.button_type);
-		User.addPID(req.body.pid_num111, req.body.button_type111, req.body.account_id111, function(err) {
+		User.addPID(req.body.bank_account222, req.body.bank_num222, req.session.user, function(err) {
 			User.getInfo(nowID, function (err, user) { 
 				if (!user) 
 				  err = 'No such an account.'; 

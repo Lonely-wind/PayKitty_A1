@@ -271,7 +271,7 @@
 
                     <div class="x_panel">
                       <div class="x_title">
-                        <h2>账户信息</h2>
+                        <h2>银行卡信息</h2>
                         <ul class="nav navbar-right panel_toolbox">
                           <li>
                             <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -419,7 +419,22 @@
                     <li>
                         <div class="input-group input-group-sm">
                             <span class="input-group-addon">银行卡号</span>
-                            <input type="text" class="form-control" name="bankaccount"  placeholder="银行卡号" autocomplete="off" />
+
+                            <select class="form-control selectpicker show-tick" name = "bankaccount">
+                                <% if(Payment1){ %>
+                                <option text = "<%= Payment1 %>"><%= Payment1 %></option>
+                                <% } %>
+                                <% if(Payment2){ %>
+                                <option text = "<%= Payment2 %>"><%= Payment2 %></option>
+                                <% } %>
+                                <% if(Payment3){ %>
+                                <option text = "<%= Payment3 %>"><%= Payment3 %></option>
+                                <% } %>
+                                <% if(Payment4){ %>
+                                <option text = "<%= Payment4 %>"><%= Payment4 %></option>
+                                <% } %>
+                            </select>                           
+<!--                            <input type="text" class="form-control" name="bankaccount"  placeholder="银行卡号" autocomplete="off" /> -->
                         </div>
                     </li>
                     <li>
@@ -446,7 +461,7 @@
                     <li>
                         <div class="input-group input-group-sm">
                             <span class="input-group-addon">用户账号</span>
-                            <input type="text" class="form-control" name="bankaccount" id="" placeholder="用户账号" autocomplete="off" />
+                           <input type="text" class="form-control" name="bankaccount" id="" placeholder="用户账号" autocomplete="off" />
                         </div>
                     </li>
                     <li>
@@ -506,7 +521,7 @@
                             <input type="password" class="form-control" name="bank_password222" id="bank_password222" placeholder="帐号密码" autocomplete="off" />
                         </div> 
                     </li>
-                    
+                    <input type = "text" style= "display:none" name="bank_num222" value = "" id="bank_num222"
                     <li>
                     <input type="submit" name="submitBtn222" value="确认提交" id="sub222" class="btn btn-info" align="center" onclick="bank_submit222()"/>
                     </li>
@@ -668,8 +683,20 @@
         }
 
         function bank_submit222(){
-            var form = document.getElementById("bank_add222");
-            form.submit();
+          if (!'<%= Payment1 %>'){
+              document.getElementById('bank_num222').value = 'Payment1';
+          }
+          else if (!'<%= Payment2 %>'){
+              document.getElementById('bank_num222').value = 'Payment2';
+          }
+          else if (!'<%= Payment3 %>'){
+              document.getElementById('bank_num222').value = 'Payment3';
+          }
+          else if (!'<%= Payment4 %>'){
+              document.getElementById('bank_num222').value = 'Payment4';
+          }
+          var form = document.getElementById("bank_add222");
+          form.submit();
         }
 
         function firm() {

@@ -102,12 +102,18 @@
               </div>
 
               <ul class="nav navbar-nav navbar-right">
-                <li class="">
+               <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                     <img src="http://121.42.175.1/static/images/img.jpg" alt=""><%= AccountName %>
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
+                    <li>
+                      <a href="/account/info"><i class="fa fa-sign-out pull-right"></i> 账户管理</a>
+                    </li>
+                    <li>
+                      <a href="/account/transaction"><i class="fa fa-sign-out pull-right"></i> 交易信息</a>
+                    </li>
                     <li>
                       <a href="/logout"><i class="fa fa-sign-out pull-right"></i> 退出登录</a>
                     </li>
@@ -221,7 +227,7 @@
                           <div class="form-group">信息：&nbsp;</div>
                             <div class="form-group">
                               <select class="selectpicker show-tick" id="myselector" data-size="3" name = "state" value = "2">
-                                <option text = "全部状态<">全部状态</option>
+                                <option text = "全部状态">全部状态</option>
                                 <option text = "待付款">待付款</option> 
                                 <option text = "待商家确认">待商家确认</option>
                                 <option text = "已确认">已确认</option>                        

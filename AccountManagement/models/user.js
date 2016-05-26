@@ -284,9 +284,10 @@ User.addPID = function addPID(PID, Num, Accountid, callback) {
 
     // 读取 users 集合
     var sql = "Insert into paymentaccount values('" + PID + "', 'ICBC',  '6288888888888888' ,'Normal')";
-    var sql1 = "update UserAccount set" + Num + "='" + PID + "'where AccountID='"+Accountid+"'";
+    var sql1 = "update UserAccount set " + Num + "='" + PID + "'where AccountID='"+Accountid+"'";
     console.log('test--------------');
     console.log(sql);
+    console.log(sql1);
     mysql.query(sql,function(err,results,fields){
         if(err){
             throw err;
