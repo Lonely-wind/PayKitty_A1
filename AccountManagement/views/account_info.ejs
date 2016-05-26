@@ -219,7 +219,7 @@
                             <td><input name="mail" id="mail"type="text" value=<%= Email %> readonly="readonly" style="border:none;;background-color:transparent"> 
                             
                             </td>
-                            <td><%= RegisterDate %></td>
+                            <td><%= new Date(RegisterDate).toLocaleDateString() %></td>
                           </tr>
                           </tbody>
                         </table>
