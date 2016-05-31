@@ -52,9 +52,11 @@ router.get('/info', function(req, res, next) {
 	});
 	*/
 	console.log('===================================');
-	console.log(req.session);
+	console.log(req.cookies);
 	console.log('===================================');
+
 	var nowID = req.session.user;
+	//var nowID = 123;
 	User.getInfo(nowID, function (err, user) { 
 		if (!user) 
 		  err = 'No such an account.'; 
