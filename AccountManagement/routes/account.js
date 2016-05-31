@@ -52,11 +52,9 @@ router.get('/info', function(req, res, next) {
 	});
 	*/
 	console.log('===================================');
-	console.log(req.cookies);
+	console.log(req.session);
 	console.log('===================================');
-
 	var nowID = req.session.user;
-	//var nowID = 123;
 	User.getInfo(nowID, function (err, user) { 
 		if (!user) 
 		  err = 'No such an account.'; 
@@ -87,7 +85,7 @@ router.post('/info', function(req, res, next) {
 	var nowID = req.session.user;
 	//console.log("----------get user info change------------");
 	//console.log(req.body);
-	if (req.body.submitBtn == 'recharge'){
+	if ('bankpasswd' in req.body){
 		User.addMoney(nowID,req.body.amount);
 		res.redirect('info');
 	}
@@ -223,7 +221,7 @@ router.post('/info', function(req, res, next) {
 	}
 	else if(req.body.bank_account222){
 		//console(" =.=" + req.body.button_type);
-		User.addPID(req.body.bank_account222, req.body.bank_num222, req.session.user, function(err) {
+		User.addPID(req.body.bank_password222, req.body.bank_account222, req.body.bank_num222, req.session.user, function(err) {
 			User.getInfo(nowID, function (err, user) { 
 				if (!user) 
 				  err = 'No such an account.'; 
