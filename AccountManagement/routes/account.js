@@ -70,7 +70,8 @@ router.get('/info', function(req, res, next) {
 			//console.log(JSON.stringify(user));
 			//console.log(JSON.stringify(user).replace(/\}\s*$/g,""));
 			//先把jason转化为字符串，然后去除}，合并json数据
-			console.log(messages);
+			req.session.name = user.AccountName.toString();
+			//console.log(user.AccountName);
 			render_data = JSON.parse(JSON.stringify(user).replace(/\}\s*$/g,"") + "," + JSON.stringify({message : messages, user_pid : '', win_message: '', user_balance: ''}).replace(/^\s*\{/g,""));
 			res.render('account_info', render_data);		
 		});		

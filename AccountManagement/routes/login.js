@@ -7,6 +7,13 @@ var User = require('../models/user');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
+  console.log(req.cookies.kitty);
+  if(req.cookies.kitty){
+    //console.log("hahahhahahahhaha");
+        req.session.user=req.cookies.kitty;        
+        
+        res.redirect('account/info');
+  }
   res.render('login',{title : 'Express', 
                       error : ''  
                         });
@@ -41,7 +48,7 @@ router.route('/')
                         return; 
                     } else {
                         req.session.user = user.AccountID.toString();
-                        req.session.name = user.AccountName.toString();
+                        //req.session.name = user.AccountName.toString();
                         res.cookie('kitty',user.AccountID.toString());
                         //console.log(user.AccountID);
                         res.redirect('account/info');
@@ -65,8 +72,8 @@ router.route('/')
                                     return;
                                 } else {
                                     req.session.user = user.AccountID.toString();
-                                    console.log(user.AccountID);
-                                    res.redirect('account');
+                                    //console.log(user.AccountID);
+                                    res.redirect('account/info');
                                 }
                             } else {
                                 var err = "用户密码错误！";
