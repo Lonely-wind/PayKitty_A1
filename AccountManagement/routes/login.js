@@ -42,7 +42,7 @@ router.route('/')
                     } else {
                         req.session.user = user.AccountID.toString();
                         req.session.name = user.AccountName.toString();
-                        res.cookie('AccountID',user.AccountID.toString());
+                        res.cookie('kitty',user.AccountID.toString());
                         //console.log(user.AccountID);
                         res.redirect('account/info');
                     }
