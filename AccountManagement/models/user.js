@@ -156,13 +156,13 @@ User.delAccount = function delAccount(accountID) {
 
 };
 
-User.addMoney = function addMoney(accountID, amount) {
+User.addMoney = function addMoney(accountID, amount,callback) {
     var sql = "update UserAccount set Balance=Balance+"+amount+" where AccountID='"+accountID+"'";
     //console.log(sql);
     mysql.query(sql,function(err,results,fields){
         //console.log("hahahahhaa");
         //console.log(results);
-        ////callback(err,results);
+        callback(err,results);
     })
 
 };

@@ -86,7 +86,9 @@ router.post('/info', function(req, res, next) {
 	//console.log("----------get user info change------------");
 	//console.log(req.body);
 	if ('bankpasswd' in req.body){
-		User.addMoney(nowID,req.body.amount);
+		User.addMoney(nowID,req.body.amount,function(err,result){
+
+		});
 		res.redirect('info');
 	}
 	else if (req.body.bankaccount) {
