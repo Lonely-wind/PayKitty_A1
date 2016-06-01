@@ -1,145 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<head>
-        <meta charset="utf-8">
-        <title>登陆</title>
-        <link rel="stylesheet" href="/A1/stylesheets/bootstrap.min.css">
+    <title>Paykitty </title>
 
+    <!-- Bootstrap -->
+    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/stylesheets/font-awesome.min.css" rel="stylesheet">
+    <!-- Animate.css -->
+    <link href="/stylesheets/animate.min.css" rel="stylesheet">
 
-        <link rel="stylesheet" href="/A1/stylesheets/font-awesome.min.css">
-        <script src="/A1/assets/js/jquery-1.11.1.min.js"></script>
-        <script src="/A1/assets/bootstrap/js/bootstrap.min.js"></script>
-        <script src="/A1/assets/js/jquery.backstretch.min.js"></script>
-
-        <link rel="shortcut icon" href="/A1/assets/ico/favicon.png">
+    <!-- Custom Theme Style -->
+    <link href="/stylesheets/custom.min.css" rel="stylesheet">
+  </head>
 <style type="text/css">
-html {
-    height: 100%;
-}
 
-
-body {background-color:#6699FF; background-repeat:no-repeat;
-    height :100%;
-    background-position:center;background-attachment:fixed
-}
-.box {
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#6699FF', endColorstr='#6699FF'); /*  IE */
-    background-image:linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
-    background-image:-o-linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
-    background-image:-moz-linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
-    background-image:-webkit-linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
-    background-image:-ms-linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
-    
-    margin: 0 auto;
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-.login-box {
-    width: 100%;
-    max-width:500px;
-    height: 400px;
-    position: absolute;
-    top: 50%;
-
-    margin-top: -200px;
-    /*设置负值，为要定位子盒子的一半高度*/
-    
-}
-@media screen and (min-width:500px){
-    .login-box {
-        left: 50%;
-        /*设置负值，为要定位子盒子的一半宽度*/
-        margin-left: -250px;
-    }
-}   
-
-.form {
-    width: 100%;
-    max-width:500px;
-    height: 285px;
-    margin: 25px auto 0px auto;
-    padding-top: 0px;
-}   
-.login-content {
-    height: 320px;
-    width: 100%;
-    max-width:500px;
-    background-color: rgba(255, 250, 2550, .6);
-    float: left;
-}       
-    
-    
-.input-group {
-    margin: 0px 0px 30px 0px !important;
-}
-.form-control,
-.input-group {
-    height: 40px;
-}
-
-.form-group {
-    margin-bottom: 0px !important;
-}
 .radio-group{
     margin-bottom: 15px;
     
 }
-.login-title {
-    padding: 20px 10px;
-    background-color: rgba(0, 0, 0, .6);
-}
-.login-title h1 {
-    margin-top: 10px !important;
-}
-.login-title small {
-    color: #fff;
-}
 
-.link p {
-    line-height: 20px;
-    margin-top: 30px;
-}
-.btn-sm {
-    padding: 8px 24px !important;
-    font-size: 16px !important;
-}
 </style>
-</head>
+  <body class="login">
+    <div>
+      <a class="hiddenanchor" id="signup"></a>
+      <a class="hiddenanchor" id="signin"></a>
 
-    <body>
-        <div class="box">
-
-        <div class="login-box">
-            <div align="center">
-                <h1><span class="glyphicon glyphicon-leaf" style="font-size: 26px;"></span> PayKitty</h1>
-            </div>
-            
-            <div class="login-title text-center">
-                <h1><small>登录</small></h1>
-                
-            </div>
-            <div class="login-content ">
-            <div class="form">
-            <form action="" method="post">
-                <div class="radio-group" >
-                    <div class="col-xs-12">
-                        <div class="radio-group" align="center">
+      <div class="login_wrapper">
+        <div class="animate form login_form">
+          <section class="login_content">
+            <div class='form'>
+            <form class="form-horizontal" action="" method='post'>
+              <h1>登陆</h1>
+              <div class="radio-group" align="center">
                                 <input type="radio" id=c name='user_type' value="0" checked="checked">&nbsp; <font> 消费者 </font> &nbsp;&nbsp;&nbsp;&nbsp;
                                 <input type="radio" id=s name='user_type' value= "1"/>&nbsp; <font>商家</font>
-                        </div>
-                    </div>             
-                </div>
-                <div class="form-group">
-                    <div class="col-xs-12">
+              </div>
+              <div class="form-group">
+                    <div class="col-xs-12  ">
                         <div class="input-group">
-                            <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                           <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
                              <input type="text" class="form-control" name="Loginuser" id="username" placeholder="用户名" autocomplete="off" />
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+              <div class="form-group">
                     <div class="col-xs-12  ">
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
@@ -147,27 +58,37 @@ body {background-color:#6699FF; background-repeat:no-repeat;
                         </div>
                     </div>
                 </div>
-                <div class="form-group form-actions">
+              <div class="form-group form-actions">
                     <div class="col-lg-12  ">
                         <button type="submit" class="btn btn-priamry btn-block btn-info"> &nbsp;登录&nbsp;</button>
                     </div>
-                </div>
-                <div class="form-group">
+              </div>
+              <div class="form-group">
                     
                     <div class="col-lg-12 link">
-                        <p class="text-center remove-margin"><small>还没注册?</small> <a href="/register" ><small>注册用户</small><small>    </small><a href="/register_sales" ><small>注册商户</small></a>
+                        <p class="text-center remove-margin"><small>还没注册?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small> <a href="/register" ><small>注册用户</small><small></small><a href="/register_sales" ><small>注册商户</small></a>
                         </p>
                     </div>
                     <p align="center"><font color="red"><%= error %></font></p>
                 </div>
+
+              <div class="clearfix"></div>
+
+              <div class="separator">
+
+                <div class="clearfix"></div>
+                
+
+                <div>
+                  <h1><span class="glyphicon glyphicon-leaf" style="font-size: 26px;"></span> PayKitty</h1>
+                </div>
+              </div>
             </form>
-            </div>
+          </div>
+          </section>
         </div>
+
+      </div>
     </div>
-</div>
-            
-
-
-    </body>
-
+  </body>
 </html>
