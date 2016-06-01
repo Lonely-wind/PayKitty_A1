@@ -281,13 +281,13 @@ router.route('/transaction')
 						data[i].orderStatus = "待付款"
 					}
 					else if(data[i].orderStatus == "1"){
-						data[i].orderStatus = "待商家确认有房/待出票"		
+						data[i].orderStatus = "待商家确认"		
 					}
 					else if(data[i].orderStatus == "2"){
-						data[i].orderStatus = "已确认有房/已出票"
+						data[i].orderStatus = "已确认"
 					}
 					else if(data[i].orderStatus == "3"){
-						data[i].orderStatus = "已乘机/已入住(交易成功)"
+						data[i].orderStatus = "交易成功"
 					}
 					else if(data[i].orderStatus == "4"){
 						data[i].orderStatus = "交易关闭"
@@ -376,13 +376,13 @@ router.route('/transaction')
 						data[i].orderStatus = "待付款"
 					}
 					else if(data[i].orderStatus == "1"){
-						data[i].orderStatus = "待商家确认有房/待出票"		
+						data[i].orderStatus = "待商家确认"		
 					}
 					else if(data[i].orderStatus == "2"){
-						data[i].orderStatus = "已确认有房/已出票"
+						data[i].orderStatus = "已确认"
 					}
 					else if(data[i].orderStatus == "3"){
-						data[i].orderStatus = "已乘机/已入住(交易成功)"
+						data[i].orderStatus = "交易成功"
 					}
 					else if(data[i].orderStatus == "4"){
 						data[i].orderStatus = "交易关闭"
