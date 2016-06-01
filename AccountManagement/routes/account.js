@@ -275,9 +275,7 @@ router.route('/transaction')
 
 			Transaction.RealGetApi('http://121.42.175.1/a2/api/getallorder?userID=' + req.session.user, 80, function (data) {
 				data = data.orderDetailList;
-				var total_account = 0;
 				for(var i in data){
-					total_account += parseFloat(data[i].orderAmount);
 					data[i].orderTime = new Date(data[i].orderTime).toLocaleDateString();
 					if(data[i].orderStatus == "0"){
 						data[i].orderStatus = "待付款"
@@ -322,7 +320,7 @@ router.route('/transaction')
 					}
 					Transaction.Search(data, order_constraints, function(trade_data){
 						console.log({title: '交易记录', trade_data: trade_data, UserID: user.AccountID, search: order_constraints, AccountName: user.AccountName, message: messages });
-						res.render('account_transaction_user', {title: '交易记录', total_account: total_account.toFixed(2), trade_data: trade_data, UserID: user.AccountID, search: order_constraints, AccountName: user.AccountName, message: messages });
+						res.render('account_transaction_user', {title: '交易记录', trade_data: trade_data, UserID: user.AccountID, search: order_constraints, AccountName: user.AccountName, message: messages });
 					});
 				}
 				else{
@@ -342,7 +340,9 @@ router.route('/transaction')
 						order_constraints.end_time = new Date();
 					}
 					Transaction.Search(data, order_constraints, function(trade_data){
-						res.render('account_transaction_user', {title: '交易记录', total_account: total_account.toFixed(2), trade_data: trade_data, UserID: user.AccountID, search: order_constraints, AccountName: user.AccountName, message: messages });
+						Transaction.GetStatistics(data, function(thisMonthTransaction, totalTransaction){
+							res.render('account_transaction_seller', {title: '交易记录', trade_data: trade_data, UserID: user.AccountID, search: order_constraints, AccountName: user.AccountName, message: messages, thisMonthTransaction: thisMonthTransaction, totalTransaction: totalTransaction});
+						});
 					});
 				}
 			});
@@ -370,9 +370,7 @@ router.route('/transaction')
 
 			Transaction.RealGetApi('http://121.42.175.1/a2/api/getallorder?userID=' + req.session.user, 80, function (data) {
 				data = data.orderDetailList;
-				var total_account = 0;
 				for(var i in data){
-					total_account += parseFloat(data[i].orderAmount);
 					data[i].orderTime = new Date(data[i].orderTime).toLocaleDateString();
 					if(data[i].orderStatus == "0"){
 						data[i].orderStatus = "待付款"
@@ -409,7 +407,7 @@ router.route('/transaction')
 						seller:		req.body.seller,
 					}
 					console.log(data);
-					res.render('account_transaction_user', {title: '交易记录', total_account: total_account.toFixed(2), trade_data: data, UserID: user.AccountID, search: order_constraints, AccountName: user.AccountName, message: messages });
+					res.render('account_transaction_user', {title: '交易记录', trade_data: data, UserID: user.AccountID, search: order_constraints, AccountName: user.AccountName, message: messages });
 				}
 				else{
 					var order_constraints= {
@@ -420,7 +418,19 @@ router.route('/transaction')
 						state:		req.body.state,
 						goods:		req.body.goods,           
 					}
-					res.render('account_transaction_user', {title: '交易记录', total_account: total_account.toFixed(2), trade_data: data, UserID: user.AccountID, search: order_constraints, AccountName: user.AccountName, message: messages });
+					// test data
+					// data = [
+					// 	{orderID : "111",orderTime : "2016/6/30",orderAmount : "100.55",orderStatus : "交易成功"},
+					// 	{orderID : "112",orderTime : "2016/6/30",orderAmount : "100.55",orderStatus : "交易成功"},
+					// 	{orderID : "113",orderTime : "2016/5/30",orderAmount : "100.55",orderStatus : "交易关闭"},
+					// 	{orderID : "114",orderTime : "2016/5/30",orderAmount : "100.55",orderStatus : "交易关闭"},
+					// 	{orderID : "115",orderTime : "2016/5/30",orderAmount : "100.55",orderStatus : "已退款"},
+					// 	{orderID : "116",orderTime : "2016/6/30",orderAmount : "100.55",orderStatus : "已退款"},
+					// 	{orderID : "116",orderTime : "2016/5/30",orderAmount : "100.55",orderStatus : "待退款"}						
+					// ];
+					Transaction.GetStatistics(data, function(thisMonthTransaction, totalTransaction){
+						res.render('account_transaction_seller', {title: '交易记录', trade_data: data, UserID: user.AccountID, search: order_constraints, AccountName: user.AccountName, message: messages, thisMonthTransaction: thisMonthTransaction, totalTransaction: totalTransaction});
+					});
 				}
 			});
 		});
