@@ -566,7 +566,7 @@
             var remain = <%= Balance %>;
             var trans = document.getElementById('transamount').value;
             var paypass = document.getElementById('paypasswd1').value;
-            var remainpass = <%= PayPassword %>;
+            var remainpass = "<%= PayPassword %>";
             var remain_float = parseFloat(remain);
             var trans_float = parseFloat(trans);
             var form = document.getElementById("transfer_form");
