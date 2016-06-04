@@ -55,7 +55,7 @@
                 <ul class="nav side-menu">
                   <li>
                     <a id="myAccount"><i class="fa fa-home"></i> 我的账户 <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
+                    <ul class="nav child_menu" style="display: none;">
                       <li>
                         <a href="/account/info">账户记录</a>
                       </li>
@@ -67,12 +67,24 @@
                       </li> -->
                     </ul>
                   </li>
-                  <li><a>
+                  <li><a >
                     <i class="fa fa-edit"></i> 订单管理 <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                          <li>
+                              <a href="http://121.42.175.1/orderlist">所有订单</a>
+                          </li>
+                    </ul>
                   </li>
-                  <li><a>
-                    <i class="fa fa-desktop"></i> 在线预订 <span class="fa fa-chevron-down"></span></a>
+                  <% if(Type != "1"){ %>
+                  <li><a >
+                    <i class="fa fa-beer"></i> 出去走走 <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li>
+                        <a href="http://121.42.175.1:5003">旅店与飞行器预定</a>
+                      </li>
+                     </ul>
                   </li>
+                  <% } %>
                 </ul>
               </div>              
             </div>
@@ -95,12 +107,6 @@
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li>
-                      <a href="/account/info"><i class="fa fa-sign-out pull-right"></i> 账户管理</a>
-                    </li>
-                    <li>
-                      <a href="/account/transaction"><i class="fa fa-sign-out pull-right"></i> 交易信息</a>
-                    </li>
                     <li>
                       <a href="/logout"><i class="fa fa-sign-out pull-right"></i> 退出登录</a>
                     </li>
@@ -237,10 +243,10 @@
     <script src="http://121.42.175.1/static/vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
     <script src="http://121.42.175.1/static/vendors/nprogress/nprogress.js"></script>
-    <!-- jQuery custom content scroller -->
-    <script src="http://121.42.175.1/static/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
     <!-- jQuery -->
     <script src="http://121.42.175.1/static/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- jQuery custom content scroller -->
+    <script src="http://121.42.175.1/static/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
     <!-- Bootstrap -->
     <script src="http://121.42.175.1/static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 
