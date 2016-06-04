@@ -471,7 +471,7 @@ router.get('/message', function(req, res, next){
 				  	req.flash('error', err); 
 				  	return res.redirect('/reg'); 
 				}
-				res.render('account_message', {title: '消息记录', message_data: messageTotal, AccountName: user.AccountName, message: messages });
+				res.render('account_message', {title: '消息记录', message_data: messageTotal, AccountName: user.AccountName, message: messages, Type:user.Type });
 			});
 		});
 	});
