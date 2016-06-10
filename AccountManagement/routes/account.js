@@ -276,7 +276,8 @@ router.route('/transaction')
 			Transaction.RealGetApi('http://121.42.175.1/a2/api/getallorder?userID=' + req.session.user, 80, function (data) {
 				data = data.orderDetailList;
 				for(var i in data){
-					data[i].orderTime = new Date(data[i].orderTime).toLocaleDateString();
+					myDate = new Date(data[i].orderTime);
+					data[i].orderTime = myDate.getFullYear()+'/'+(myDate.getMonth()+1)+'/'+myDate.getDate();
 					if(data[i].orderStatus == "0"){
 						data[i].orderStatus = "待付款"
 					}
@@ -319,7 +320,7 @@ router.route('/transaction')
 						order_constraints.end_time = new Date();
 					}
 					Transaction.Search(data, order_constraints, function(trade_data){
-						console.log({title: '交易记录', trade_data: trade_data, UserID: user.AccountID, search: order_constraints, AccountName: user.AccountName, message: messages });
+						// console.log({title: '交易记录', trade_data: trade_data, UserID: user.AccountID, search: order_constraints, AccountName: user.AccountName, message: messages });
 						res.render('account_transaction_user', {title: '交易记录', trade_data: trade_data, UserID: user.AccountID, search: order_constraints, AccountName: user.AccountName, message: messages });
 					});
 				}
@@ -371,7 +372,8 @@ router.route('/transaction')
 			Transaction.RealGetApi('http://121.42.175.1/a2/api/getallorder?userID=' + req.session.user, 80, function (data) {
 				data = data.orderDetailList;
 				for(var i in data){
-					data[i].orderTime = new Date(data[i].orderTime).toLocaleDateString();
+					myDate = new Date(data[i].orderTime);
+					data[i].orderTime = myDate.getFullYear()+'/'+(myDate.getMonth()+1)+'/'+myDate.getDate();
 					if(data[i].orderStatus == "0"){
 						data[i].orderStatus = "待付款"
 					}
@@ -406,7 +408,7 @@ router.route('/transaction')
 						state:		req.body.state,
 						seller:		req.body.seller,
 					}
-					console.log(data);
+					// console.log(data);
 					res.render('account_transaction_user', {title: '交易记录', trade_data: data, UserID: user.AccountID, search: order_constraints, AccountName: user.AccountName, message: messages });
 				}
 				else{
