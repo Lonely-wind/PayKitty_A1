@@ -567,6 +567,26 @@ router.get('/test/userMessageAPI', function(req, res, next) {
 	res.render('test_userMessageAPI');
 });
 
+router.get('/test/ajaxMessageAPI', function(req, res, next) {
+	//检测前段ajax是否有用
+		if(!req.session.user){
+		console.log('No logining!');
+		return res.redirect('/login');
+	}
+	User.getClickedMessage(req.session.user, "/account/message", function (err, messages) {
+		User.getTotalMessage(req.session.user, function (err, messageTotal) {
+			User.getInfo(req.session.user, function (err, user) { 
+				if (!user) 
+			  	err = 'No such an account.'; 
+				if (err) {
+				  	req.flash('error', err); 
+				  	return res.redirect('/reg'); 
+				}
+				res.render('account_message_test', {title: '消息记录', message_data: messageTotal, AccountName: user.AccountName, message: messages, Type:user.Type, UserID: user.AccountID });
+			});
+		});
+	});
+});
 
 
 router.get('/delete', function(req, res, next) {

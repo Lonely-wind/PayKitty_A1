@@ -173,8 +173,11 @@ router.post("/submoney",function(req,res,next) {
 
 
 router.get('/message/clickedMessage', function(req, res, next){
-
-	User.getClickedMessage(req.body.user, req.body.backUrl, function (err, messages) {
+	console.log("/message/clickedMessage---------");
+	console.log(req.query);
+	User.getClickedMessage(req.query.accountID, req.query.backUrl, function (err, messages) {
+		console.log(messages);
+		console.log(messages.length);	
 		res.send(JSON.stringify(messages));
 	});
 });
