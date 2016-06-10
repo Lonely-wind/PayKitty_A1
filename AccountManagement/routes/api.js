@@ -42,6 +42,30 @@ router.post('/userMessageAPI', function(req, res, next) {
 	}
 	else{
 		newState = req.body.newState;
+		if(newState == "0"){
+			newState = "待付款"
+		}
+		else if(newState == "1"){
+			newState = "待商家确认"		
+		}
+		else if(newState == "2"){
+			newState = "已确认"
+		}
+		else if(newState == "3"){
+			newState = "交易成功"
+		}
+		else if(newState == "4"){
+			newState = "交易关闭"
+		}
+		else if(newState == "5"){
+			newState = "待退款"		
+		}
+		else if(newState == "6"){
+			newState = "已退款"		
+		}
+		else if(newState == "7"){
+			newState = "退款失败"		
+		}
 	}
 	
 	var data = {
