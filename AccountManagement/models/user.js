@@ -218,7 +218,7 @@ User.getClickedMessage = function getClickedMessage(accountID, backUrl, callback
             var message = {
                 message : results[i].MessageContent,
                 time : time,
-                href : "/account"+ backUrl +"/message/" + results[i].MessageID + "/click",
+                href : "/account/message/click?backUrl=" + backUrl + "&accountID=" + accountID + "&MessageID=" + results[i].MessageID,
                 sender : results[i].MessageSender
             }
             messages.push(message);
