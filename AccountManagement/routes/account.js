@@ -502,7 +502,7 @@ router.post('/myTest', function(req, res, next) {
 });
 
 router.post('/userMessageAPI', function(req, res, next) {
-	var result, message, orderID, sender, accountID;
+	var result, orderID, sender, accountID, goodKind, goodName, newState;
 	if(!("accountID" in req.body) || req.body.accountID == ""){
 		result = {
 			result : 0,
@@ -512,6 +512,26 @@ router.post('/userMessageAPI', function(req, res, next) {
 	}
 	else{
 		accountID = req.body.accountID;
+	}
+	if(!("goodKind" in req.body) || req.body.accountID == ""){
+		result = {
+			result : 0,
+			resultMessage : "You must have a goodKind!"
+		}
+		return res.send(JSON.stringify(result));
+	}
+	else{
+		goodKind = req.body.goodKind;
+	}
+	if(!("goodName" in req.body) || req.body.accountID == ""){
+		result = {
+			result : 0,
+			resultMessage : "You must have a goodName!"
+		}
+		return res.send(JSON.stringify(result));
+	}
+	else{
+		goodName = req.body.goodName;
 	}
 	if(!("sender" in req.body) || req.body.sender == ""){
 		sender = "default";
@@ -541,14 +561,23 @@ router.post('/userMessageAPI', function(req, res, next) {
 		if(newState == "0"){
 			newState = "待付款"
 		}
-		else if(newState == "1"){
-			newState = "待商家确认"		
+		else if(newState == "1" && goodKind == "酒店"){
+			newState = "待商家确认有房"		
 		}
-		else if(newState == "2"){
-			newState = "已确认"
+		else if(newState == "1" && goodKind == "机票"){
+			newState = "待出票"		
 		}
-		else if(newState == "3"){
-			newState = "交易成功"
+		else if(newState == "2" && goodKind == "酒店"){
+			newState = "已确认有房"
+		}
+		else if(newState == "2" && goodKind == "机票"){
+			newState = "已出票"
+		}
+		else if(newState == "3" && goodKind == "酒店"){
+			newState = "已入住"
+		}
+		else if(newState == "3" && goodKind == "机票"){
+			newState = "已乘机"
 		}
 		else if(newState == "4"){
 			newState = "交易关闭"
@@ -565,7 +594,7 @@ router.post('/userMessageAPI', function(req, res, next) {
 	}
 	
 	var data = {
-		message : "您的订单（" + orderID + "）" + newState,
+		message : "您的订单" + orderID + "中的" + goodName + "状态改变为：" + newState,
 		sender : sender,
 		accountID : accountID,
 	}
