@@ -198,7 +198,7 @@
                           <form class="form-inline" action="/account/transaction" method="POST">               
                           <div class="form-group">日期：&nbsp;</div>
                           <div id="datetimepicker1" class="input-append date form-group" >
-                              <input type="text" name = "start_time" placeholder="选择开始日期" value = "<%= search.start_time.toLocaleDateString() ||''%>"></input>
+                              <input type="text" name = "start_time" placeholder="选择开始日期" value = "<%= search.start_time.getFullYear()+'/'+(search.start_time.getMonth()+1)+'/'+ search.start_time.getDate() ||''%>"></input>
                               <span class="add-on">
                                 <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
                               </span>
@@ -206,7 +206,7 @@
 
                           <div class="form-group" >&nbsp;&nbsp;-&nbsp;&nbsp; </div>
                           <div id="datetimepicker2"  class="input-append date form-group">
-                              <input type="text" name = "end_time" placeholder="选择结束日期" value = "<%= search.end_time.toLocaleDateString() ||''%>"></input>
+                              <input type="text" name = "end_time" placeholder="选择结束日期" value = "<%= search.end_time.getFullYear()+'/'+(search.end_time.getMonth()+1)+'/'+ search.end_time.getDate() ||''%>"></input>
                               <span class="add-on">
                                 <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
                               </span>

@@ -203,7 +203,7 @@
                                 <th>编号</th>
                                 <th>发送者</th>
                                 <th>消息内容</th>
-                                <th>详细时间</th>
+                                <th>时间</th>
                               </tr>
                               </thead>         
                               <tbody>
@@ -212,7 +212,7 @@
                                 <td><%= (parseInt(i) + 1) %></td>
                                 <td><%= message_data[i].MessageSender %></td>
                                 <td><%= message_data[i].MessageContent %></td>
-                                <td><%= message_data[i].MessageTime.toLocaleString() %></td>
+                                <td><%= message_data[i].MessageTime.getFullYear()+'/'+(message_data[i].MessageTime.getMonth()+1)+'/'+message_data[i].MessageTime.getDate() %></td>
                               </tr>
                               <% } %>
                               </tbody>

@@ -218,7 +218,7 @@
                             <td><input name="mail" id="mail"type="text" value=<%= Email %> readonly="readonly" style="border:none;;background-color:transparent"> 
                             
                             </td>
-                            <td><%= new Date(RegisterDate).toLocaleDateString() %></td>
+                            <td><%= new Date(RegisterDate).getFullYear()+'/'+(new Date(RegisterDate).getMonth()+1)+'/'+new Date(RegisterDate).getDate() %></td>
                           </tr>
                           </tbody>
                         </table>
