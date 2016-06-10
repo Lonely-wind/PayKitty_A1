@@ -262,7 +262,7 @@
                         </a>\
                       </li>";
                 }
-                $('#messageEnd').prepend(mydoc);
+                $('#messageEnd').before(mydoc);
                 var myclickAllUrl = "/account/message/clear?backUrl=" + window.location.href + "&accountID=" + accountID;
                 $('#messageClickAll').attr("href", myclickAllUrl);
                 $('#messageAmount').text("" + data.length);
