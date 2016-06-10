@@ -171,4 +171,14 @@ router.post("/submoney",function(req,res,next) {
 
 });
 
+
+router.get('/message/clickedMessage', function(req, res, next){
+
+	User.getClickedMessage(req.body.user, req.body.backUrl, function (err, messages) {
+		res.send(JSON.stringify(messages));
+	});
+});
+
+
+
 module.exports = router;

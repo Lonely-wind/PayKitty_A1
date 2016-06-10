@@ -64,7 +64,7 @@ router.get('/info', function(req, res, next) {
 		} 
 		//console.log("---------------account_info---------------");
 		//console.log(user);
-		User.getClickedMessage(req.session.user, "/info", function (err, messages) {
+		User.getClickedMessage(req.session.user, "/account/info", function (err, messages) {
 			//console.log(JSON.stringify(user));
 			//console.log(JSON.stringify(user).replace(/\}\s*$/g,""));
 			//先把jason转化为字符串，然后去除}，合并json数据
@@ -106,7 +106,7 @@ router.post('/info', function(req, res, next) {
 				} 
 				//console.log("---------------account_info---------------");
 				//console.log(user);
-				User.getClickedMessage(req.session.user, "/info", function (err, messages) {
+				User.getClickedMessage(req.session.user, "/account/info", function (err, messages) {
 						if(!username){
 							username = "";
 						}
@@ -133,7 +133,7 @@ router.post('/info', function(req, res, next) {
 					} 
 					console.log("---------------account_info---------------");
 					//console.log(user);
-					User.getClickedMessage(req.session.user, "/info", function (err, messages) {
+					User.getClickedMessage(req.session.user, "/account/info", function (err, messages) {
 								var win_message = "";
 								var render_data = JSON.parse(JSON.stringify(user).replace(/\}\s*$/g,"") + "," + JSON.stringify({message : messages, user_pid : '', win_message: win_message, user_balance: ''}).replace(/^\s*\{/g,""));							res.render('account_info', render_data);
 								res.render('account_info', render_data);	
@@ -152,7 +152,7 @@ router.post('/info', function(req, res, next) {
 					} 
 					console.log("---------------account_info---------------");
 					//console.log(user);
-					User.getClickedMessage(req.session.user, "/info", function (err, messages) {
+					User.getClickedMessage(req.session.user, "/account/info", function (err, messages) {
 								var win_message = "";
 								var render_data = JSON.parse(JSON.stringify(user).replace(/\}\s*$/g,"") + "," + JSON.stringify({message : messages, user_pid : '', win_message: win_message, user_balance: ''}).replace(/^\s*\{/g,""));							res.render('account_info', render_data);
 								res.render('account_info', render_data);	
@@ -172,7 +172,7 @@ router.post('/info', function(req, res, next) {
 					} 
 					console.log("---------------account_info---------------");
 					//console.log(user);
-					User.getClickedMessage(req.session.user, "/info", function (err, messages) {
+					User.getClickedMessage(req.session.user, "/account/info", function (err, messages) {
 								var win_message = "";
 								var render_data = JSON.parse(JSON.stringify(user).replace(/\}\s*$/g,"") + "," + JSON.stringify({message : messages, user_pid : '', win_message: win_message, user_balance: ''}).replace(/^\s*\{/g,""));							res.render('account_info', render_data);
 								res.render('account_info', render_data);	
@@ -191,7 +191,7 @@ router.post('/info', function(req, res, next) {
 					} 
 					console.log("---------------account_info---------------");
 					//console.log(user);
-					User.getClickedMessage(req.session.user, "/info", function (err, messages) {
+					User.getClickedMessage(req.session.user, "/account/info", function (err, messages) {
 								var win_message = "";
 								var render_data = JSON.parse(JSON.stringify(user).replace(/\}\s*$/g,"") + "," + JSON.stringify({message : messages, user_pid : '', win_message: win_message, user_balance: ''}).replace(/^\s*\{/g,""));							res.render('account_info', render_data);
 								res.render('account_info', render_data);	
@@ -213,7 +213,7 @@ router.post('/info', function(req, res, next) {
 					} 
 					console.log("---------------account_info---------------");
 					//console.log(user);
-					User.getClickedMessage(req.session.user, "/info", function (err, messages) {
+					User.getClickedMessage(req.session.user, "/account/info", function (err, messages) {
 								var win_message = "";
 								var render_data = JSON.parse(JSON.stringify(user).replace(/\}\s*$/g,"") + "," + JSON.stringify({message : messages, user_pid : '', win_message: win_message, user_balance: ''}).replace(/^\s*\{/g,""));							res.render('account_info', render_data);
 								res.render('account_info', render_data);	
@@ -233,7 +233,7 @@ router.post('/info', function(req, res, next) {
 				} 
 				console.log("---------------account_info---------------");
 				//console.log(user);
-				User.getClickedMessage(req.session.user, "/info", function (err, messages) {
+				User.getClickedMessage(req.session.user, "/account/info", function (err, messages) {
 							var win_message = "";
 							var render_data = JSON.parse(JSON.stringify(user).replace(/\}\s*$/g,"") + "," + JSON.stringify({message : messages, user_pid : '', win_message: win_message, user_balance: ''}).replace(/^\s*\{/g,""));							res.render('account_info', render_data);
 							res.render('account_info', render_data);	
@@ -264,7 +264,7 @@ router.route('/transaction')
 		accountID:req.session.user,
 	}
 	
-	User.getClickedMessage(req.session.user, "/transaction", function (err, messages) {
+	User.getClickedMessage(req.session.user, "/account/transaction", function (err, messages) {
 		User.getInfo(req.session.user, function (err, user) { 
 			if (!user) 
 			  err = 'No such an account.'; 
@@ -359,7 +359,7 @@ router.route('/transaction')
 		accountID:req.session.user,
 	}
 	
-	User.getClickedMessage(req.session.user, "/transaction", function (err, messages) {
+	User.getClickedMessage(req.session.user, "/account/transaction", function (err, messages) {
 		User.getInfo(req.session.user, function (err, user) { 
 			if (!user)
 			  err = 'No such an account.'; 
@@ -439,22 +439,14 @@ router.route('/transaction')
 });
 
 
-router.get('/:backUrl/message/clear', function(req, res, next){
-	if(!req.session.user){
-		console.log('No logining!');
-		return res.redirect('/login');
-	}
-	User.clickAllMessage(req.session.user);
-	return res.redirect('/account/' + req.params.backUrl);
+router.get('/message/clear', function(req, res, next){
+	User.clickAllMessage(req.query.accountID);
+	return res.redirect(req.query.backUrl);
 });
 
-router.get('/:backUrl/message/:MessageID/click', function(req, res, next){
-	if(!req.session.user){
-		console.log('No logining!');
-		return res.redirect('/login');
-	}
-	User.clickMessage(req.session.user, req.params.MessageID);
-	return res.redirect('/account/' + req.params.backUrl);
+router.get('/message/click', function(req, res, next){
+	User.clickMessage(req.query.accountID, req.query.MessageID);
+	return res.redirect(req.query.backUrl);
 });
 
 router.get('/message', function(req, res, next){
@@ -462,7 +454,7 @@ router.get('/message', function(req, res, next){
 		console.log('No logining!');
 		return res.redirect('/login');
 	}
-	User.getClickedMessage(req.session.user, "/message", function (err, messages) {
+	User.getClickedMessage(req.session.user, "/account/message", function (err, messages) {
 		User.getTotalMessage(req.session.user, function (err, messageTotal) {
 			User.getInfo(req.session.user, function (err, user) { 
 				if (!user) 
@@ -471,7 +463,7 @@ router.get('/message', function(req, res, next){
 				  	req.flash('error', err); 
 				  	return res.redirect('/reg'); 
 				}
-				res.render('account_message', {title: '消息记录', message_data: messageTotal, AccountName: user.AccountName, message: messages, Type:user.Type });
+				res.render('account_message', {title: '消息记录', message_data: messageTotal, AccountName: user.AccountName, message: messages, Type:user.Type, UserID: user.AccountID });
 			});
 		});
 	});
