@@ -48,7 +48,7 @@ router.route('/')
                         return; 
                     } else {
                         if (user.State == 1) {
-                            var err = "账户已停用！";
+                            var err = "对不起，您已被加入黑名单，解封请联系管理员admin@paykitty.com";
                             res.render('login',{error : err});
                             return;
                         } else {
