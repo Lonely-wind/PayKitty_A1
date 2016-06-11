@@ -30,7 +30,7 @@ User.prototype.save = function  save(callback) {
     };
     //uuid = uid.v4();
     //插入数据库
-    var sql ="insert into UserAccount (AccountName,Password,Name,Phone,Email,State,Type,IdNo,Balance) values(?,?,?,?,?,?,?,?)";
+    var sql ="insert into UserAccount (AccountName,Password,Name,Phone,Email,State,Type,IdNo,Balance) values(?,?,?,?,?,?,?,?,?)";
 
     mysql.query(sql,[user.name,user.password,user.realname,user.phone,user.email,0,user.Type,user.IdNo,0],function(err,results,fields){
         if (err) {
