@@ -47,11 +47,16 @@ router.route('/')
                         res.render('login', { error : err});
                         return; 
                     } else {
-                        req.session.user = user.AccountID.toString();
-                        //req.session.name = user.AccountName.toString();
-                        res.cookie('kitty',user.AccountID.toString());
-                        //console.log(user.AccountID);
-                        res.redirect('account/info');
+                        if (user.State == 1) {
+                            var err = "账户已停用！";
+                            res.render('login',{error : err});
+                        } else {
+                            req.session.user = user.AccountID.toString();
+                            //req.session.name = user.AccountName.toString();
+                            res.cookie('kitty',user.AccountID.toString());
+                            //console.log(user.AccountID);
+                            res.redirect('account/info');
+                        }
                     }
                 } else {
                     var err = "用户密码错误！";
