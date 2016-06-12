@@ -21,6 +21,7 @@ router.route('/')
                             });
 })*/
 .post(function(req, res) {
+    console.log(req.body);
     if (req.body['Reguser'] == '' || req.body['Regpass'] == '') {
         var err = "用户名或密码不能为空！";
         res.render('register', {error : err});

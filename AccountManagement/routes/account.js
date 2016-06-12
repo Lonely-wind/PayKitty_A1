@@ -60,7 +60,7 @@ router.get('/info', function(req, res, next) {
 		  err = 'No such an account.'; 
 		if (err) { 
 		  req.flash('error', err); 
-		  return res.redirect('/reg'); 
+		  return res.redirect('/login'); 
 		} 
 		//console.log("---------------account_info---------------");
 		//console.log(user);
@@ -102,7 +102,7 @@ router.post('/info', function(req, res, next) {
 				  err = 'No such an account.'; 
 				if (err) { 
 				  req.flash('error', err); 
-				  return res.redirect('/reg'); 
+				  return res.redirect('/login'); 
 				} 
 				//console.log("---------------account_info---------------");
 				//console.log(user);
@@ -129,7 +129,7 @@ router.post('/info', function(req, res, next) {
 					  err = 'No such an account.'; 
 					if (err) { 
 					  req.flash('error', err); 
-					  return res.redirect('/reg'); 
+					  return res.redirect('/login'); 
 					} 
 					console.log("---------------account_info---------------");
 					//console.log(user);
@@ -148,7 +148,7 @@ router.post('/info', function(req, res, next) {
 					  err = 'No such an account.'; 
 					if (err) { 
 					  req.flash('error', err); 
-					  return res.redirect('/reg'); 
+					  return res.redirect('/login'); 
 					} 
 					console.log("---------------account_info---------------");
 					//console.log(user);
@@ -168,7 +168,7 @@ router.post('/info', function(req, res, next) {
 					  err = 'No such an account.'; 
 					if (err) { 
 					  req.flash('error', err); 
-					  return res.redirect('/reg'); 
+					  return res.redirect('/login'); 
 					} 
 					console.log("---------------account_info---------------");
 					//console.log(user);
@@ -187,7 +187,7 @@ router.post('/info', function(req, res, next) {
 					  err = 'No such an account.'; 
 					if (err) { 
 					  req.flash('error', err); 
-					  return res.redirect('/reg'); 
+					  return res.redirect('/login'); 
 					} 
 					console.log("---------------account_info---------------");
 					//console.log(user);
@@ -209,7 +209,7 @@ router.post('/info', function(req, res, next) {
 					  err = 'No such an account.'; 
 					if (err) { 
 					  req.flash('error', err); 
-					  return res.redirect('/reg'); 
+					  return res.redirect('/login'); 
 					} 
 					console.log("---------------account_info---------------");
 					//console.log(user);
@@ -229,7 +229,7 @@ router.post('/info', function(req, res, next) {
 				  err = 'No such an account.'; 
 				if (err) { 
 				  req.flash('error', err); 
-				  return res.redirect('/reg'); 
+				  return res.redirect('/login'); 
 				} 
 				console.log("---------------account_info---------------");
 				//console.log(user);
@@ -270,7 +270,7 @@ router.route('/transaction')
 			  err = 'No such an account.'; 
 			if (err) {
 			  req.flash('error', err); 
-			  return res.redirect('/reg');
+			  return res.redirect('/login');
 			}
 
 			Transaction.RealGetApi('http://121.42.175.1/a2/api/getallorder?userID=' + req.session.user, 80, function (data) {
@@ -366,7 +366,7 @@ router.route('/transaction')
 			  err = 'No such an account.'; 
 			if (err) {
 			  req.flash('error', err);
-			  return res.redirect('/reg'); 
+			  return res.redirect('/login'); 
 			}
 
 			Transaction.RealGetApi('http://121.42.175.1/a2/api/getallorder?userID=' + req.session.user, 80, function (data) {
@@ -463,7 +463,7 @@ router.get('/message', function(req, res, next){
 			  	err = 'No such an account.'; 
 				if (err) {
 				  	req.flash('error', err); 
-				  	return res.redirect('/reg'); 
+				  	return res.redirect('/login'); 
 				}
 				res.render('account_message', {title: '消息记录', message_data: messageTotal, AccountName: user.AccountName, message: messages, Type:user.Type, UserID: user.AccountID });
 			});
@@ -492,7 +492,7 @@ router.post('/myTest', function(req, res, next) {
 		  err = 'No such an account.'; 
 		if (err) { 
 		  req.flash('error', err); 
-		  return res.redirect('/reg');
+		  return res.redirect('/login');
 		}
 		if(user.Type == "0"){
 			res.send(JSON.stringify(trade_data));
@@ -646,6 +646,7 @@ router.get('/test/ajaxMessageAPI', function(req, res, next) {
 
 router.get('/delete', function(req, res, next) {
 	var nowID = req.session.user;
+	console.log(nowID);
 	User.getInfo(nowID,function(err,result,fileds){
 		User.delMessage(nowID);
 		if(result["Type"]==1){
@@ -653,7 +654,11 @@ router.get('/delete', function(req, res, next) {
 		}
 		else;
 		User.delAccount(nowID);
+		req.session.user=null;
+		//req.cookies.kitty=null;
+		res.clearCookie('kitty');
 		res.redirect('/login');
+
 	});
 });
 
@@ -672,7 +677,7 @@ router.post('/userInfoAPI', function(req, res, next) {
 		  err = 'No such an account.'; 
 		if (err) { 
 		  req.flash('error', err); 
-		  return res.redirect('/reg'); 
+		  return res.redirect('/login'); 
 		} 
 
 		res.send({data: JSON.stringify(user)});

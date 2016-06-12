@@ -38,7 +38,7 @@
             <!-- menu profile quick info -->
             <div class="profile">
               <div class="profile_pic">
-                <img src="http://121.42.175.1/static/images/img.jpg" alt="..." class="img-circle profile_img">
+                <img src="http://121.42.175.1/static/images/seller.png" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>您好！</span>
@@ -53,7 +53,17 @@
               <div class="menu_section container">
                 <h3>&nbsp</h3>
                 <ul class="nav side-menu">
-                  <li>
+                 
+                  <li><a >
+                    <i class="fa fa-edit"></i> 订单管理 <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                          <li>
+                              <a href="http://121.42.175.1/orderlist">所有订单</a>
+                          </li>
+                    </ul>
+                  </li>
+
+                   <li>
                     <a><i class="fa fa-home"></i> 我的账户 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu" style="display: none;">
                       <li>
@@ -65,14 +75,6 @@
                       </li>
                       <!-- <li><a href="index3.html">Dashboard3</a>
                       </li> -->
-                    </ul>
-                  </li>
-                  <li><a >
-                    <i class="fa fa-edit"></i> 订单管理 <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                          <li>
-                              <a href="http://121.42.175.1/orderlist">所有订单</a>
-                          </li>
                     </ul>
                   </li>
                 </ul>
@@ -93,7 +95,7 @@
               <ul class="nav navbar-nav navbar-right">
                <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="http://121.42.175.1/static/images/img.jpg" alt=""><%= AccountName %>
+                    <img src="http://121.42.175.1/static/images/seller.png" alt=""><%= AccountName %>
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -114,7 +116,7 @@
                       <li>
                         <a href="<%= message[i].href %>">
                           <span class="image">
-                            <img src="http://121.42.175.1/static/images/img.jpg" alt="Profile Image" />
+                            <img src="http://121.42.175.1/static/images/seller.png" alt="Profile Image" />
                           </span>
                           <span>
                             <span>来自<%= message[i].sender %>的消息</span>
