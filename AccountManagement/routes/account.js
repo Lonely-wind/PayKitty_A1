@@ -274,21 +274,24 @@ router.route('/transaction')
 			}
 
 			Transaction.RealGetApi('http://121.42.175.1/a2/api/getallorder?userID=' + req.session.user, 80, function (data) {
+				//console.log(data);
 				data = data.orderDetailList;
+			
 				for(var i in data){
 					myDate = new Date(data[i].orderTime);
 					data[i].orderTime = myDate.getFullYear()+'/'+(myDate.getMonth()+1)+'/'+myDate.getDate();
+
 					if(data[i].orderStatus == "0"){
 						data[i].orderStatus = "待付款"
 					}
 					else if(data[i].orderStatus == "1"){
-						data[i].orderStatus = "待商家确认"		
+						data[i].orderStatus = "待商家确认有房/待出票"		
 					}
 					else if(data[i].orderStatus == "2"){
-						data[i].orderStatus = "已确认"
+						data[i].orderStatus = "已确认有房/已出票"
 					}
 					else if(data[i].orderStatus == "3"){
-						data[i].orderStatus = "交易成功"
+						data[i].orderStatus = "已乘机/已入住(交易成功)"
 					}
 					else if(data[i].orderStatus == "4"){
 						data[i].orderStatus = "交易关闭"
@@ -370,70 +373,84 @@ router.route('/transaction')
 			}
 
 			Transaction.RealGetApi('http://121.42.175.1/a2/api/getallorder?userID=' + req.session.user, 80, function (data) {
+				//console.log(data);
 				data = data.orderDetailList;
-				for(var i in data){
-					myDate = new Date(data[i].orderTime);
-					data[i].orderTime = myDate.getFullYear()+'/'+(myDate.getMonth()+1)+'/'+myDate.getDate();
-					if(data[i].orderStatus == "0"){
-						data[i].orderStatus = "待付款"
+				//var id_name_map;
+				User.getSellerName(function(id_name_map){
+					for(var i in data){
+						myDate = new Date(data[i].orderTime);
+						data[i].orderTime = myDate.getFullYear()+'/'+(myDate.getMonth()+1)+'/'+myDate.getDate();
+						//console.log(id_name_map);
+						for (var j in id_name_map){
+							//console.log(id_name_map[j].AccountID);
+							if (id_name_map[j].AccountID == data[i].seller){
+								//console.log("gaga");
+								data[i].seller = id_name_map[j].AccountName;
+								break;
+							}
+						}
+						if(data[i].orderStatus == "0"){
+							data[i].orderStatus = "待付款"
+						}
+						else if(data[i].orderStatus == "1"){
+							data[i].orderStatus = "待商家确认有房/待出票"		
+						}
+						else if(data[i].orderStatus == "2"){
+							data[i].orderStatus = "已确认有房/已出票"
+						}
+						else if(data[i].orderStatus == "3"){
+							data[i].orderStatus = "已乘机/已入住(交易成功)"
+						}
+						else if(data[i].orderStatus == "4"){
+							data[i].orderStatus = "交易关闭"
+						}
+						else if(data[i].orderStatus == "5"){
+							data[i].orderStatus = "待退款"		
+						}
+						else if(data[i].orderStatus == "6"){
+							data[i].orderStatus = "已退款"		
+						}
+						else if(data[i].orderStatus == "7"){
+							data[i].orderStatus = "退款失败"		
+						}
 					}
-					else if(data[i].orderStatus == "1"){
-						data[i].orderStatus = "待商家确认"		
+					if(user.Type == "0"){
+						var order_constraints= {
+							start_time:	new  Date("1970/1/1"),
+							end_time:	new  Date(),
+							low_money:	req.body.low_money,
+							upper_money:req.body.upper_money,
+							state:		req.body.state,
+							seller:		req.body.seller,
+						}
+						//console.log(data);
+						res.render('account_transaction_user', {title: '交易记录', trade_data: data, UserID: user.AccountID, search: order_constraints, AccountName: user.AccountName, message: messages });
 					}
-					else if(data[i].orderStatus == "2"){
-						data[i].orderStatus = "已确认"
+					else{
+						var order_constraints= {
+							start_time:	new  Date("1970/1/1"),
+							end_time:	new  Date(),
+							low_money:	req.body.low_money,
+							upper_money:req.body.upper_money,
+							state:		req.body.state,
+							goods:		req.body.goods,           
+						}
+						// test data
+						// data = [
+						// 	{orderID : "111",orderTime : "2016/6/30",orderAmount : "100.55",orderStatus : "交易成功"},
+						// 	{orderID : "112",orderTime : "2016/6/30",orderAmount : "100.55",orderStatus : "交易成功"},
+						// 	{orderID : "113",orderTime : "2016/5/30",orderAmount : "100.55",orderStatus : "交易关闭"},
+						// 	{orderID : "114",orderTime : "2016/5/30",orderAmount : "100.55",orderStatus : "交易关闭"},
+						// 	{orderID : "115",orderTime : "2016/5/30",orderAmount : "100.55",orderStatus : "已退款"},
+						// 	{orderID : "116",orderTime : "2016/6/30",orderAmount : "100.55",orderStatus : "已退款"},
+						// 	{orderID : "116",orderTime : "2016/5/30",orderAmount : "100.55",orderStatus : "待退款"}						
+						// ];
+						Transaction.GetStatistics(data, function(thisMonthTransaction, totalTransaction){
+							res.render('account_transaction_seller', {title: '交易记录', trade_data: data, UserID: user.AccountID, search: order_constraints, AccountName: user.AccountName, message: messages, thisMonthTransaction: thisMonthTransaction, totalTransaction: totalTransaction});
+						});
 					}
-					else if(data[i].orderStatus == "3"){
-						data[i].orderStatus = "交易成功"
-					}
-					else if(data[i].orderStatus == "4"){
-						data[i].orderStatus = "交易关闭"
-					}
-					else if(data[i].orderStatus == "5"){
-						data[i].orderStatus = "待退款"		
-					}
-					else if(data[i].orderStatus == "6"){
-						data[i].orderStatus = "已退款"		
-					}
-					else if(data[i].orderStatus == "7"){
-						data[i].orderStatus = "退款失败"		
-					}
-				}
-				if(user.Type == "0"){
-					var order_constraints= {
-						start_time:	new  Date("1970/1/1"),
-						end_time:	new  Date(),
-						low_money:	req.body.low_money,
-						upper_money:req.body.upper_money,
-						state:		req.body.state,
-						seller:		req.body.seller,
-					}
-					// console.log(data);
-					res.render('account_transaction_user', {title: '交易记录', trade_data: data, UserID: user.AccountID, search: order_constraints, AccountName: user.AccountName, message: messages });
-				}
-				else{
-					var order_constraints= {
-						start_time:	new  Date("1970/1/1"),
-						end_time:	new  Date(),
-						low_money:	req.body.low_money,
-						upper_money:req.body.upper_money,
-						state:		req.body.state,
-						goods:		req.body.goods,           
-					}
-					// test data
-					// data = [
-					// 	{orderID : "111",orderTime : "2016/6/30",orderAmount : "100.55",orderStatus : "交易成功"},
-					// 	{orderID : "112",orderTime : "2016/6/30",orderAmount : "100.55",orderStatus : "交易成功"},
-					// 	{orderID : "113",orderTime : "2016/5/30",orderAmount : "100.55",orderStatus : "交易关闭"},
-					// 	{orderID : "114",orderTime : "2016/5/30",orderAmount : "100.55",orderStatus : "交易关闭"},
-					// 	{orderID : "115",orderTime : "2016/5/30",orderAmount : "100.55",orderStatus : "已退款"},
-					// 	{orderID : "116",orderTime : "2016/6/30",orderAmount : "100.55",orderStatus : "已退款"},
-					// 	{orderID : "116",orderTime : "2016/5/30",orderAmount : "100.55",orderStatus : "待退款"}						
-					// ];
-					Transaction.GetStatistics(data, function(thisMonthTransaction, totalTransaction){
-						res.render('account_transaction_seller', {title: '交易记录', trade_data: data, UserID: user.AccountID, search: order_constraints, AccountName: user.AccountName, message: messages, thisMonthTransaction: thisMonthTransaction, totalTransaction: totalTransaction});
-					});
-				}
+				});
+				
 			});
 		});
 	});

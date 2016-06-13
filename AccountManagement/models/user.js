@@ -307,6 +307,18 @@ User.addPID = function addPID(PIDPassword ,PID, Num, Accountid, callback) {
     })
 };
 
+User.getSellerName = function getsellername(callback){
+    var sql="select AccountID,AccountName from UserAccount";
+    mysql.query(sql,function(err,results,fields){
+        if(err)
+            throw error;
+        else{
+            callback(results);
+        }
+    }) 
+};
+
+
 User.tranSubmit = function tranSubmit(transfer_num, user_id, Accountid, callback) {
 
     // 读取 users 集合
