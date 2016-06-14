@@ -53,9 +53,13 @@ router.route('/')
                             return;
                         } else {
                             req.session.user = user.AccountID.toString();
+                            console.log("hahha");
+                            console.log(user);
                             //req.session.name = user.AccountName.toString();
                             res.cookie('kitty',user.AccountID.toString());
                             //console.log(user.AccountID);
+                            res.cookie('kittyname',user.AccountName.toString());
+                            res.cookie('kittytype',user.Type.toString());
                             res.redirect('account/info');
                         }
                     }
