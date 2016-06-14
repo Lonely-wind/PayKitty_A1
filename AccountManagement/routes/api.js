@@ -6,6 +6,8 @@ var Transaction = require('../models/transaction');
 var Dealer = require('../models/dealer');
 
 router.post('/userMessageAPI', function(req, res, next) {
+	console.log("userMessageAPI-----------------------------------");
+	console.log(req.body);
 	var result, orderID, sender, accountID, goodKind, goodName, newState;
 	if(!("accountID" in req.body) || req.body.accountID == ""){
 		result = {
@@ -41,7 +43,7 @@ router.post('/userMessageAPI', function(req, res, next) {
 		sender = "default";
 	}
 	else{
-		sender = req.body.sender;
+		sender = '\"' + req.body.sender + '\"';
 	}
 	if(!("orderID" in req.body) || req.body.orderID == ""){
 		result = {
@@ -118,7 +120,6 @@ router.post('/userMessageAPI', function(req, res, next) {
 		res.send(JSON.stringify(result));
 	});
 });
-
 
 router.get('/test/userMessageAPI', function(req, res, next) {
 	//检测userMessageAPI是否有用
