@@ -121,6 +121,123 @@ router.post('/userMessageAPI', function(req, res, next) {
 	});
 });
 
+router.get('/userMessageAPI', function(req, res, next) {
+	console.log("userMessageAPI-----------------------------------");
+	console.log(req.query);
+	var result, orderID, sender, accountID, goodKind, goodName, newState;
+	if(!("accountID" in req.query) || req.query.accountID == ""){
+		result = {
+			result : 0,
+			resultMessage : "You must have an accountID!"
+		}
+		return res.send(JSON.stringify(result));
+	}
+	else{
+		accountID = req.query.accountID;
+	}
+	if(!("goodKind" in req.query) || req.query.accountID == ""){
+		result = {
+			result : 0,
+			resultMessage : "You must have a goodKind!"
+		}
+		return res.send(JSON.stringify(result));
+	}
+	else{
+		goodKind = req.query.goodKind;
+	}
+	if(!("goodName" in req.query) || req.query.accountID == ""){
+		result = {
+			result : 0,
+			resultMessage : "You must have a goodName!"
+		}
+		return res.send(JSON.stringify(result));
+	}
+	else{
+		goodName = req.query.goodName;
+	}
+	if(!("sender" in req.query) || req.query.sender == ""){
+		sender = "default";
+	}
+	else{
+		sender = '\"' + req.query.sender + '\"';
+	}
+	if(!("orderID" in req.query) || req.query.orderID == ""){
+		result = {
+			result : 0,
+			resultMessage : "You must have an orderID!"
+		}
+		return res.send(JSON.stringify(result));		
+	}
+	else{
+		orderID = req.query.orderID;
+	}
+	if(!("newState" in req.query) || req.query.newState == ""){
+		result = {
+			result : 0,
+			resultMessage : "You must have a newState!"
+		}
+		return res.send(JSON.stringify(result));	
+	}
+	else{
+		newState = req.query.newState;
+		if(newState == "0"){
+			newState = "待付款"
+		}
+		else if(newState == "1" && goodKind == "酒店"){
+			newState = "待商家确认有房"		
+		}
+		else if(newState == "1" && goodKind == "机票"){
+			newState = "待出票"		
+		}
+		else if(newState == "2" && goodKind == "酒店"){
+			newState = "已确认有房"
+		}
+		else if(newState == "2" && goodKind == "机票"){
+			newState = "已出票"
+		}
+		else if(newState == "3" && goodKind == "酒店"){
+			newState = "已入住"
+		}
+		else if(newState == "3" && goodKind == "机票"){
+			newState = "已乘机"
+		}
+		else if(newState == "4"){
+			newState = "交易关闭"
+		}
+		else if(newState == "5"){
+			newState = "待退款"		
+		}
+		else if(newState == "6"){
+			newState = "已退款"		
+		}
+		else if(newState == "7"){
+			newState = "退款失败"		
+		}
+	}
+	
+	var data = {
+		message : "您的订单" + orderID + "中的" + goodName + "状态改变为：" + newState,
+		sender : sender,
+		accountID : accountID,
+	}
+	User.insertMessage(data, function(err){
+		if(err){
+			result = {
+				result : 0,
+				resultMessage : "You must have a accountID!"
+			}
+		}
+		else{
+			result = {
+				result : 1,
+				resultMessage : ""
+			}
+		}
+		res.send(JSON.stringify(result));
+	});
+});
+
+
 router.get('/test/userMessageAPI', function(req, res, next) {
 	//检测userMessageAPI是否有用
 	res.render('test_userMessageAPI');
