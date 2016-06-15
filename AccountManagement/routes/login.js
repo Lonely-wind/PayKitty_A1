@@ -67,7 +67,12 @@ router.route('/')
                             //console.log(user.AccountID);
                             res.cookie('kittyname',user.AccountName.toString());
                             res.cookie('kittytype',user.Type.toString());
-                            res.redirect('http://121.42.175.1:5003/');
+                            if (user.Type.toString()=='0'){
+                                res.redirect('http://121.42.175.1:5003/');
+                            }
+                            else {
+                                res.redirect('account/info');
+                            }
                         }
                     }
                 } else {
