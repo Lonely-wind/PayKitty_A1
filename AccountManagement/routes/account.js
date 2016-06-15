@@ -291,7 +291,7 @@ router.route('/transaction')
 						data[i].orderStatus = "已确认有房/已出票"
 					}
 					else if(data[i].orderStatus == "3"){
-						data[i].orderStatus = "已乘机/已入住(交易成功)"
+						data[i].orderStatus = "已入住/已乘机"
 					}
 					else if(data[i].orderStatus == "4"){
 						data[i].orderStatus = "交易关闭"
@@ -304,6 +304,9 @@ router.route('/transaction')
 					}
 					else if(data[i].orderStatus == "7"){
 						data[i].orderStatus = "退款失败"		
+					}
+					else if(data[i].orderStatus == "8"){
+						data[i].orderStatus = "交易成功"		
 					}
 				}
 				if(user.Type == "0"){
@@ -399,7 +402,7 @@ router.route('/transaction')
 							data[i].orderStatus = "已确认有房/已出票"
 						}
 						else if(data[i].orderStatus == "3"){
-							data[i].orderStatus = "已乘机/已入住(交易成功)"
+							data[i].orderStatus = "已入住/已乘机"
 						}
 						else if(data[i].orderStatus == "4"){
 							data[i].orderStatus = "交易关闭"
@@ -412,6 +415,9 @@ router.route('/transaction')
 						}
 						else if(data[i].orderStatus == "7"){
 							data[i].orderStatus = "退款失败"		
+						}
+						else if(data[i].orderStatus == "8"){
+							data[i].orderStatus = "交易成功"		
 						}
 					}
 					if(user.Type == "0"){
