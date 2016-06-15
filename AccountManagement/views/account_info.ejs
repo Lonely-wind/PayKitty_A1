@@ -499,7 +499,7 @@
                 <ul class="list">
                     <li>
                         <div class="input-group input-group-sm">
-                            <span class="input-group-addon">是否向<%= user_pid %>转账<%= user_balance %>元</span>
+                            <span class="input-group-addon">是否向<%= '*' + user_pid.substring(1)  %>转账<%= user_balance %>元</span>
               <input type = "text" style= "display:none" name="button_type111" value = "0" id="button_type111">
               <input type = "text" style= "display:none" name="pid_num111" value = "" id="pid_num111">
               <input type = "text" style= "display:none" name="account_id111" value = "" id="account_id111"
