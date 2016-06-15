@@ -10,9 +10,16 @@ router.get('/', function(req, res, next) {
   console.log(req.cookies.kitty);
   if(req.cookies.kitty){
     //console.log("hahahhahahahhaha");
-        req.session.user=req.cookies.kitty;        
-        
-        res.redirect('http://121.42.175.1:5003/');
+        req.session.user=req.cookies.kitty;
+        console.log("---------------------");
+        console.log(req.cookies.kittytype);
+        console.log("---------------------"); 
+        if (req.cookies.kittytype=='0'){
+            res.redirect('http://121.42.175.1:5003/');
+        }
+        else {
+            res.redirect('account/info');
+        }
   }
   res.render('login',{title : 'Express', 
                       error : ''  

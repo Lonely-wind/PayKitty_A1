@@ -136,7 +136,7 @@ router.route('/')
                                         return res.redirect('register_sales');
                                     }
                                     
-                                    return  res.redirect('http://121.42.175.1:5003/');                         
+                                    return  res.redirect('account/info');                         
                                  });  
                             }); 
                         });
