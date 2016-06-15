@@ -100,7 +100,7 @@ router.route('/')
                             } 
                             User.getUserByName(newUser.name, function (err, user) {
                                 req.session.user = user.AccountID.toString();
-                                res.redirect('account/info');
+                                res.redirect('http://121.42.175.1:5003/');
                             }); 
                         });
                     } else {
