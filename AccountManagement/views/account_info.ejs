@@ -64,7 +64,7 @@
                     <a >
                       <i class="fa fa-beer" id="goahead"></i> 出去走走 <span class="fa fa-chevron-down"></span>
                     </a>
-                    <ul class="nav child_menu" style="display:block;">
+                    <ul class="nav child_menu" style="display:none;">
                       <li>
                         <a href="http://121.42.175.1:5003">旅店与飞行器预定</a>
                       </li>
@@ -82,10 +82,10 @@
                     </ul>
                   </li>
                   <li>
-                    <a><i class="fa fa-home"></i> 我的账户 <span class="fa fa-chevron-down"></span></a>
+                    <a><i class="fa fa-home" id="myaccount"></i> 我的账户 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li>
-                        <a href="/account/info">账户记录</a>
+                        <a href="/account/info">账户管理</a>
                       </li>
                       <!-- <li>账户记录</li> -->
                       <li>
@@ -774,11 +774,12 @@ window.onload=function()
 {
   showcard();
   $('#verification')<%= win_message %>;
-  <% if(Type != "1"){ %>
-  $('#goahead').click();
-  <%} else {%>
-    $('#order_manage').click();
-    <%}%>
+  // <% if(Type != "1"){ %>
+  // $('#goahead').click();
+  // <%} else {%>
+  //   $('#order_manage').click();
+  //   <%}%>
+  //$('#myaccount').click();
 
 }
 </script>
