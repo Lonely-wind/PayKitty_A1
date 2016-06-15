@@ -97,6 +97,9 @@ router.post('/userMessageAPI', function(req, res, next) {
 		else if(newState == "7"){
 			newState = "退款失败"		
 		}
+		else if(newState == "8"){
+			newState = "交易成功"		
+		}
 	}
 	
 	var data = {
