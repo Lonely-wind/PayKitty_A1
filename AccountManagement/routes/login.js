@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
     //console.log("hahahhahahahhaha");
         req.session.user=req.cookies.kitty;        
         
-        res.redirect('account/info');
+        res.redirect('http://121.42.175.1:5003/');
   }
   res.render('login',{title : 'Express', 
                       error : ''  
@@ -83,7 +83,7 @@ router.route('/')
                                 } else {
                                     req.session.user = user.AccountID.toString();
                                     //console.log(user.AccountID);
-                                    res.redirect('account/info');
+                                    res.redirect('http://121.42.175.1:5003/');
                                 }
                             } else {
                                 var err = "用户密码错误！";
